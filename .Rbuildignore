@@ -1,0 +1,8 @@
+.gitignore
+LICENSE
+README.md
+TODO
+^revdep$
+^.*\.Rproj$
+^\.Rproj\.user$
+.travis.yml

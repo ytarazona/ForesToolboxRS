@@ -1,0 +1,73 @@
+Package: ForesToolboxRS
+Version: 0.0.1
+Type: Package
+Title: Remote Sensing Tools for Forest Monitoring
+Authors@R: 
+    c(person(given = "Yonatan",
+             family = "Tarazona Coronel",
+             role = c("aut","cre"),
+             email = "geoyons@gmail.com",
+             comment = c(ORCID = "0000-0002-5208-1004")),
+      person(given = "Alaitz",
+                   family = "Zabala",
+	                 role = c("ctb"),
+	                 email = "alaitz.zabala@uab.cat",
+	                 comment = c(ORCID = "0000-0002-3931-4221")),
+	    person(given = "Xavier",
+                   family = "Pons",
+	                 role = c("ctb"),
+	                 email = "xavier.pons@uab.cat",
+	                 comment = c(ORCID = "0000-0002-6924-1641")),
+	    person(given = "Antoni",
+                   family = "Broquetas",
+	                 role = c("ctb"),
+	                 email = "broquetas@tsc.upc.edu",
+	                 comment = c(ORCID = "-")),
+	    person(given = "Hamdi",
+                   family = "A. Zurqani",
+	                 role = c("ctb"),
+	                 email = "hzurqan@clemson.edu",
+	                 comment = c(ORCID = "0000-0002-9250-4534")),
+	    person(given = "Cesar",
+                   family = "Aybar",
+                   role = c("ctb"),
+                   email = "csaybar@gmail.com",
+                   comment = c(ORCID = "0000-0003-2745-9535")))
+Description: Remote sensing tools for forest monitoring includes a series of 
+    novel techniques to monitor forest through optical images and fusion of optical 
+    and microwave data. All tools are based on scientific publications.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Depends:
+    R (>= 3.3.0),
+    raster,
+Imports:
+    methods,
+    stats,
+    forecast,
+    parallel,
+    dplyr,
+    raster,
+    rgdal,
+    magrittr,
+    zoo,
+    factoextra,
+    FactoMineR,
+    graphics,
+    grDevices,
+    stars,
+    caret,
+    e1071,
+    rpart,
+    randomForest,
+    nnet,
+    kknn,
+    rgeos,
+    WilcoxCV
+Suggests: 
+    testthat (>= 2.1.0),
+    rmarkdown,
+    covr,
+    roxygen2

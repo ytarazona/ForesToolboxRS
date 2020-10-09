@@ -1,0 +1,110 @@
+#' Smoothing time series
+#'
+#' In order to eliminate outliers in the time series, a temporary smoothing is used.
+#'
+#' @author Yonatan Tarazona Coronel
+#'
+#' @section References:
+#' Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving tropical
+#' deforestation detection through using photosynthetic vegetation time
+#' series (PVts-\eqn{\beta}). Ecological Indicators, 94, 367 379.
+#'
+#' Hamunyela, E., Verbesselt, J., Roerink, G., & Herold, M. (2013).
+#' Trends in spring phenology of western European deciduous forests.
+#' Remote Sensing,5(12), 6159-6179.
+#'
+#' @details Vegetation indices or fractions of photosynthetic activity generally present
+#' noise in the time series that in some way or another hinder subsequent analyzes.
+#' This noise can be due to two reasons: i) no algorithm was used to mask the atmospheric
+#' noise before analyzing the time series and ii) negative outliers that were not detected
+#' by the masking algorithm. To minimize this problem, it is possible to eliminate negative
+#' outliers using the method proposed by [Hamunyela et al. (2013)](https://doi.org/10.3390/rs5126159).
+#'
+#' This method is however not able to remove consecutive outliers. The mathematical approach
+#' of this method of removing outliers implies the non-modification of the first and last
+#' values of the historical series, so that the near real-time detections of ecosystem
+#' disturbances will not be affected in any way.
+
+#' @param x Numeric, matrix.
+#' @param interp Four interpolation methods are presented, "na.interp",
+#' "na.approx" and "na.spline". By default is the method "na.interp".
+#'
+#' @importFrom forecast na.interp
+#' @importFrom zoo na.approx na.spline
+#' @importFrom zoo rollapply
+#'
+#' @examples
+#' library(ForesToolboxRS)
+#'
+#' x <- c(80,78,75,76,79,-100,82,76,81,77,76)
+#' smth <- smootH(x)
+#' plot(x, type="o", ylab="Reflectance %", xlab="Time")
+#' lines(smth, col="blue", type="o")
+#'
+#' @export
+#'
+smootH <- function(x, method.interp = "na.interp"){
+
+  if (is.vector(x)) {
+
+    if (any(is.na(x))){
+      x[x <= -1 | x== -1] <- NA
+      x[sum(is.na(x)) >= (length(x)-1)] <- 100
+
+      # Type of interpolation
+      if (method.interp =="na.interp") {
+        x <- na.interp(x)
+
+      } else if (method.interp =="na.approx") {
+        x <- na.approx(x)
+
+      } else if (method.interp =="na.spline") {
+        x <- na.spline(x)
+
+      } else stop("Unsupported interpolation method.", call. = TRUE)
+    }
+
+    # We apply Hamunyela Smoothing
+    for (j in 2:(length(x)-1)) {
+      x[j] <- ifelse(((x[j]-x[j-1]) < -0.01*x[j-1]) & ((x[j]-x[j+1]) < -0.01*x[j+1]),
+                     (x[j-1]+x[j+1])/2, x[j])
+    }
+
+    np <- x
+
+  } else if (is(x, 'matrix')) {
+
+    if (any(is.na(x))) {
+      for (i in 1:dim(x)[1]) {
+        x[i,][x[i,] <= -1 | x[i,] == -1] <- NA
+        x[i,][sum(is.na(x[i,])) >= (dim(x)[2]-1)] <- 100
+
+        # Type of interpolation
+        if (method.interp =="na.interp") {
+          x[i,] <- na.interp(x[i,])
+
+        } else if (method.interp =="na.approx") {
+          x[i,] <- na.approx(x[i,])
+
+        } else if (method.interp =="na.spline") {
+          x[i,] <- na.spline(x[i,])
+
+        } else stop("Unsupported interpolation method.", call. = TRUE)
+      }
+    }
+
+    # We apply Hamunyela Smoothing
+    for(i in 1:dim(x)[1]){
+      for(j in 2:(dim(x)[2]-1)){
+        x[i,][j]<-ifelse(((x[i,][j]-x[i,][j-1])< -0.01*x[i,][j-1]) & ((x[i,][j]-x[i,][j+1])< -0.01*x[i,][j+1]),
+                         (x[i,][j-1]+x[i,][j+1])/2,x[i,][j])
+      }
+    }
+    np <- x
+
+  } else {
+
+    stop(class(x), ' class is not supported', call. = TRUE)
+  }
+  return(np)
+}
