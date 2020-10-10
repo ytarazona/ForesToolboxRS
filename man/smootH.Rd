@@ -23,7 +23,7 @@ noise before analyzing the time series and ii) negative outliers that were not d
 by the masking algorithm. To minimize this problem, it is possible to eliminate negative
 outliers using the method proposed by [Hamunyela et al. (2013)](https://doi.org/10.3390/rs5126159).
 
-This method is however not able to remove consecutive outliers. The mathematical approach
+This method is not able to remove consecutive outliers. The mathematical approach
 of this method of removing outliers implies the non-modification of the first and last
 values of the historical series, so that the near real-time detections of ecosystem
 disturbances will not be affected in any way.
