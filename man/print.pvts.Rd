@@ -9,6 +9,3 @@
 \description{
 Printing for the "pvts" class
 }
-\author{
-Yonatan Tarazona Coronel
-}
