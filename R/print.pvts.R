@@ -1,6 +1,7 @@
 #' Printing for the "pvts" class
 #'
-#' @author Yonatan Tarazona Coronel
+#' @export
+#'
 
 print.pvts <- function(x, ...) {
   cat("\n  NON-SEASONAL DETECTION APPROACH
