@@ -18,7 +18,7 @@ The development of this package was funded by [American Program in GIS and Remot
 
 # Introduction
 
-**ForesToolboxRS** is a R package that was created to provide a variety of tools and algorithms for the processing and analysis of satallite images for the different applications of Remote Sensing for Earth Observation. All implemented algorithms are based on scientific publications. **The PVts-Beta approach**, a non-seasonal detection approach, is implemented in this package and is capable of reading time series, vector, matrix and raster data. The various functions of this package are intended to show, on the one hand, some progress in methods for mapping deforestation, forest degradation, and on the other hand, to provide some tools (not yet available) for routine analysis of remotely detected data. Tools for calibration of unsupervised and supervised algorithms through various calibration approaches are some of the functions embedded in this package. Much of the authors' experience in the field of Remote Sensing is collected by this package, therefore we sincerely hope that **ForesToolboxRS** can facilitate different analyses and simple and robust processes in satellite images.
+**ForesToolboxRS** is a R package that was created to provide a variety of tools and algorithms for the processing and analysis of satallite images for the different applications of Remote Sensing for Earth Observation. All implemented algorithms are based on scientific publications. **The PVts-Beta approach**, a non-seasonal detection approach, is implemented in this package and is capable of reading time series, vector, matrix and raster data. Some functions of this package are intended to show, on the one hand, some progress in methods for mapping deforestation, forest degradation, and on the other hand, to provide some tools (not yet available) for routine analysis of remotely detected data. Tools for calibration of unsupervised and supervised algorithms through various calibration approaches are some of the functions embedded in this package. Much of the authors' experience in the field of Remote Sensing is collected by this package, therefore we sincerely hope that **ForesToolboxRS** can facilitate different analyses and simple and robust processes in satellite images.
 
 Availables functions:
 
@@ -52,44 +52,68 @@ install_github("ytarazona/ForesToolboxRS")
 
 ## 1. Breakpoint in an NDFI series
 
-Here an Normalized Difference Fraction Index (NDFI) between 2000 and 2019, one NDFI for each year. The NDFI value ranges from -1 to 1.
+Here an Normalized Difference Fraction Index (NDFI) between 2000 and 2019 (28 data), one NDFI for each year, and we will detect a change in 2008 (position 19). The NDFI value ranges from -1 to 1.
 
 ```R
-library(ForesToolboxRS)
-
 # NDFI series
 ndfi <- c(0.86,0.93,0.97,0.91,0.95,0.96,0.91,0.88,0.92,0.89,0.90,0.89,0.91,
-          0.92,0.89,0.90,0.92,0.84,0.46,0.20, 0.27,0.22,0.52,0.63,0.61,0.67,0.64,0.86)
+          0.92,0.89,0.90,0.92,0.84,0.46,0.13, 0.12,0.18,0.14,0.25,0.17,0.15,0.18,0.20)
           
 # Plot
-plot (ndfi, pch = 20, xlab = "Index", ylab = "NDFI value")
-lines (ndfi, col = "gray45")
+plot(ndfi, pch = 20, xlab = "Index", ylab = "NDFI value")
+lines(ndfi, col = "gray45")
 ```
+The output:
+
+<img src="docs/figures/ndfi_serie1.jpg" width = 75%/>
 
 ### 1.1 Applying a smoothing
 
-Before detecting a breakpoint, it is necessary to apply a smoothing to remove outliers. So, we'll use the **smootH** function from the **ForesToolboxRS** package. This function accepts vector or matrix. 
+Before detecting a breakpoint, it is necessary to apply a smoothing to remove outliers. So, we'll use the **smootH** function from the **ForesToolboxRS** package. The mathematical approach of this method of removing outliers implies the non-modification of the first and last values of the historical series.
+
+If the idea is to detect changes in 2008 (position 19), then we will smooth the data only up to that position (i.e. ndfi[1:19]). Let's do that.
 
 ```R
-library(ForesToolboxRS)
+suppressMessages(library(ForesToolboxRS))
 
-smth <- smootH(x)
-plot(x, type="o", ylab="Reflectance %", xlab="Time")
-lines(smth, col="blue", type="o")
+ndfi_smooth <- ndfi
+ndfi_smooth[1:19] <- smootH(ndfi[1:19])
+
+# Let's plot the real series
+plot(ndfi, pch = 20, xlab = "Index", ylab = "NDFI value")
+lines(ndfi, col = "gray45", lty = 3)
+# Let's plot the smoothed series
+lines(ndfi_smooth, col = "blue", ylab = "NDFI value", xlab = "Time")
+points(ndfi_smooth, pch = 20, col = "blue")
 ```
+The output:
 
-To detect changes, either we can have a vector (using a specific index) as input or a time series. Let's first detect changes with a vector, a then with a time series. 
+<img src="docs/figures/ndfi_serie_smooth2.jpg" width = 75%/>
+
+To detect changes, either we can have a vector (using a specific index (position)) as input or a time series. Let's first detect changes with a vector, a then with a time series. 
+
+Let's use the output of the *smootH* function (**ndfi_smooth**).
+
+Parameters:
+- **x**: smoothed series preferably to optimize detections.
+- **startm**: monitoring year, index 19 (i.e., year 2018)
+- **endm**: year of final monitoring, index 19 (i.e., also year 2018)
+- **threshold**: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI or EVI series you can use 5, 3 or 3 respectively. Please see [Tarazona et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326) for more details.
+
+> **Note**: You can change the detection threshold if you need to. 
 
 ### 1.1 Breakpoint using a specific Index (vector)
 
 ```R
+suppressMessages(library(ForesToolboxRS))
+
 # Detect changes in 2008 (position 19)
-cd <- pvts(x = ndfi, startm = 19, endm = 19, threshold = 5)
+cd <- pvts(x = ndfi_smooth, startm = 19, endm = 19, threshold = 5)
 plot(cd)
 ```
 The output:
 
-<img src="docs/figures/breakpoint_index.jpg" width = 70%/>
+<img src="docs/figures/ndfi_serie_pvtsVect3.jpg" width = 75%/>
 
 ### Breakpoint using Time Series
 
