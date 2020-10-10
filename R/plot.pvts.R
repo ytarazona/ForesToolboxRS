@@ -2,7 +2,8 @@
 #'
 #' @importFrom grDevices adjustcolor
 #'
-#' @author Yonatan Tarazona Coronel
+#' @export
+#'
 
 plot.pvts <- function(x, ylab, type, col, lwd, main, ...){
 
