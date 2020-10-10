@@ -9,6 +9,3 @@
 \description{
 Plot for the "pvts" class
 }
-\author{
-Yonatan Tarazona Coronel
-}
