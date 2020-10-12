@@ -50,7 +50,7 @@ install_github("ytarazona/ForesToolboxRS")
 
 # Examples
 
-## 1. Breakpoint in an NDFI series
+## 1. Breakpoint in an NDFI series (**`pvts`** function)
 
 Here an Normalized Difference Fraction Index (NDFI) between 2000 and 2019 (28 data), one NDFI for each year, and we will detect a change in 2008 (position 19). The NDFI value ranges from -1 to 1.
 
@@ -67,7 +67,7 @@ The output:
 
 <img src="docs/figures/ndfi_serie1.jpg" width = 75%/>
 
-### 1.1 Applying a smoothing
+### 1.1 Applying a smoothing (**`smootH`** function)
 
 Before detecting a breakpoint, it is necessary to apply a smoothing to remove outliers. So, we'll use the **smootH** function from the **ForesToolboxRS** package. The mathematical approach of this method of removing outliers implies the non-modification of the first and last values of the historical series.
 
@@ -115,7 +115,7 @@ The output:
 
 <img src="docs/figures/ndfi_serie_pvtsVect3.jpg" width = 75%/>
 
-### Breakpoint using Time Series
+### 1.2 Breakpoint using Time Series
 
 Parameters:
 - **x**: smoothed series preferably to optimize detections.
@@ -141,7 +141,7 @@ The output:
 
 <img src="docs/figures/ndfi_serie_pvtsTs4.jpg" width = 75%/>
 
-### Classification in Remote Sensing
+### 2. Classification in Remote Sensing (**`mla`** function)
 
 For this tutorial, Landsat 8 OLI was used. To download the image [Here](https://drive.google.com/file/d/1Xf1A84fJN20eC578GwwOsVSuoxLuCRGJ/view?usp=sharing). 
 
