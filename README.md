@@ -90,6 +90,10 @@ The output:
 
 <img src="docs/figures/ndfi_serie_smooth2.jpg" width = 75%/>
 
+> **Note**: You can change the detection threshold if you need to. 
+
+### 1.1 Breakpoint using a specific Index (vector)
+
 To detect changes, either we can have a vector (using a specific index (position)) as input or a time series. Let's first detect changes with a vector, a then with a time series. 
 
 Let's use the output of the *smootH* function (**ndfi_smooth**).
@@ -99,10 +103,6 @@ Parameters:
 - **startm**: monitoring year, index 19 (i.e., year 2018)
 - **endm**: year of final monitoring, index 19 (i.e., also year 2018)
 - **threshold**: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI or EVI series you can use 5, 3 or 3 respectively. Please see [Tarazona et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326) for more details.
-
-> **Note**: You can change the detection threshold if you need to. 
-
-### 1.1 Breakpoint using a specific Index (vector)
 
 ```R
 suppressMessages(library(ForesToolboxRS))
@@ -117,17 +117,29 @@ The output:
 
 ### Breakpoint using Time Series
 
+Parameters:
+- **x**: smoothed series preferably to optimize detections.
+- **startm**: monitoring year, in this case year 2018.
+- **endm**: year of final monitoring, also year 2018.
+- **threshold**: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI or EVI series you can use 5, 3 or 3 respectively. Please see [Tarazona et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326) for more details.
+
 ```R
-# Detect changes in 2008 (time serie)
+suppressMessages(library(ForesToolboxRS))
+
+# Let´s create a time series of the variable "ndfi"
 ndfi_ts <- ts(ndfi, start = 1990, end = 2017, frequency = 1)
 
-cd <- pvts(x = ndfi_ts, startm = 2008, endm = 2008,  threshold = 5)
+# Applying a smoothing
+ndfi_smooth <- ndfi_ts
+ndfi_smooth[1:19] <- smootH(ndfi_ts[1:19])
 
+# Detect changes in 2008
+cd <- pvts(x = ndfi_ts, startm = 2008, endm = 2008,  threshold = 5)
 plot(cd)
 ```
 The output:
 
-<img src="docs/figures/breakpoint_ts.jpg" width = 70%/>
+<img src="docs/figures/ndfi_serie_pvtsTs4.jpg" width = 75%/>
 
 ### Classification in Remote Sensing
 
