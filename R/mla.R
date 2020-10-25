@@ -26,24 +26,24 @@
 #' Holloway, J., Mengersen, K. (2018). Statistical Machine Learning Methods and Remote
 #' Sensing for Sustainable Development Goals: A Review. Remote Sensing, 10(9), 1365.
 #'
-#' @section Note:
+#' @section Note: If \code{model = "LMT"}, the function is using "Logistic Model Trees"
+#' from http://topepo.github.io/caret/train-models-by-tag.html of the \code{caret} package.
 #'
-#' @importFrom caret confusionMatrix
-#' @importFrom raster getValues extract
+#' @importFrom caret confusionMatrix train knn3
+#' @importFrom raster getValues extract predict
 #' @importFrom e1071 svm naiveBayes
-#' @importFrom rpart rpart
 #' @importFrom randomForest randomForest
-#' @importFrom nnet nnet
-#' @importFrom kknn train.kknn
 #' @importFrom rgeos gIntersects
 #'
 #' @param img RasterStack or RasterBrick.
 #' @param endm SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
 #' containing the training data.
-#' @param model Model to use. It can be \link[e1071]{svm} like \code{model = 'svm'}, \link[randomForest]{randomForest} like
-#' \code{model = 'randomForest'}, \link[e1071]{naiveBayes} like \code{model = 'naiveBayes'}, \link[rpart]{rpart} like
-#' \code{model = 'rpart'}, \link[nnet]{nnet} like \code{model = 'nnet'}, \link[kknn]{train.kknn} like
-#' \code{model = 'train.kknn'}.
+#' @param model Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
+#' \code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})
+#' like \code{model = 'randomForest'}, Naive Bayes (\link[e1071]{naiveBayes})
+#' like \code{model = 'naiveBayes'}, Decision Tree (\link[caret]{train})
+#' like \code{model = 'LMT'}, Neural Networks (\link[nnet]{nnet})
+#' like \code{model = 'nnet'}, K-nearest Neighbors (\link[caret]{knn3}) like \code{model = 'knn'}.
 #' @param training_split For splitting samples into two subsets, i.e. training data and for
 #' testing data.
 #' @param verbose This paramater is Logical. It Prints progress messages during execution.
@@ -52,6 +52,7 @@
 #' library(ForesToolboxRS)
 #' library(raster)
 #' library(snow)
+#' library(caret)
 #'
 #' # Load the dataset
 #' data(FTdata)
@@ -69,7 +70,7 @@
 #' endm <- endm[indx, ]
 #'
 #' # K-Nearest Neighbor Classifier
-#' knn <- mla(img = img, endm, model = "kknn", kmax = 10, training_split = 80)
+#' classSVM <- mla(img = img, endm, model = "knn", training_split = 80)
 #'
 #' @export
 #'
@@ -80,15 +81,17 @@ mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, 
 
   if(!compareCRS(img, endm)) stop("img and endm must have the same projection", call. = TRUE)
 
-  if(!gIntersects(as(extent(img),"SpatialPolygons"), as(extent(endm),"SpatialPolygons"))) stop("img and endm do not overlap", call. = TRUE)
+  algoS <- c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn")
 
-  vegt <- extract(image, endm)
+  algoSM <- c("svm", "randomForest", "naiveBayes", "knn")
+
+  vegt <- extract(img, endm)
 
   endm <- data.frame(vegt, class = endm@data)
 
-  if (model!="kmeans"){
+  if (model %in% algoS) {
 
-    if (is.character(endm$class)) {
+    if (is.numeric(endm$class)) {
       endm$class <- as.factor(endm$class)
     }
 
@@ -97,6 +100,7 @@ mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, 
                            training_split*dim(endm)[1]/100)
     testing <- endm[sample_split,]
     training <- endm[-sample_split,]
+
   }
 
   errorMatrix <- function(prediction, reference){
@@ -137,13 +141,13 @@ mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, 
   } else if (model=="svm"){
 
     # Applying svm
-    model_algo <- svm(class~., data=training, ...)
+    model_algo <- svm(class~., data=training, type = "C-classification", ...)
     prediction <- predict(model_algo, testing)
 
   } else if(model=="randomForest"){
 
     # Applying randomForest
-    model_algo <- randomForest(class~., data=training, ...)
+    model_algo <- randomForest(class~., data=training, importance=TRUE, ...)
     prediction <- predict(model_algo, testing[,-dim(endm)[2]])
 
   } else if (model=="naiveBayes"){
@@ -152,23 +156,24 @@ mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, 
     model_algo <- naiveBayes(class~., data=training, ...)
     prediction <- predict(model_algo, testing[,-dim(endm)[2]])
 
-  } else if (model=="rpart"){
+  } else if (model=="LMT"){
 
-    # Applying rpart
-    model_algo <- rpart(class~., data=training, ...)
-    prediction <- predict(model_algo, testing[,-dim(endm)[2]], type="class")
+    # Applying Logistic Model Trees
+    model_algo <- train(class~., method = "LMT", data=training, ...)
+    prediction <- predict(model_algo, testing[,-dim(endm)[2]], type = "raw")
 
   } else if (model=="nnet"){
 
     # Applying nnet
-    model_algo <- nnet(class~., data=training, ...)
-    prediction <- predict(model_algo, testing[,-dim(endm)[2]], type="class")
+    nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
+    model_algo <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
+    prediction <- predict(model_algo, testing[,-dim(endm)[2]], type = "raw")
 
-  } else if (model == "train.kknn") {
+  } else if (model == "knn") {
 
-    # Applying kknn
-    model_algo <- train.kknn(class~., data=training, ...)
-    prediction <- predict(model_algo, testing[,-dim(endm)[2]])
+    # Applying knn
+    model_algo <- knn3(class~., data = training, k = 5, ...)
+    prediction <- predict(model_algo, testing[,-dim(endm)[2]], type = "class")
 
   } else stop("Unsupported classification method.", call. = TRUE)
 
@@ -183,10 +188,19 @@ mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, 
 
   if (model!="kmeans"){
 
-    # Apply model to the raster
-    beginCluster(type="SOCK")
-    raster_class <- clusterR(img, raster::predict, args = list(model = model_algo))
-    endCluster()
+    if (model %in% algoSM) {
+
+      # Apply model to the raster
+      beginCluster(type="SOCK")
+      raster_class <- clusterR(img, raster::predict, args = list(model = model_algo, type="class"))
+      endCluster()
+
+    } else {
+
+      raster_class <- predict(img, model = model_algo)
+
+    }
+
   }
 
   if (model=="kmeans"){

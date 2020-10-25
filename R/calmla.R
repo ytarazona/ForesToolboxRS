@@ -40,26 +40,28 @@
 #'  in Monte Carlos Cross-Validation the \code{generate.split} function of the "WilcoxCV" package was used.
 #'  Please see \link[WilcoxCV]{generate.split} for more details.
 #'
-#' @importFrom caret confusionMatrix createFolds
+#' @importFrom caret confusionMatrix createFolds train knn3
 #' @importFrom raster getValues extract
 #' @importFrom e1071 svm naiveBayes
-#' @importFrom rpart rpart
 #' @importFrom randomForest randomForest
-#' @importFrom nnet nnet
-#' @importFrom kknn train.kknn
 #' @importFrom rgeos gIntersects
 #' @importFrom WilcoxCV generate.split
 #'
 #' @param img RasterStack or RasterBrick.
 #' @param endm SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
 #' containing the training data.
-#' @param model model Model to use. It can be \link[e1071]{svm} like \code{model = 'svm'}, \link[randomForest]{randomForest} like
-#' \code{model = 'randomForest'}, \link[e1071]{naiveBayes} like \code{model = 'naiveBayes'}, \link[rpart]{rpart} like
-#' \code{model = 'rpart'}, \link[nnet]{nnet} like \code{model = 'nnet'}, \link[kknn]{train.kknn} like
-#' \code{model = 'train.kknn'}.
+#' @param model Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
+#' \code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})
+#' like \code{model = 'randomForest'}, Naive Bayes (\link[e1071]{naiveBayes})
+#' like \code{model = 'naiveBayes'}, Decision Tree (\link[caret]{train})
+#' like \code{model = 'LMT'}, Neural Networks (\link[nnet]{nnet})
+#' like \code{model = 'nnet'}, K-nearest Neighbors (\link[caret]{knn3}) like \code{model = 'knn'}.
 #' @param training_split For splitting samples into two subsets, i.e. training data and
 #' for testing data.
-#' @param approach T.
+#' @param approach Calibration method. There are for options: Simple training and testing
+#' (Set-Approach) like \code{approach = 'Set-Approach'}, Leave One Out Cross-Validation (LOOCV) like
+#' \code{approach = 'LOOCV'}, Cross-Validation (K-fold) like \code{approach = 'K-fold'} and
+#' Monte Carlo Cross-Validation (MCCV) like \code{approach = 'MCCV'}.
 #' @param k Number of groups for splitting samples. It must be used only with the
 #' Cross-Validation (k-fold) approach.
 #' @param iter Number of iterations, i.e number of times the analysis is executed.
@@ -68,6 +70,7 @@
 #' @examples
 #' library(ForesToolboxRS)
 #' library(raster)
+#' library(caret)
 #'
 #' # Load the dataset
 #' data(FTdata)
@@ -85,12 +88,12 @@
 #' endm <- endm[indx, ]
 #'
 #' # K-Nearest Neighbor Classifier
-#' knn <- mla(img = img, endm, model = "kknn", kmax = 10, training_split = 80)
+#' knn <- mla(img = img, endm, model = "knn", kmax = 10, training_split = 80)
 #'
 #' @export
 #'
 
-calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "rpart", "nnet", "train.kknn"),
+calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn"),
                    training_split = 50, approach = "Set-Approach", k = 5, iter = 10, verbose = FALSE, ...){
 
   if(!inherits(img, "Raster")) stop("img must be a RasterBrick or RasterStack", call. = TRUE)
@@ -99,9 +102,9 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "rpa
 
   if(!gIntersects(as(extent(img),"SpatialPolygons"), as(extent(endm),"SpatialPolygons"))) stop("img and endm do not overlap", call. = TRUE)
 
-  algo_test <- c("svm", "randomForest", "naiveBayes", "rpart", "nnet", "train.kknn")
+  algo_test <- c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn")
 
-  if (!algo %in% algo_test) stop("Unsupported algorithm. \nAlgortihm must be svm, randomForest, naiveBayes, rpart, nnet or train.kknn", call. = TRUE)
+  if (!algo %in% algo_test) stop("Unsupported algorithm. \nAlgortihm must be svm, randomForest, naiveBayes, LMT, nnet or knn", call. = TRUE)
 
   vegt <- extract(image, endm)
 
@@ -129,7 +132,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "rpa
 
       if ("svm" %in% algo){
 
-        model <- svm(class~., data=training, ...)
+        model <- svm(class~., data=training, type = "C-classification", ...)
         prediction <- predict(model, testing)
 
         # Matriz de confusion
@@ -145,7 +148,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "rpa
 
       if ("randomForest" %in% algo){
 
-        model <- randomForest(class~., data=training, ...)
+        model <- randomForest(class~., data=training, importance=TRUE, ...)
         prediction <- predict(model, testing[,-dim(endm)[2]])
 
         # Matriz de confusion
@@ -175,10 +178,10 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "rpa
         lesvm <- list()
       }
 
-      if ("rpart" %in% algo){
+      if ("LMT" %in% algo){
 
-        model <- rpart(class~., data=training, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]], type="class")
+        model <- train(class~., method = "LMT", data=training, ...)
+        prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
 
         # Matriz de confusion
         MC <- table(prediction, testing)
@@ -193,8 +196,9 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "rpa
 
       if ("nnet" %in% algo){
 
-        model <- nnet(class~., data=training, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]], type="class")
+        nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
+        model <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
+        prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
 
         # Matriz de confusion
         MC <- table(prediction, testing)
@@ -207,10 +211,10 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "rpa
         lesvm <- list()
       }
 
-      if ("train.kknn" %in% algo){
+      if ("knn" %in% algo){
 
-        model <- train.kknn(class~., data=training, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]])
+        model <- knn3(class~., data = training, k = 5, ...)
+        prediction <- predict(model, testing[,-dim(endm)[2]], type = "class")
 
         # Matriz de confusion
         MC <- table(prediction, testing)
@@ -255,7 +259,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "rpa
 
         if ("svm" %in% algo){
 
-          model <- svm(class~.,data = training, importance = TRUE, ...)
+          model <- svm(class~., data=training, type = "C-classification", ...)
           prediction <- predict(model, testing)
           if(prediction != testing$class){
             svm_ini_error <- svm_ini_error + 1
@@ -268,7 +272,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "rpa
 
         if ("randomForest" %in% algo){
 
-          model <- randomForest(class~., data=training, ...)
+          model <- randomForest(class~., data=training, importance=TRUE, ...)
           prediction <- predict(model, testing[,-dim(endm)[2]])
           if(prediction != testing$class){
             rf_ini_error <- rf_ini_error + 1
@@ -292,10 +296,10 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "rpa
           losvm <- c()
         }
 
-        if ("rpart" %in% algo){
+        if ("LMT" %in% algo){
 
-          model <- rpart(class~., data=training, ...)
-          prediction <- predict(model, testing[,-dim(endm)[2]], type="class")
+          model <- train(class~., method = "LMT", data=training, ...)
+          prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
           if(prediction != testing$class){
             rp_ini_error <- rp_ini_error + 1
           }
@@ -307,8 +311,9 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "rpa
 
         if ("nnet" %in% algo){
 
-          model <- nnet(class~., data=training, ...)
-          prediction <- predict(model, testing[,-dim(endm)[2]], type="class")
+          nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
+          model <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
+          prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
           if(prediction != testing$class){
             nt_ini_error <- nt_ini_error + 1
           }
@@ -318,10 +323,10 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "rpa
           losvm <- c()
         }
 
-        if ("train.kknn" %in% algo){
+        if ("knn" %in% algo){
 
-          model <- train.kknn(class~., data=training, ...)
-          prediction <- predict(model, testing[,-dim(endm)[2]])
+          model <- knn3(class~., data = training, k = 5, ...)
+          prediction <- predict(model, testing[,-dim(endm)[2]], type = "class")
           if(prediction != testing$class){
             kn_ini_error <- kn_ini_error + 1
           }
