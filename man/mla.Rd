@@ -12,10 +12,12 @@ mla(img, endm, model = "svm", training_split = 80, verbose = FALSE, ...)
 \item{endm}{SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
 containing the training data.}
 
-\item{model}{Model to use. It can be \link[e1071]{svm} like \code{model = 'svm'}, \link[randomForest]{randomForest} like
-\code{model = 'randomForest'}, \link[e1071]{naiveBayes} like \code{model = 'naiveBayes'}, \link[rpart]{rpart} like
-\code{model = 'rpart'}, \link[nnet]{nnet} like \code{model = 'nnet'}, \link[kknn]{train.kknn} like
-\code{model = 'train.kknn'}.}
+\item{model}{Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
+\code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})
+like \code{model = 'randomForest'}, Naive Bayes (\link[e1071]{naiveBayes})
+like \code{model = 'naiveBayes'}, Decision Tree (\link[caret]{train})
+like \code{model = 'LMT'}, Neural Networks (\link[nnet]{nnet})
+like \code{model = 'nnet'}, K-nearest Neighbors (\link[caret]{knn3}) like \code{model = 'knn'}.}
 
 \item{training_split}{For splitting samples into two subsets, i.e. training data and for
 testing data.}
@@ -50,13 +52,15 @@ Sensing for Sustainable Development Goals: A Review. Remote Sensing, 10(9), 1365
 }
 
 \section{Note}{
-
+ If \code{model = "LMT"}, the function is using "Logistic Model Trees"
+from http://topepo.github.io/caret/train-models-by-tag.html of the \code{caret} package.
 }
 
 \examples{
 library(ForesToolboxRS)
 library(raster)
 library(snow)
+library(caret)
 
 # Load the dataset
 data(FTdata)
@@ -74,7 +78,7 @@ indx <- rep(1:nrow(endm), reptime)
 endm <- endm[indx, ]
 
 # K-Nearest Neighbor Classifier
-knn <- mla(img = img, endm, model = "kknn", kmax = 10, training_split = 80)
+classSVM <- mla(img = img, endm, model = "knn", training_split = 80)
 
 }
 \author{

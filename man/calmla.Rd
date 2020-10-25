@@ -7,7 +7,7 @@
 calmla(
   img,
   endm,
-  algo = c("svm", "randomForest", "naiveBayes", "rpart", "nnet", "train.kknn"),
+  algo = c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn"),
   training_split = 50,
   approach = "Set-Approach",
   k = 5,
@@ -25,7 +25,10 @@ containing the training data.}
 \item{training_split}{For splitting samples into two subsets, i.e. training data and
 for testing data.}
 
-\item{approach}{T.}
+\item{approach}{Calibration method. There are for options: Simple training and testing
+(Set-Approach) like \code{approach = 'Set-Approach'}, Leave One Out Cross-Validation (LOOCV) like
+\code{approach = 'LOOCV'}, Cross-Validation (K-fold) like \code{approach = 'K-fold'} and
+Monte Carlo Cross-Validation (MCCV) like \code{approach = 'MCCV'}.}
 
 \item{k}{Number of groups for splitting samples. It must be used only with the
 Cross-Validation (k-fold) approach.}
@@ -34,10 +37,12 @@ Cross-Validation (k-fold) approach.}
 
 \item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
 
-\item{model}{model Model to use. It can be \link[e1071]{svm} like \code{model = 'svm'}, \link[randomForest]{randomForest} like
-\code{model = 'randomForest'}, \link[e1071]{naiveBayes} like \code{model = 'naiveBayes'}, \link[rpart]{rpart} like
-\code{model = 'rpart'}, \link[nnet]{nnet} like \code{model = 'nnet'}, \link[kknn]{train.kknn} like
-\code{model = 'train.kknn'}.}
+\item{model}{Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
+\code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})
+like \code{model = 'randomForest'}, Naive Bayes (\link[e1071]{naiveBayes})
+like \code{model = 'naiveBayes'}, Decision Tree (\link[caret]{train})
+like \code{model = 'LMT'}, Neural Networks (\link[nnet]{nnet})
+like \code{model = 'nnet'}, K-nearest Neighbors (\link[caret]{knn3}) like \code{model = 'knn'}.}
 }
 \description{
 This function allows to calibrate supervised classification in satellite images
@@ -86,6 +91,7 @@ Sensing for Sustainable Development Goals: A Review. Remote Sensing, 10(9), 1365
 \examples{
 library(ForesToolboxRS)
 library(raster)
+library(caret)
 
 # Load the dataset
 data(FTdata)
@@ -103,7 +109,7 @@ indx <- rep(1:nrow(endm), reptime)
 endm <- endm[indx, ]
 
 # K-Nearest Neighbor Classifier
-knn <- mla(img = img, endm, model = "kknn", kmax = 10, training_split = 80)
+knn <- mla(img = img, endm, model = "knn", kmax = 10, training_split = 80)
 
 }
 \author{
