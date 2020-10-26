@@ -191,7 +191,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
 
     resulFinal <- c(vecIner.hw, vecIner.l, vecIner.f, vecIner.m)
 
-    return(resulFinal)
+    return(structure(resulFinal, class = "calkmeans"))
 
   }
 

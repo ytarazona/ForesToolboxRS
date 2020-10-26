@@ -372,7 +372,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
 
         if ("svm" %in% algo){
 
-          model <- svm(class~., data=training, ...)
+          model <- svm(class~., data=training, type = "C-classification", ...)
           prediction <- predict(model, testing)
 
           # Matriz de confusion
@@ -389,7 +389,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
 
         if ("randomForest" %in% algo){
 
-          model <- randomForest(class~., data=training, ...)
+          model <- randomForest(class~., data=training, importance=TRUE, ...)
           prediction <- predict(model, testing[,-dim(endm)[2]])
 
           # Matriz de confusion
@@ -421,10 +421,10 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
           lesvm <- list()
         }
 
-        if ("rpart" %in% algo){
+        if ("LMT" %in% algo){
 
-          model <- rpart(class~., data=training, ...)
-          prediction <- predict(model, testing[,-dim(endm)[2]], type="class")
+          model <- train(class~., method = "LMT", data=training, ...)
+          prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
 
           # Matriz de confusion
           MC <- table(prediction, testing)
@@ -440,8 +440,9 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
 
         if ("nnet" %in% algo){
 
-          model <- nnet(class~., data=training, ...)
-          prediction <- predict(model, testing[,-dim(endm)[2]], type="class")
+          nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
+          model <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
+          prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
 
           # Matriz de confusion
           MC <- table(prediction, testing)
@@ -455,10 +456,10 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
           lesvm <- list()
         }
 
-        if ("train.kknn" %in% algo){
+        if ("knn" %in% algo){
 
-          model <- train.kknn(class~., data=training, ...)
-          prediction <- predict(model, testing[,-dim(endm)[2]])
+          model <- knn3(class~., data = training, k = 5, ...)
+          prediction <- predict(model, testing[,-dim(endm)[2]], type = "class")
 
           # Matriz de confusion
           MC <- table(prediction, testing)
@@ -500,7 +501,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
 
       if ("svm" %in% algo){
 
-        model <- svm(class~., data=training, ...)
+        model <- svm(class~., data=training, type = "C-classification", ...)
         prediction <- predict(model, testing)
 
         # Confusion matrix
@@ -514,7 +515,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
 
       if ("randomForest" %in% algo){
 
-        model <- randomForest(class~., data=training, ...)
+        model <- randomForest(class~., data=training, importance=TRUE, ...)
         prediction <- predict(model, testing[,-dim(endm)[2]])
 
         # Matriz de confusion
@@ -540,10 +541,10 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         lesvm <- list()
       }
 
-      if ("rpart" %in% algo){
+      if ("LMT" %in% algo){
 
-        model <- rpart(class~., data=training, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]], type="class")
+        model <- train(class~., method = "LMT", data=training, ...)
+        prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
 
         # Matriz de confusion
         MC <- table(prediction, testing)
@@ -556,8 +557,9 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
 
       if ("nnet" %in% algo){
 
-        model <- nnet(class~., data=training, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]], type="class")
+        nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
+        model <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
+        prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
 
         # Matriz de confusion
         MC <- table(prediction, testing)
@@ -568,10 +570,10 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         lesvm <- list()
       }
 
-      if ("train.kknn" %in% algo){
+      if ("knn" %in% algo){
 
-        model <- train.kknn(class~., data=training, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]])
+        model <- knn3(class~., data = training, k = 5, ...)
+        prediction <- predict(model, testing[,-dim(endm)[2]], type = "class")
 
         # Matriz de confusion
         MC <- table(prediction, testing)

@@ -220,7 +220,24 @@ mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, 
     results <- list(Overall_accuracy = (confusionMatrix(MC$MC_ini)$overall[1:6])*100,
                     Confusion_matrix = MC$MCf,
                     Classification = raster_class)
-    return(results)
+
+    return(structure(results, class = "mla"))
+
   }
+
+}
+
+
+#' Plot for the "mla" class
+#'
+#'
+plot.mla <- function(x, main, ...){
+
+  title <- missing(main)
+
+  if (title)
+    main <- "Classification"
+
+  plot(x$Classification, main = main)
 
 }
