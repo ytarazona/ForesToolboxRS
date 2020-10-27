@@ -24,19 +24,23 @@
 #' of this method of removing outliers implies the non-modification of the first and last
 #' values of the historical series, so that the near real-time detections of ecosystem
 #' disturbances will not be affected in any way.
-
+#'
+#' @importFrom forecast na.interp
+#' @importFrom zoo na.approx na.spline
+#'
 #' @param x Numeric, matrix.
 #' @param interp Four interpolation methods are presented, "na.interp",
 #' "na.approx" and "na.spline". By default is the method "na.interp".
 #'
-#' @importFrom forecast na.interp
-#' @importFrom zoo na.approx na.spline
-#' @importFrom zoo rollapply
-#'
 #' @examples
+#'
 #' library(ForesToolboxRS)
 #'
+#' # Here a vector with an outlier
 #' x <- c(80,78,75,76,79,-100,82,76,81,77,76)
+#' plot(x, type="o", col="red")
+#'
+#' # Applying a smoothing
 #' smth <- smootH(x)
 #' plot(x, type="o", ylab="Reflectance %", xlab="Time")
 #' lines(smth, col="blue", type="o")
@@ -64,7 +68,7 @@ smootH <- function(x, method.interp = "na.interp"){
       } else stop("Unsupported interpolation method.", call. = TRUE)
     }
 
-    # We apply Hamunyela Smoothing
+    # Apply Hamunyela Smoothing
     for (j in 2:(length(x)-1)) {
       x[j] <- ifelse(((x[j]-x[j-1]) < -0.01*x[j-1]) & ((x[j]-x[j+1]) < -0.01*x[j+1]),
                      (x[j-1]+x[j+1])/2, x[j])
@@ -93,7 +97,7 @@ smootH <- function(x, method.interp = "na.interp"){
       }
     }
 
-    # We apply Hamunyela Smoothing
+    # Apply Hamunyela Smoothing
     for(i in 1:dim(x)[1]){
       for(j in 2:(dim(x)[2]-1)){
         x[i,][j]<-ifelse(((x[i,][j]-x[i,][j-1])< -0.01*x[i,][j-1]) & ((x[i,][j]-x[i,][j+1])< -0.01*x[i,][j+1]),
