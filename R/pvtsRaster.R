@@ -43,7 +43,7 @@
 #' library(raster)
 #' data(FTdata)
 #'
-#' # Detect changes in 2008 (position 19)
+#' # Detect changes in 2008 (position 19) using a raster(RasterStack)
 #' cd <- pvtsRaster(x=serie_pv, startm=19, endm=19,  threshold= 5)
 #'
 #'@export
