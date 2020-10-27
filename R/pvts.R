@@ -40,6 +40,7 @@
 #'
 #' @examples
 #' library(ForesToolboxRS)
+#' library(raster)
 #'
 #' # Example
 #' # Normalized Difference Fraction Index from 1990 to 2017, one index for each year.
