@@ -20,6 +20,11 @@
 #' matrix, the first dimension must be rows*columns of the image, and the second dimension the
 #' number of images.
 #'
+#' @section Details:
+#' Regarding the example data, if the idea is to detect changes in 2008 (position 19),
+#' then we will smooth the data only up to that position (i.e. \code{ndfi[1:19]}). This is to avoid
+#' a smoothing of the monitor position value.
+#'
 #' @importFrom stats sd time ts
 #' @importFrom graphics points abline polygon text grid legend plot
 #' @importFrom raster values
@@ -36,24 +41,31 @@
 #' @examples
 #' library(ForesToolboxRS)
 #'
-#' # Example 1.
+#' # Example
 #' # Normalized Difference Fraction Index from 1990 to 2017, one index for each year.
 #' ndfi <- c(0.86,0.93,0.97,0.91,0.95,0.96,0.91,0.88,0.92,0.89,
 #'          0.90,0.89,0.91,0.92,0.89,0.90,0.92,0.84,0.46,0.20,
 #'          0.27,0.22,0.52,0.63,0.61,0.67,0.64,0.86)
 #'
-#' # Detect changes in 2008 (position 19)
-#' cd <- pvts(x = ndfi, startm = 19, endm = 19, threshold = 5)
+#' # Detecting changes in 2008 (position 19)
+#' # First, let´s apply a smoothing
+#' ndfi_smooth <- ndfi
+#' ndfi_smooth[1:19] <- smootH(ndfi[1:19])
+#'
+#' # Now, detect changes in 2008 (position 19)
+#' cd <- pvts(x = ndfi_smooth, startm = 19, endm = 19, threshold = 5)
 #' plot(cd)
 #'
 #' # Detect changes in 2008 (time serie)
-#' vec <- ts(ndfi, start = 1990, end = 2017, frequency = 1)
-#' cd <- pvts(x = ndfi, startm = 2008, endm = 2008,  threshold = 5)
+#' ndfi_smt_ts <- ts(ndfi_smooth, start = 1990, end = 2017, frequency = 1)
+#' cd <- pvts(x = ndfi_smt_ts, startm = 2008, endm = 2008,  threshold = 5)
 #' plot(cd)
 #'
 #' @export
 #'
 pvts <- function(x, startm, endm, threshold = 5, verbose = FALSE) {
+
+  if(!inherits(x, "numeric") | !inherits(x, "ts")) stop("x must be numeric or time serie (ts)", call. = TRUE)
 
   if (any(is.na(x))){
     stop("The object cannot contain NA. Please use the smootH function of this package to fill missing data and then smooth it.", call. = TRUE)

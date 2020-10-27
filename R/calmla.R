@@ -100,7 +100,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
 
   if(!compareCRS(img, endm)) stop("img and endm must have the same projection", call. = TRUE)
 
-  if(!gIntersects(as(extent(img),"SpatialPolygons"), as(extent(endm),"SpatialPolygons"))) stop("img and endm do not overlap", call. = TRUE)
+  if(!inherits(endm, "SpatialPointsDataFrame") | !inherits(endm, "SpatialPolygonsDataFrame")) stop("end must be SpatialPointsDataFrame or SpatialPolygonsDataFrame", call. = TRUE)
 
   algo_test <- c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn")
 

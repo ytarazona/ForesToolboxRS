@@ -81,6 +81,8 @@ mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, 
 
   if(!compareCRS(img, endm)) stop("img and endm must have the same projection", call. = TRUE)
 
+  if(!inherits(endm, "SpatialPointsDataFrame") | !inherits(endm, "SpatialPolygonsDataFrame")) stop("end must be SpatialPointsDataFrame or SpatialPolygonsDataFrame", call. = TRUE)
+
   algoS <- c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn")
 
   algoSM <- c("svm", "randomForest", "naiveBayes", "knn")
