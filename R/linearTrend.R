@@ -37,11 +37,12 @@
 #' library(ForesToolboxRS)
 #' library(raster)
 #'
-#'e <- extent(350420.9,352028.8,-1417869,-1416288)
-#'imgs <- crop(img_pv, e)
-#'trend <- linearTrend(x = imgs)
-#'plot(trend[[1]]) # raster of slope
-#'plot(trend[[2]]) # raster of p-value
+#' e <- extent(350420.9,352028.8,-1417869,-1416288)
+#' imgs <- crop(serie_pv, e)
+#'
+#' trend <- linearTrend(x = imgs)
+#' plot(trend[[1]]) # raster of slope
+#' plot(trend[[2]]) # raster of p-value
 #'
 
 linearTrend <- function(x, type = "lm", ...){

@@ -34,7 +34,7 @@
 #' data(FTdata)
 #'
 #' # Fusing optical and radar data
-#' fusion <- fusionRS(x=optical, y=radar)
+#' fusion <- fusionRS(x=optical, y=radar, na = TRUE)
 #' plotRGB(fusion[[1]], 1,2,3, axes=F, stretch="lin",main ="Fused images")
 #'
 #' @export
@@ -112,8 +112,28 @@ fusionRS <- function(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE) {
 
   results <- list(FusionRS = acpY, var = var, pov = pov, varAcum = varAcum, corr = corr, contri = contri)
 
-  names(results) <- c("Fused images", "Variance", "Proportion of variance",
-                      "Cumulative variance", "Correlation", "Contribution in %")
+  names(results) <- c("Fused_images", "Variance", "Proportion_of_variance",
+                      "Cumulative_variance", "Correlation", "Contribution_in_pct")
 
-  return(results)
+  return(structure(results, class="fusionRS"))
+}
+
+#' Print for the "fusionRS" class
+#'
+#' @export
+#'
+print.fusionRS <- function(x){
+  cat("******************** ForesToolboxRS - FUSION OF IMAGES ********************\n")
+  cat("\n**** Fused images ****\n")
+  show(x$Fused_images)
+  cat("\n**** Variance ****\n")
+  print(x$Variance)
+  cat("\n**** Proportion_of_variance ****\n")
+  print(x$Proportion_of_variance)
+  cat("\n**** Cumulative_variance ****\n")
+  print(x$Cumulative_variance)
+  cat("\n**** Correlation ****\n")
+  print(x$Correlation)
+  cat("\n**** Contribution_in_percentage ****\n")
+  print(x$Contribution_in_pct)
 }

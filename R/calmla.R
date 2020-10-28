@@ -14,7 +14,7 @@
 #' Thomas G. Dietterich. (2006).Approximate Statistical Tests for Comparing Supervised
 #' Classification Learning Algorithms. The MIT Press Journal, 10 (7).
 #'
-#' ' Mountrakis, G., Im, J., Ogole, C. (2011). Support vector machines in remote sensing:
+#' Mountrakis, G., Im, J., Ogole, C. (2011). Support vector machines in remote sensing:
 #' A review. ISPRS Journal of Photogrammetry and Remote Sensing, 66, 247-259.
 #'
 #' Belgiu, M., Dragut., L. (2016). Random Forest in Remote Sensing: A Review of Applications
@@ -50,7 +50,7 @@
 #' @param img RasterStack or RasterBrick.
 #' @param endm SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
 #' containing the training data.
-#' @param model Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
+#' @param algo Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
 #' \code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})
 #' like \code{model = 'randomForest'}, Naive Bayes (\link[e1071]{naiveBayes})
 #' like \code{model = 'naiveBayes'}, Decision Tree (\link[caret]{train})
@@ -75,20 +75,11 @@
 #' # Load the dataset
 #' data(FTdata)
 #'
-#' # Signatures
-#' soil<-c(8980,8508,8704,13636,16579,11420)
-#' forest<-c(8207,7545,6548,16463,9725,6673)
-#' water<-c(9276,9570,10089,6743,5220,5143)
-#' val <- matrix(c(soil,forest,water), 3, 6, byrow = TRUE)
-#' colnames(val) <- c("B1", "B2", "B3","B4","B5","B6")
-#' endm <- data.frame(val, class = c("soil","forest","water"))
 #'
-#' reptime <- 50
-#' indx <- rep(1:nrow(endm), reptime)
-#' endm <- endm[indx, ]
-#'
-#' # K-Nearest Neighbor Classifier
-#' knn <- mla(img = img, endm, model = "knn", kmax = 10, training_split = 80)
+#' # Support Vector Machine and Random Forest Classifiers
+#' # Calibrating using "Set-Approach"
+#' knn <- calmla(img = image, endm = endm, algo = c("svm", "randomForest"), training_split = 80,
+#'            approach = "Set-Approach", iter = 10)
 #'
 #' @export
 #'
@@ -100,11 +91,24 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
 
   if(!compareCRS(img, endm)) stop("img and endm must have the same projection", call. = TRUE)
 
-  if(!inherits(endm, "SpatialPointsDataFrame") | !inherits(endm, "SpatialPolygonsDataFrame")) stop("end must be SpatialPointsDataFrame or SpatialPolygonsDataFrame", call. = TRUE)
+  if(inherits(endm, 'SpatialPointsDataFrame')) {
+    TypeEndm <- "points"
+
+  } else {
+
+    if(inherits(endm, 'SpatialPolygonsDataFrame')){
+      TypeEndm <- "polygons"
+
+    } else stop("Signatures (endm) must be SpatialPointsDataFrame or SpatialPolygonsDataFrame", call. = TRUE)
+  }
 
   algo_test <- c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn")
 
   if (!algo %in% algo_test) stop("Unsupported algorithm. \nAlgortihm must be svm, randomForest, naiveBayes, LMT, nnet or knn", call. = TRUE)
+
+  if(verbose){
+    message(paste0(paste0(rep("*",10), collapse = ""), " The origin of the signatures are ", TypeEndm , paste0(rep("*",10), collapse = "")))
+  }
 
   vegt <- extract(image, endm)
 
