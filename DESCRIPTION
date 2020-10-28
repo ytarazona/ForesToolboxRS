@@ -43,6 +43,7 @@ RoxygenNote: 7.1.1
 Depends:
     R (>= 3.5.0),
     raster,
+    caret
 Imports:
     methods,
     stats,
@@ -63,7 +64,6 @@ Imports:
     rpart,
     randomForest,
     nnet,
-    kknn,
     rgeos,
     WilcoxCV
 Suggests: 
