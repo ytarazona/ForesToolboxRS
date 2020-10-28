@@ -29,8 +29,7 @@
 #' @param verbose This paramater is Logical. It Prints progress messages during execution.
 #'
 #' @importFrom dplyr bind_cols
-#'
-#' @export
+#' @importFrom raster as.matrix
 #'
 #' @examples
 #'
@@ -44,12 +43,14 @@
 #' soil<-c(8980,8508,8704,13636,16579,11420)
 #' forest<-c(8207,7545,6548,16463,9725,6673)
 #' water<-c(9276,9570,10089,6743,5220,5143)
-#' endm <- matrix(c(soil,forest,water), 3, 6, byrow = TRUE, dimnames =
+#' endmembers <- matrix(c(soil,forest,water), 3, 6, byrow = TRUE, dimnames =
 #' list(c("soil", "forest","water"), c("B1", "B2", "B3","B4","B5","B6")))
 #'
 #' # Unmix the image
-#' fractions <- sma(img, endm)
+#' fractions <- sma(img = image, endm = endmembers)
 #' plotRGB(fractions, 1, 2, 3, stretch = "lin")
+#'
+#' @export
 #'
 sma <- function(img, endm, verbose = FALSE){
 
@@ -73,7 +74,7 @@ sma <- function(img, endm, verbose = FALSE){
 
       # We calculate fractions through least squares
       lmm <- lapply(1:dim(df)[1], function(i) f <- (tcrossprod((solve(crossprod(M))),M))%*%df[i,])
-      n <- bind_cols(lmm)
+      n <- suppressMessages(bind_cols(lmm))
       val <- t(cbind(n))
 
       if(verbose){

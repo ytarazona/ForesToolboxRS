@@ -9,7 +9,7 @@ mla(img, endm, model = "svm", training_split = 80, verbose = FALSE, ...)
 \arguments{
 \item{img}{RasterStack or RasterBrick.}
 
-\item{endm}{SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
+\item{endm}{Signatures. SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
 containing the training data.}
 
 \item{model}{Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
@@ -65,20 +65,12 @@ library(caret)
 # Load the dataset
 data(FTdata)
 
-# Signatures
-soil<-c(8980,8508,8704,13636,16579,11420)
-forest<-c(8207,7545,6548,16463,9725,6673)
-water<-c(9276,9570,10089,6743,5220,5143)
-val <- matrix(c(soil,forest,water), 3, 6, byrow = TRUE)
-colnames(val) <- c("B1", "B2", "B3","B4","B5","B6")
-endm <- data.frame(val, class = c("soil","forest","water"))
+# Random Forest Classifier
+classMap <- mla(img = image, endm = endm, model = "randomForest", training_split = 80)
+print(classMap)
 
-reptime <- 50
-indx <- rep(1:nrow(endm), reptime)
-endm <- endm[indx, ]
-
-# K-Nearest Neighbor Classifier
-classSVM <- mla(img = img, endm, model = "knn", training_split = 80)
+# Plot image
+plot(classMap$Classification)
 
 }
 \author{

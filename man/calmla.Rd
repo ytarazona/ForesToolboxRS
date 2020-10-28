@@ -22,6 +22,13 @@ calmla(
 \item{endm}{SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
 containing the training data.}
 
+\item{algo}{Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
+\code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})
+like \code{model = 'randomForest'}, Naive Bayes (\link[e1071]{naiveBayes})
+like \code{model = 'naiveBayes'}, Decision Tree (\link[caret]{train})
+like \code{model = 'LMT'}, Neural Networks (\link[nnet]{nnet})
+like \code{model = 'nnet'}, K-nearest Neighbors (\link[caret]{knn3}) like \code{model = 'knn'}.}
+
 \item{training_split}{For splitting samples into two subsets, i.e. training data and
 for testing data.}
 
@@ -36,13 +43,6 @@ Cross-Validation (k-fold) approach.}
 \item{iter}{Number of iterations, i.e number of times the analysis is executed.}
 
 \item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
-
-\item{model}{Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
-\code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})
-like \code{model = 'randomForest'}, Naive Bayes (\link[e1071]{naiveBayes})
-like \code{model = 'naiveBayes'}, Decision Tree (\link[caret]{train})
-like \code{model = 'LMT'}, Neural Networks (\link[nnet]{nnet})
-like \code{model = 'nnet'}, K-nearest Neighbors (\link[caret]{knn3}) like \code{model = 'knn'}.}
 }
 \description{
 This function allows to calibrate supervised classification in satellite images
@@ -66,7 +66,7 @@ An introduction to statistical learning : with applications in R. New York: Spri
 Thomas G. Dietterich. (2006).Approximate Statistical Tests for Comparing Supervised
 Classification Learning Algorithms. The MIT Press Journal, 10 (7).
 
-' Mountrakis, G., Im, J., Ogole, C. (2011). Support vector machines in remote sensing:
+Mountrakis, G., Im, J., Ogole, C. (2011). Support vector machines in remote sensing:
 A review. ISPRS Journal of Photogrammetry and Remote Sensing, 66, 247-259.
 
 Belgiu, M., Dragut., L. (2016). Random Forest in Remote Sensing: A Review of Applications
@@ -96,20 +96,11 @@ library(caret)
 # Load the dataset
 data(FTdata)
 
-# Signatures
-soil<-c(8980,8508,8704,13636,16579,11420)
-forest<-c(8207,7545,6548,16463,9725,6673)
-water<-c(9276,9570,10089,6743,5220,5143)
-val <- matrix(c(soil,forest,water), 3, 6, byrow = TRUE)
-colnames(val) <- c("B1", "B2", "B3","B4","B5","B6")
-endm <- data.frame(val, class = c("soil","forest","water"))
 
-reptime <- 50
-indx <- rep(1:nrow(endm), reptime)
-endm <- endm[indx, ]
-
-# K-Nearest Neighbor Classifier
-knn <- mla(img = img, endm, model = "knn", kmax = 10, training_split = 80)
+# Support Vector Machine and Random Forest Classifiers
+# Calibrating using "Set-Approach"
+knn <- calmla(img = image, endm = endm, algo = c("svm", "randomForest"), training_split = 80,
+           approach = "Set-Approach", iter = 10)
 
 }
 \author{

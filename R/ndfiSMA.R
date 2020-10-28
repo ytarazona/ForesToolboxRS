@@ -16,6 +16,7 @@
 #' that was implemented in this function.
 #'
 #' @importFrom dplyr bind_cols
+#' @importFrom raster as.matrix
 #'
 #' @param img It could be RasterStack or RasterBrick.
 #' @param procesLevel Processing level. It is possible to obtain the NDFI from images
@@ -58,6 +59,7 @@ ndfiSMA <- function(img, procesLevel="SR", verbose = FALSE){
                      1799.0, 2479.0, 3158.0, 5437.0, 7707.0, 6646.0,
                      4031.0, 8714.0, 7900.0, 8989.0, 7002.0, 6607.0),
                    ncol=6, nrow=4, byrow=TRUE) #GV, NPV, Soil, Cloud
+
     rownames(endm) <- c("gv", "npv", "Soil", "Cloud")
 
   } else if (procesLevel=="TOA") {
@@ -73,6 +75,7 @@ ndfiSMA <- function(img, procesLevel="SR", verbose = FALSE){
                      2604.6, 2937.1, 3444.8, 5605.3, 7753.8, 6672.6,
                      4836.6, 9172.1, 8186.8, 9157.3, 7048.8, 6633.6),
                    ncol=6, nrow=4, byrow=TRUE) #GV, NPV, Soil, Cloud
+
     rownames(endm) <- c("gv", "npv", "Soil", "Cloud")
 
   } else {
@@ -96,7 +99,7 @@ ndfiSMA <- function(img, procesLevel="SR", verbose = FALSE){
 
       # We calculate fractions through least squares
       lmm <- lapply(1:dim(df)[1], function(i) f <- mat_oper%*%df[i,])
-      n <- bind_cols(lmm)
+      n <- suppressMessages(bind_cols(lmm))
       fractions <- t(cbind(n))
 
     } else {

@@ -36,7 +36,7 @@
 #' @importFrom rgeos gIntersects
 #'
 #' @param img RasterStack or RasterBrick.
-#' @param endm SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
+#' @param endm Signatures. SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
 #' containing the training data.
 #' @param model Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
 #' \code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})
@@ -57,20 +57,12 @@
 #' # Load the dataset
 #' data(FTdata)
 #'
-#' # Signatures
-#' soil<-c(8980,8508,8704,13636,16579,11420)
-#' forest<-c(8207,7545,6548,16463,9725,6673)
-#' water<-c(9276,9570,10089,6743,5220,5143)
-#' val <- matrix(c(soil,forest,water), 3, 6, byrow = TRUE)
-#' colnames(val) <- c("B1", "B2", "B3","B4","B5","B6")
-#' endm <- data.frame(val, class = c("soil","forest","water"))
+#' # Random Forest Classifier
+#' classMap <- mla(img = image, endm = endm, model = "randomForest", training_split = 80)
+#' print(classMap)
 #'
-#' reptime <- 50
-#' indx <- rep(1:nrow(endm), reptime)
-#' endm <- endm[indx, ]
-#'
-#' # K-Nearest Neighbor Classifier
-#' classSVM <- mla(img = img, endm, model = "knn", training_split = 80)
+#' # Plot image
+#' plot(classMap$Classification)
 #'
 #' @export
 #'
@@ -81,11 +73,24 @@ mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, 
 
   if(!compareCRS(img, endm)) stop("img and endm must have the same projection", call. = TRUE)
 
-  if(!inherits(endm, "SpatialPointsDataFrame") | !inherits(endm, "SpatialPolygonsDataFrame")) stop("end must be SpatialPointsDataFrame or SpatialPolygonsDataFrame", call. = TRUE)
+  if(inherits(endm, 'SpatialPointsDataFrame')) {
+    TypeEndm <- "points"
+
+  } else {
+
+    if(inherits(endm, 'SpatialPolygonsDataFrame')){
+      TypeEndm <- "polygons"
+
+    } else stop("Signatures (endm) must be SpatialPointsDataFrame or SpatialPolygonsDataFrame", call. = TRUE)
+  }
 
   algoS <- c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn")
 
   algoSM <- c("svm", "randomForest", "naiveBayes", "knn")
+
+  if(verbose){
+    message(paste0(paste0(rep("*",10), collapse = ""), " The origin of the signatures are ", TypeEndm , paste0(rep("*",10), collapse = "")))
+  }
 
   vegt <- extract(img, endm)
 
@@ -229,17 +234,16 @@ mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, 
 
 }
 
-
-#' Plot for the "mla" class
+#' Print for the "mla" class
 #'
+#' @export
 #'
-plot.mla <- function(x, main, ...){
-
-  title <- missing(main)
-
-  if (title)
-    main <- "Classification"
-
-  plot(x$Classification, main = main)
-
+print.mla <- function(x){
+  cat("******************** ForesToolboxRS CLASSIFICATION ********************\n")
+  cat("\n****Overall Accuracy****\n")
+  print(x$Overall_accuracy)
+  cat("\n****Confusion Matrix****\n")
+  print(x$Confusion_matrix)
+  cat("\n****Classification Map****\n")
+  show(x$Classification)
 }

@@ -44,7 +44,7 @@ library(raster)
 data(FTdata)
 
 # Fusing optical and radar data
-fusion <- fusionRS(x=optical, y=radar)
+fusion <- fusionRS(x=optical, y=radar, na = TRUE)
 plotRGB(fusion[[1]], 1,2,3, axes=F, stretch="lin",main ="Fused images")
 
 }
