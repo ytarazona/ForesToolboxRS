@@ -67,7 +67,7 @@
 #' @export
 #'
 
-mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, ...){
+mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...){
 
   if(!inherits(img, "Raster")) stop("img must be a RasterBrick or RasterStack", call. = TRUE)
 
@@ -88,6 +88,8 @@ mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, 
 
   algoSM <- c("svm", "randomForest", "naiveBayes", "knn")
 
+  algonsp <- c("kmeans")
+
   if(verbose){
     message(paste0(paste0(rep("*",10), collapse = ""), " The origin of the signatures are ", TypeEndm , paste0(rep("*",10), collapse = "")))
   }
@@ -107,6 +109,11 @@ mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, 
                            training_split*dim(endm)[1]/100)
     testing <- endm[sample_split,]
     training <- endm[-sample_split,]
+
+  } else if (model %in% algonsp) {
+    # Values and NA position
+    vr <- getValues(img)
+    i <- which(!is.na(vr))
 
   }
 
@@ -134,10 +141,6 @@ mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, 
   }
 
   if (model=="kmeans") {
-
-    # Values and NA position
-    vr <- getValues(img)
-    i <- which(!is.na(vr))
 
     # Applying kmeans
     km <- kmeans(na.omit(vr), ...)
@@ -212,8 +215,8 @@ mla <- function(img, endm, model = "svm", training_split = 80, verbose = FALSE, 
 
   if (model=="kmeans"){
 
-    return(raster_class)
     names(raster_class) <- kmeans_class
+    return(raster_class)
 
   } else {
 

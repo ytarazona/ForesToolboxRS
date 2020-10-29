@@ -50,7 +50,7 @@
 #' @param img RasterStack or RasterBrick.
 #' @param endm SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
 #' containing the training data.
-#' @param algo Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
+#' @param model Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
 #' \code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})
 #' like \code{model = 'randomForest'}, Naive Bayes (\link[e1071]{naiveBayes})
 #' like \code{model = 'naiveBayes'}, Decision Tree (\link[caret]{train})
@@ -78,13 +78,13 @@
 #'
 #' # Support Vector Machine and Random Forest Classifiers
 #' # Calibrating using "Set-Approach"
-#' knn <- calmla(img = image, endm = endm, algo = c("svm", "randomForest"), training_split = 80,
+#' knn <- calmla(img = image, endm = endm, model = c("svm", "randomForest"), training_split = 80,
 #'            approach = "Set-Approach", iter = 10)
 #'
 #' @export
 #'
 
-calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn"),
+calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn"),
                    training_split = 50, approach = "Set-Approach", k = 5, iter = 10, verbose = FALSE, ...){
 
   if(!inherits(img, "Raster")) stop("img must be a RasterBrick or RasterStack", call. = TRUE)
@@ -104,7 +104,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
 
   algo_test <- c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn")
 
-  if (!algo %in% algo_test) stop("Unsupported algorithm. \nAlgortihm must be svm, randomForest, naiveBayes, LMT, nnet or knn", call. = TRUE)
+  if (!model %in% algo_test) stop("Unsupported algorithm. \nAlgortihm must be svm, randomForest, naiveBayes, LMT, nnet or knn", call. = TRUE)
 
   if(verbose){
     message(paste0(paste0(rep("*",10), collapse = ""), " The origin of the signatures are ", TypeEndm , paste0(rep("*",10), collapse = "")))
@@ -134,7 +134,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
       testing <- endm[sample_split,]
       training <- endm[-sample_split,]
 
-      if ("svm" %in% algo){
+      if ("svm" %in% model){
 
         model <- svm(class~., data=training, type = "C-classification", ...)
         prediction <- predict(model, testing)
@@ -150,7 +150,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         lesvm <- list()
       }
 
-      if ("randomForest" %in% algo){
+      if ("randomForest" %in% model){
 
         model <- randomForest(class~., data=training, importance=TRUE, ...)
         prediction <- predict(model, testing[,-dim(endm)[2]])
@@ -166,7 +166,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         lesvm <- list()
       }
 
-      if ("naiveBayes" %in% algo){
+      if ("naiveBayes" %in% model){
 
         model <- naiveBayes(class~., data=training, ...)
         prediction <- predict(model, testing[,-dim(endm)[2]])
@@ -182,7 +182,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         lesvm <- list()
       }
 
-      if ("LMT" %in% algo){
+      if ("LMT" %in% model){
 
         model <- train(class~., method = "LMT", data=training, ...)
         prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
@@ -198,7 +198,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         lesvm <- list()
       }
 
-      if ("nnet" %in% algo){
+      if ("nnet" %in% model){
 
         nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
         model <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
@@ -215,7 +215,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         lesvm <- list()
       }
 
-      if ("knn" %in% algo){
+      if ("knn" %in% model){
 
         model <- knn3(class~., data = training, k = 5, ...)
         prediction <- predict(model, testing[,-dim(endm)[2]], type = "class")
@@ -261,7 +261,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         testing <- endm[j,]
         training <- endm[-j,]
 
-        if ("svm" %in% algo){
+        if ("svm" %in% model){
 
           model <- svm(class~., data=training, type = "C-classification", ...)
           prediction <- predict(model, testing)
@@ -274,7 +274,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
           losvm <- c()
         }
 
-        if ("randomForest" %in% algo){
+        if ("randomForest" %in% model){
 
           model <- randomForest(class~., data=training, importance=TRUE, ...)
           prediction <- predict(model, testing[,-dim(endm)[2]])
@@ -287,7 +287,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
           losvm <- c()
         }
 
-        if ("naiveBayes" %in% algo){
+        if ("naiveBayes" %in% model){
 
           model <- naiveBayes(class~., data=training, ...)
           prediction <- predict(model, testing[,-dim(endm)[2]])
@@ -300,7 +300,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
           losvm <- c()
         }
 
-        if ("LMT" %in% algo){
+        if ("LMT" %in% model){
 
           model <- train(class~., method = "LMT", data=training, ...)
           prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
@@ -313,7 +313,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
           losvm <- c()
         }
 
-        if ("nnet" %in% algo){
+        if ("nnet" %in% model){
 
           nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
           model <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
@@ -327,7 +327,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
           losvm <- c()
         }
 
-        if ("knn" %in% algo){
+        if ("knn" %in% model){
 
           model <- knn3(class~., data = training, k = 5, ...)
           prediction <- predict(model, testing[,-dim(endm)[2]], type = "class")
@@ -374,7 +374,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         testing <- endm[muestra,]
         training <- endm[-muestra,]
 
-        if ("svm" %in% algo){
+        if ("svm" %in% model){
 
           model <- svm(class~., data=training, type = "C-classification", ...)
           prediction <- predict(model, testing)
@@ -391,7 +391,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
           lesvm <- list()
         }
 
-        if ("randomForest" %in% algo){
+        if ("randomForest" %in% model){
 
           model <- randomForest(class~., data=training, importance=TRUE, ...)
           prediction <- predict(model, testing[,-dim(endm)[2]])
@@ -408,7 +408,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
           lesvm <- list()
         }
 
-        if ("naiveBayes" %in% algo){
+        if ("naiveBayes" %in% model){
 
           model <- naiveBayes(class~., data=training, ...)
           prediction <- predict(model, testing[,-dim(endm)[2]])
@@ -425,7 +425,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
           lesvm <- list()
         }
 
-        if ("LMT" %in% algo){
+        if ("LMT" %in% model){
 
           model <- train(class~., method = "LMT", data=training, ...)
           prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
@@ -442,7 +442,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
           lesvm <- list()
         }
 
-        if ("nnet" %in% algo){
+        if ("nnet" %in% model){
 
           nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
           model <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
@@ -460,7 +460,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
           lesvm <- list()
         }
 
-        if ("knn" %in% algo){
+        if ("knn" %in% model){
 
           model <- knn3(class~., data = training, k = 5, ...)
           prediction <- predict(model, testing[,-dim(endm)[2]], type = "class")
@@ -503,7 +503,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
       testing <- endm[muestra,]
       training <- endm[-muestra,]
 
-      if ("svm" %in% algo){
+      if ("svm" %in% model){
 
         model <- svm(class~., data=training, type = "C-classification", ...)
         prediction <- predict(model, testing)
@@ -517,7 +517,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         lesvm <- list()
       }
 
-      if ("randomForest" %in% algo){
+      if ("randomForest" %in% model){
 
         model <- randomForest(class~., data=training, importance=TRUE, ...)
         prediction <- predict(model, testing[,-dim(endm)[2]])
@@ -531,7 +531,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         lesvm <- list()
       }
 
-      if ("naiveBayes" %in% algo){
+      if ("naiveBayes" %in% model){
 
         model <- naiveBayes(class~., data=training, ...)
         prediction <- predict(model, testing[,-dim(endm)[2]])
@@ -545,7 +545,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         lesvm <- list()
       }
 
-      if ("LMT" %in% algo){
+      if ("LMT" %in% model){
 
         model <- train(class~., method = "LMT", data=training, ...)
         prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
@@ -559,7 +559,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         lesvm <- list()
       }
 
-      if ("nnet" %in% algo){
+      if ("nnet" %in% model){
 
         nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
         model <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
@@ -574,7 +574,7 @@ calmla <- function(img, endm, algo = c("svm", "randomForest", "naiveBayes", "LMT
         lesvm <- list()
       }
 
-      if ("knn" %in% algo){
+      if ("knn" %in% model){
 
         model <- knn3(class~., data = training, k = 5, ...)
         prediction <- predict(model, testing[,-dim(endm)[2]], type = "class")
