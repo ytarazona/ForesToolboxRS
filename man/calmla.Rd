@@ -7,7 +7,7 @@
 calmla(
   img,
   endm,
-  algo = c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn"),
+  model = c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn"),
   training_split = 50,
   approach = "Set-Approach",
   k = 5,
@@ -22,7 +22,7 @@ calmla(
 \item{endm}{SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
 containing the training data.}
 
-\item{algo}{Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
+\item{model}{Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
 \code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})
 like \code{model = 'randomForest'}, Naive Bayes (\link[e1071]{naiveBayes})
 like \code{model = 'naiveBayes'}, Decision Tree (\link[caret]{train})
@@ -99,7 +99,7 @@ data(FTdata)
 
 # Support Vector Machine and Random Forest Classifiers
 # Calibrating using "Set-Approach"
-knn <- calmla(img = image, endm = endm, algo = c("svm", "randomForest"), training_split = 80,
+knn <- calmla(img = image, endm = endm, model = c("svm", "randomForest"), training_split = 80,
            approach = "Set-Approach", iter = 10)
 
 }

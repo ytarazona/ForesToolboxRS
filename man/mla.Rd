@@ -4,7 +4,7 @@
 \alias{mla}
 \title{Supervised and unsupervised classification in Remote Sensing}
 \usage{
-mla(img, endm, model = "svm", training_split = 80, verbose = FALSE, ...)
+mla(img, endm, model, training_split = 80, verbose = FALSE, ...)
 }
 \arguments{
 \item{img}{RasterStack or RasterBrick.}
