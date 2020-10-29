@@ -63,7 +63,6 @@ sma <- function(img, endm, verbose = FALSE){
 
   if(verbose){
     message(paste0(paste0(rep("*",10), collapse = ""), " Obtaining fractions through least squares " , paste0(rep("*",10), collapse = "")))
-    print(model_algo)
   }
 
   if(dim(df)[2] > dim(endm)[1]){
@@ -79,7 +78,6 @@ sma <- function(img, endm, verbose = FALSE){
 
       if(verbose){
         message(paste0(paste0(rep("*",10), collapse = ""), " Obtaining Root Mean Square Error " , paste0(rep("*",10), collapse = "")))
-        print(model_algo)
       }
 
       # We estimate the RMSE
@@ -89,7 +87,6 @@ sma <- function(img, endm, verbose = FALSE){
 
       if(verbose){
         message(paste0(paste0(rep("*",10), collapse = ""), " Save the fractions on a raster " , paste0(rep("*",10), collapse = "")))
-        print(model_algo)
       }
 
       # We store the fractions on a raster

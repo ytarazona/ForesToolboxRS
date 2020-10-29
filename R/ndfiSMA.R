@@ -35,7 +35,7 @@
 #' data(FTdata)
 #'
 #' # Unmix the image
-#' ndfi <- ndfiSMA(img, procesLevel="SR")
+#' ndfi <- ndfiSMA(img = image, procesLevel="SR")
 #' plot(ndfi)
 #'
 ndfiSMA <- function(img, procesLevel="SR", verbose = FALSE){
@@ -43,14 +43,13 @@ ndfiSMA <- function(img, procesLevel="SR", verbose = FALSE){
   if (is(img, "RasterStack") | is(img, "RasterBrick")) {
     df <- as.matrix(img)
   } else {
-    stop(class(img), " This class is not supported yet.", call. = TRUE)
+    stop(class(img), ": This class is not supported yet. It must be RasterStack or RasterBrick", call. = TRUE)
   }
 
   if (procesLevel=="SR") {
 
     if(verbose){
       message(paste0(paste0(rep("*",10), collapse = ""), " Endmembers in surface reflectance " , paste0(rep("*",10), collapse = "")))
-      print(model_algo)
     }
 
     # Endmembers
@@ -66,7 +65,6 @@ ndfiSMA <- function(img, procesLevel="SR", verbose = FALSE){
 
     if(verbose){
       message(paste0(paste0(rep("*",10), collapse = ""), " Endmembers in TOA value " , paste0(rep("*",10), collapse = "")))
-      print(model_algo)
     }
 
     # Endmembers
@@ -85,7 +83,6 @@ ndfiSMA <- function(img, procesLevel="SR", verbose = FALSE){
 
   if(verbose){
     message(paste0(paste0(rep("*",10), collapse = ""), " Obtaining fractions through least squares " , paste0(rep("*",10), collapse = "")))
-    print(model_algo)
   }
 
   # Spectral Mixture Analysis
@@ -114,7 +111,6 @@ ndfiSMA <- function(img, procesLevel="SR", verbose = FALSE){
 
   if(verbose){
     message(paste0(paste0(rep("*",10), collapse = ""), " Obtaining the NDFI index " , paste0(rep("*",10), collapse = "")))
-    print(model_algo)
   }
 
   gv <- fractions[,1]*100; gv[gv < 0] <- 0 # Green Vegetation

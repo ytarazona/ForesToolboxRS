@@ -6,7 +6,7 @@
 #' @author Yonatan Tarazona
 #'
 #' @section References:
-#' Tarazona, Y., Mar?a, Miyasiro-L?pez. (2020). Monitoring tropical forest degradation using
+#' Tarazona, Y., Maria, Miyasiro-Lopez. (2020). Monitoring tropical forest degradation using
 #' remote sensing. Challenges and opportunities in the Madre de Dios region, Peru. Remote
 #' Sensing Applications: Society and Environment, 19, 100337.
 #'
@@ -38,15 +38,18 @@
 #' data(FTdata)
 #'
 #' # Selecting the best k value
-#' best_k <- calkmeans(img = img[[1:2]], k = NULL, iter.max = 10,
+#' best_k <- calkmeans(img = image[[1:2]], k = NULL, iter.max = 10,
 #'            algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), iter = 30)
 #' # Jambu Elbow
 #' plot(best_k)
 #'
 #'
 #'# Selecting the best embedded algorithm in kmeans
-#' best_algo <- calkmeans(img = img[[1:2]], k = 4, iter.max = 10,
+#' best_algo <- calkmeans(img = image[[1:2]], k = 4, iter.max = 10,
 #'            algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), iter = 30)
+#'
+#' # Choose the algorithm with the highest value
+#' best_algo
 #'
 #' @export
 #'
@@ -191,7 +194,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
 
     resulFinal <- c(vecIner.hw, vecIner.l, vecIner.f, vecIner.m)
 
-    return(structure(resulFinal, class = "calkmeans"))
+    return(resulFinal)
 
   }
 
@@ -202,6 +205,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
 
 #' Plot for the "calkmeans" class
 #'
+#' @export
 #'
 plot.calkmeans <- function(x, xlab, ylab, type, main, cex, ...){
 

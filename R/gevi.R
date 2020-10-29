@@ -19,8 +19,10 @@
 #' Sentinel2MSI \tab coastal,blue,green,red,nir-1,mir-1,mir-2 \cr
 #' }
 #'
-#' @param x It could be RasterStack or RasterBrick.
+#' @param img It could be RasterStack or RasterBrick.
 #' @param sat Specify satellite and sensor type (Landsat5TM, Landsat7ETM or Landsat8OLI).
+#'
+#' @importFrom raster as.matrix
 #'
 #' @examples
 #' library(ForesToolboxRS)
@@ -30,11 +32,16 @@
 #' data(FTdata)
 #'
 #' # Tasseled-cap using Landsat8OLI
-#' tasscap <- tct(x = img, sat = "Landsat8OLI")
+#' gevi_index <- gevi(img = image/10000, sat = "Landsat8OLI")
+#'
+#' # Improving the plot histogram
+#' gevi_index[gevi_index > 1] <- NA
+#' gevi_index[gevi_index < -1] <- NA
+#' plot(gevi_index)
 #'
 #' @export
 #'
-gevi <- function(x, sat = "Landsat8OLI"){
+gevi <- function(img, sat = "Landsat8OLI"){
 
   if (sat == "Landsat4TM"){
     coefc <- matrix(c(0.3037,  0.2793,  0.4743, 0.5585, 0.5082,   0.1863,
@@ -74,7 +81,7 @@ gevi <- function(x, sat = "Landsat8OLI"){
                                                  c("B1","B2","B3","B4","B8","B11","B12")))
   } else stop("Satellite not supported.", call. = TRUE)
 
-  val <- as.matrix(x)%*%t(coefc)
+  val <- as.matrix(img)%*%t(coefc)
 
   bgw <- img[[1:3]]
 

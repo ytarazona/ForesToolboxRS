@@ -38,6 +38,8 @@
 #' @param sat Specify satellite and sensor type (Landsat5TM, Landsat7ETM
 #' or Landsat8OLI).
 #'
+#' @importFrom raster as.matrix
+#'
 #' @examples
 #' library(ForesToolboxRS)
 #' library(raster)
@@ -46,11 +48,14 @@
 #' data(FTdata)
 #'
 #' # Tasseled-cap using Landsat8OLI
-#' sat_tct <- tct(img, sat="Landsat8OLI")
+#' sat_tct <- tct(img = image, sat="Landsat8OLI")
+#' plotRGB(sat_tct, 1,2,3, stretch="lin")
 #'
 #'@export
 #'
-tct <- function(x=img, sat="Landsat8OLI"){
+tct <- function(img, sat="Landsat8OLI"){
+
+  if(!inherits(img, "Raster")) stop("img must be a RasterBrick or RasterStack", call. = TRUE)
 
   if (sat=="Landsat4TM"){
     coefc <- matrix(c(0.3037,  0.2793,  0.4743, 0.5585, 0.5082,   0.1863,
@@ -90,7 +95,7 @@ tct <- function(x=img, sat="Landsat8OLI"){
                                                 c("B1","B2","B3","B4","B8","B11","B12")))
   } else stop("Satellite not supported.")
 
-  val <- as.matrix(x)%*%t(coefc)
+  val <- as.matrix(img)%*%t(coefc)
 
   bgw <- img[[1:3]]
 
