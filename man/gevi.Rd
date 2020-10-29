@@ -4,10 +4,10 @@
 \alias{gevi}
 \title{Greenness Vegetation Index (GEVI)}
 \usage{
-gevi(x, sat = "Landsat8OLI")
+gevi(img, sat = "Landsat8OLI")
 }
 \arguments{
-\item{x}{It could be RasterStack or RasterBrick.}
+\item{img}{It could be RasterStack or RasterBrick.}
 
 \item{sat}{Specify satellite and sensor type (Landsat5TM, Landsat7ETM or Landsat8OLI).}
 }
@@ -39,7 +39,12 @@ library(raster)
 data(FTdata)
 
 # Tasseled-cap using Landsat8OLI
-tasscap <- tct(x = img, sat = "Landsat8OLI")
+gevi_index <- gevi(img = image/10000, sat = "Landsat8OLI")
+
+# Improving the plot histogram
+gevi_index[gevi_index > 1] <- NA
+gevi_index[gevi_index < -1] <- NA
+plot(gevi_index)
 
 }
 \author{

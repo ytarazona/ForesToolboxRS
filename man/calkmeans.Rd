@@ -37,7 +37,7 @@ the best k value and the best embedded algorithm in kmeans.
 }
 \section{References}{
 
-Tarazona, Y., Mar?a, Miyasiro-L?pez. (2020). Monitoring tropical forest degradation using
+Tarazona, Y., Maria, Miyasiro-Lopez. (2020). Monitoring tropical forest degradation using
 remote sensing. Challenges and opportunities in the Madre de Dios region, Peru. Remote
 Sensing Applications: Society and Environment, 19, 100337.
 
@@ -60,15 +60,18 @@ library(ForesToolboxRS)
 data(FTdata)
 
 # Selecting the best k value
-best_k <- calkmeans(img = img[[1:2]], k = NULL, iter.max = 10,
+best_k <- calkmeans(img = image[[1:2]], k = NULL, iter.max = 10,
            algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), iter = 30)
 # Jambu Elbow
 plot(best_k)
 
 
 # Selecting the best embedded algorithm in kmeans
-best_algo <- calkmeans(img = img[[1:2]], k = 4, iter.max = 10,
+best_algo <- calkmeans(img = image[[1:2]], k = 4, iter.max = 10,
            algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), iter = 30)
+
+# Choose the algorithm with the highest value
+best_algo
 
 }
 \author{

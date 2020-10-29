@@ -4,13 +4,13 @@
 \alias{tct}
 \title{Tasseled Cap Transformation (TCT)}
 \usage{
-tct(x = img, sat = "Landsat8OLI")
+tct(img, sat = "Landsat8OLI")
 }
 \arguments{
+\item{img}{It could be RasterStack or RasterBrick.}
+
 \item{sat}{Specify satellite and sensor type (Landsat5TM, Landsat7ETM
 or Landsat8OLI).}
-
-\item{img}{It could be RasterStack or RasterBrick.}
 }
 \description{
 The Tasseled-Cap Transformation is a linear transformation method for various
@@ -57,7 +57,8 @@ library(raster)
 data(FTdata)
 
 # Tasseled-cap using Landsat8OLI
-sat_tct <- tct(img, sat="Landsat8OLI")
+sat_tct <- tct(img = image, sat="Landsat8OLI")
+plotRGB(sat_tct, 1,2,3, stretch="lin")
 
 }
 \author{

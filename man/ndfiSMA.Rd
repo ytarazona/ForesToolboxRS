@@ -44,7 +44,7 @@ library(raster)
 data(FTdata)
 
 # Unmix the image
-ndfi <- ndfiSMA(img, procesLevel="SR")
+ndfi <- ndfiSMA(img = image, procesLevel="SR")
 plot(ndfi)
 
 }
