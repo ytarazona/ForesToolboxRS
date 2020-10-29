@@ -6,9 +6,7 @@ coverage](https://codecov.io/gh/csaybar/ForesToolboxRS/branch/master/graph/badge
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC)
 
-```html
-_<div class="alert alert-success"><font color='darkblue'> Intro GEE: Introducción a Google Earth Engine</font></div>_
-```
+<font color="green"> Some green text </font>
 
 # ForesToolboxRS
 
