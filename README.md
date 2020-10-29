@@ -7,7 +7,7 @@ coverage](https://codecov.io/gh/csaybar/ForesToolboxRS/branch/master/graph/badge
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC)
 
 
-<h3 style="color:#ff0000">Danger</h3>
+<h3 style="color:#f03c15">Danger</h3>
 
 
 # ForesToolboxRS
