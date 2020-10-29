@@ -202,12 +202,16 @@ values     : 1, 4  (min, max)
 ```
 
 ```R
-# Plot the classification
+# Plotting classification
+par(mfrow = c(1,2), mar = c(3, 4, 3, 3))
+# Landsat-8 image
+plotRGB(image, 6,5,2, stretch="lin")
+# Classification
 colmap <- c("#0000FF","#228B22","#FF1493", "#00FF00")
-plot(classRF$Classification, col = colmap)
+plot(classRF$Classification, col = colmap, axes = F)
 ```
 
 The output:
 
-<img src="docs/figures/ndfi_serie_pvtsTs4.jpg" width = 75%/>
+<img src="docs/figures/Readme_Image2-1.jpg" width = 75%/>
 
