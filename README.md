@@ -6,21 +6,7 @@ coverage](https://codecov.io/gh/csaybar/ForesToolboxRS/branch/master/graph/badge
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC)
 
-```html
-<h2>Example of code</h2>
-
-<pre>
-    <div class="container">
-        <div class="block two first">
-            <h2>Your title</h2>
-            <div class="wrap">
-            //Your content
-            </div>
-        </div>
-    </div>
-</pre>
-```
-
+<img src="docs/figures/warning.jpg" width = 75%/>
 
 # ForesToolboxRS
 
