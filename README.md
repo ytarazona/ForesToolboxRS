@@ -6,9 +6,11 @@ coverage](https://codecov.io/gh/csaybar/ForesToolboxRS/branch/master/graph/badge
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC)
 
-
-<span style="color: green"> Some green text </span>
-
+```html
+<div class="bg-blue-light mb-2">
+  .text-gray-dark on .bg-blue-light
+</div>
+```
 
 # ForesToolboxRS
 
