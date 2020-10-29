@@ -7,7 +7,7 @@ coverage](https://codecov.io/gh/csaybar/ForesToolboxRS/branch/master/graph/badge
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC)
 
 ```diff
-- text in red
+ text in red
 ```
 
 # ForesToolboxRS
