@@ -7,9 +7,7 @@ coverage](https://codecov.io/gh/csaybar/ForesToolboxRS/branch/master/graph/badge
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC)
 
 ```html
-<div class="bg-blue-light mb-2">
-  .text-gray-dark on .bg-blue-light
-</div>
+<h3 style="color:#ff0000">Danger</h3>
 ```
 
 # ForesToolboxRS
