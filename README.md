@@ -6,11 +6,9 @@ coverage](https://codecov.io/gh/csaybar/ForesToolboxRS/branch/master/graph/badge
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC)
 
-```html
-<div class="text-white bg-blue mb-2">
-  .text-white on .bg-blue
-</div>
-```
+
+<h3 style="color:#ff0000">Danger</h3>
+
 
 # ForesToolboxRS
 
