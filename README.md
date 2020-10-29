@@ -8,7 +8,7 @@ coverage](https://codecov.io/gh/csaybar/ForesToolboxRS/branch/master/graph/badge
 
 # ForesToolboxRS
 
-> :warning: **Note!**: This package is still under construction, so that some of the functions may still need support :hourglass_flowing_sand:.
+> :warning: **Note!**: This package is still under construction, so that some of the functions may still need support. => soon :hourglass_flowing_sand:
 
 **ForesToolboxRS** is an initiative that is inspired by the work of [Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving tropical deforestation detection through using photosynthetic vegetation time series (PVts-Beta). Ecological Indicators, 94, 367-379.](https://doi.org/10.1016/j.ecolind.2018.07.012).
 
@@ -48,6 +48,7 @@ To install the latest development version directly from the GitHub repository. B
 ```R
 library(devtools)
 install_github("ytarazona/ForesToolboxRS")
+suppressMessages(library(ForesToolboxRS))
 ```
 
 # Examples
@@ -57,6 +58,7 @@ install_github("ytarazona/ForesToolboxRS")
 Here an Normalized Difference Fraction Index (NDFI) between 2000 and 2019 (28 data), one NDFI for each year, and we will detect a change in 2008 (position 19). The NDFI value ranges from -1 to 1.
 
 ```R
+suppressMessages(library(ForesToolboxRS))
 # NDFI series
 ndfi <- c(0.86,0.93,0.97,0.91,0.95,0.96,0.91,0.88,0.92,0.89,0.90,0.89,0.91,
           0.92,0.89,0.90,0.92,0.84,0.46,0.13, 0.12,0.18,0.14,0.25,0.17,0.15,0.18,0.20)
@@ -77,7 +79,6 @@ If the idea is to detect changes in 2008 (position 19), then we will smooth the 
 
 ```R
 suppressMessages(library(ForesToolboxRS))
-
 ndfi_smooth <- ndfi
 ndfi_smooth[1:19] <- smootH(ndfi[1:19])
 
@@ -96,7 +97,7 @@ The output:
 
 ### 1.1 Breakpoint using a specific Index (vector)
 
-To detect changes, either we can have a vector (using a specific index (position)) as input or a time series. Let's first detect changes with a vector, a then with a time series. 
+To detect changes, either we can have a vector (using a specific index (position)) or a time series as input. Let's first detect changes with a vector, a then with a time series. 
 
 Let's use the output of the *smootH* function (**ndfi_smooth**).
 
@@ -108,7 +109,6 @@ Parameters:
 
 ```R
 suppressMessages(library(ForesToolboxRS))
-
 # Detect changes in 2008 (position 19)
 cd <- pvts(x = ndfi_smooth, startm = 19, endm = 19, threshold = 5)
 plot(cd)
@@ -117,7 +117,7 @@ The output:
 
 <img src="docs/figures/ndfi_serie_pvtsVect3.jpg" width = 75%/>
 
-### 1.2 Breakpoint using Time Series
+### 1.3 Breakpoint using Time Series
 
 Parameters:
 - **x**: smoothed series preferably to optimize detections.
@@ -127,7 +127,6 @@ Parameters:
 
 ```R
 suppressMessages(library(ForesToolboxRS))
-
 # Let´s create a time series of the variable "ndfi"
 ndfi_ts <- ts(ndfi, start = 1990, end = 2017, frequency = 1)
 
@@ -145,20 +144,70 @@ The output:
 
 ### 2. Classification in Remote Sensing (**`mla`** function)
 
-For this tutorial, Landsat 8 OLI was used. To download the image [Here](https://drive.google.com/file/d/1Xf1A84fJN20eC578GwwOsVSuoxLuCRGJ/view?usp=sharing). 
+For this tutorial, Landsat 8 OLI image and signatures were used. Download the data [Here](https://drive.google.com/file/d/1Xf1A84fJN20eC578GwwOsVSuoxLuCRGJ/view?usp=sharing).
+
+#### 2.1 Applying Random Forest (Supervised classification)
+
+Parameters:
+- **img**: RasterStack (Landsat 8 OLI).
+- **endm**: Signatures, SpatialPointsDataFrame (shapefile).
+- **model**: Random Forest like 'svm'.
+- **training_split**: 80 percent to train and 20 percent to validate the model.
 
 ```R
-library(ForesToolboxRS)
-library(raster)
-load("FTdata.RData")
+suppressMessages(library(ForesToolboxRS))
+suppressMessages(library(raster))
+suppressMessages(library(snow))
+suppressMessages(library(caret))
+suppressMessages(library(rgdal))
 
-image_path <- ".../your/path/LC08_232066_20190727.tif"
-image <- stack(img_path)
+# Read raster
+image_path <- "your/folder/LC08_232066_20190727_SR.tif"
+image <- stack(image_path)
 
-class_svm <- mla(img = image, endm = endme, training_split=80, testing_split=20)
+# Read signatures
+sig <- readOGR("C:/ForesToolboxRS_tutorials/ExamplesFTRS","signatures")
 
-plot(cd)
+# Classification with Random Forest
+classRF <- mla(img = image, model = "randomForest", endm = sig, training_split = 80)
+
+# Results
+print(classRF)
+
+******************** ForesToolboxRS CLASSIFICATION ********************
+
+****Overall Accuracy****
+      Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull AccuracyPValue 
+  8.863636e+01   8.472222e+01   8.009321e+01   9.441420e+01   3.181818e+01   1.683253e-26 
+
+****Confusion Matrix****
+                   1   2        3        4 Total Users_Accuracy Commission
+1                 18   0  0.00000  0.00000    18      100.00000    0.00000
+2                  2  19  0.00000  0.00000    21       90.47619    9.52381
+3                  0   0 17.00000  4.00000    21       80.95238   19.04762
+4                  0   0  4.00000 24.00000    28       85.71429   14.28571
+Total             20  19 21.00000 28.00000    NA             NA         NA
+Producer_Accuracy 90 100 80.95238 85.71429    NA             NA         NA
+Omission          10   0 19.04762 14.28571    NA             NA         NA
+
+****Classification Map****
+class      : RasterLayer 
+dimensions : 1163, 1434, 1667742  (nrow, ncol, ncell)
+resolution : 0.0002694946, 0.0002694946  (x, y)
+extent     : -64.15723, -63.77077, -8.827834, -8.514412  (xmin, xmax, ymin, ymax)
+crs        : +proj=longlat +datum=WGS84 +no_defs 
+source     : memory
+names      : layer 
+values     : 1, 4  (min, max)
 ```
 
+```R
+# Plot the classification
+colmap <- c("#0000FF","#228B22","#FF1493", "#00FF00")
+plot(classRF$Classification, col = colmap)
+```
 
+The output:
+
+<img src="docs/figures/ndfi_serie_pvtsTs4.jpg" width = 75%/>
 
