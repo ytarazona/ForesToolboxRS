@@ -213,5 +213,5 @@ plot(classRF$Classification, col = colmap, axes = F)
 
 The output:
 
-<img src="docs/figures/Readme_Image2-1.jpg" width = 75%/>
+<img src="docs/figures/Readme_Image2-1.jpg" width = 100%/>
 
