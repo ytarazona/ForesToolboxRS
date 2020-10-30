@@ -167,7 +167,7 @@ image_path <- "your/folder/LC08_232066_20190727_SR.tif"
 image <- stack(image_path)
 
 # Read signatures
-sig <- readOGR("C:/ForesToolboxRS_tutorials/ExamplesFTRS","signatures")
+sig <- readOGR(""your/folder/shp","signatures")
 
 # Classification with Random Forest
 classRF <- mla(img = image, model = "randomForest", endm = sig, training_split = 80)
