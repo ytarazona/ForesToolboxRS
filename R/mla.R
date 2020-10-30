@@ -1,6 +1,6 @@
 #' Supervised and unsupervised classification in Remote Sensing
 #'
-#' This developed function allows to execute supervised and unsupervised classification
+#' This developed function allows to execute supervised classification
 #' in satellite images through various algorithms.
 #'
 #' @author Yonatan Tarazona
@@ -88,8 +88,6 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...){
 
   algoSM <- c("svm", "randomForest", "naiveBayes", "knn")
 
-  algonsp <- c("kmeans")
-
   if(verbose){
     message(paste0(paste0(rep("*",10), collapse = ""), " The origin of the signatures are ", TypeEndm , paste0(rep("*",10), collapse = "")))
   }
@@ -109,11 +107,6 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...){
                            training_split*dim(endm)[1]/100)
     testing <- endm[sample_split,]
     training <- endm[-sample_split,]
-
-  } else if (model %in% algonsp) {
-    # Values and NA position
-    vr <- getValues(img)
-    i <- which(!is.na(vr))
 
   }
 
@@ -140,15 +133,7 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...){
 
   }
 
-  if (model=="kmeans") {
-
-    # Applying kmeans
-    km <- kmeans(na.omit(vr), ...)
-
-    raster_class <- raster(img)
-    raster_class[i] <- km$cluster
-
-  } else if (model=="svm"){
+  if (model=="svm"){
 
     # Applying svm
     model_algo <- svm(class~., data=training, type = "C-classification", ...)
@@ -196,44 +181,31 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...){
     message(paste0(paste0(rep("*",10), collapse = ""), " Apply model to the raster " , paste0(rep("*",10), collapse = "")))
   }
 
-  if (model!="kmeans"){
+  if (model %in% algoSM) {
 
-    if (model %in% algoSM) {
-
-      # Apply model to the raster
-      beginCluster(type="SOCK")
-      raster_class <- clusterR(img, raster::predict, args = list(model = model_algo, type="class"))
-      endCluster()
-
-    } else {
-
-      raster_class <- predict(img, model = model_algo)
-
-    }
-
-  }
-
-  if (model=="kmeans"){
-
-    names(raster_class) <- kmeans_class
-    return(raster_class)
+    # Apply model to the raster
+    beginCluster(type="SOCK")
+    raster_class <- clusterR(img, raster::predict, args = list(model = model_algo, type="class"))
+    endCluster()
 
   } else {
 
-    if(verbose){
-      message(paste0(paste0(rep("*",10), collapse = ""), " Confusion Matrix and finel result " , paste0(rep("*",10), collapse = "")))
-    }
-
-    # Confusion matrix
-    MC <- errorMatrix(prediction = prediction, reference = testing[,dim(endm)[2]])
-
-    results <- list(Overall_accuracy = (confusionMatrix(MC$MC_ini)$overall[1:6])*100,
-                    Confusion_matrix = MC$MCf,
-                    Classification = raster_class)
-
-    return(structure(results, class = "mla"))
+    raster_class <- predict(img, model = model_algo)
 
   }
+
+  if(verbose){
+    message(paste0(paste0(rep("*",10), collapse = ""), " Confusion Matrix and finel result " , paste0(rep("*",10), collapse = "")))
+  }
+
+  # Confusion matrix
+  MC <- errorMatrix(prediction = prediction, reference = testing[,dim(endm)[2]])
+
+  results <- list(Overall_accuracy = (confusionMatrix(MC$MC_ini)$overall[1:6])*100,
+                  Confusion_matrix = MC$MCf,
+                  Classification = raster_class)
+
+  return(structure(results, class = "mla"))
 
 }
 
