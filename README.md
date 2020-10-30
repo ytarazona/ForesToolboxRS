@@ -29,7 +29,8 @@ Availables functions:
 | **`pvts`**                | This algorithm will allow to detect disturbances in the forests using all the available Landsat set. In fact, it can also be run with sensors such as MODIS.
 | **`pvtsRaster`**          | This algorithm will allow to detect disturbances in the forests using all the available Landsat set. In fact, it can also be run with sensors such as MODIS.     |
 | **`smootH`**              | In order to eliminate outliers in the time series, a  temporary smoothing is used.                  |
-| **`mla`**                 | This developed function allows to execute supervised and unsupervised classification in satellite images through various algorithms.                        |
+| **`mla`**                 | This developed function allows to execute supervised classification in satellite images through various algorithms.|
+| **`rkmeans`**                 | This function allows to classify satellite images using k-means.|
 | **`calmla`**              | This function allows to calibrate supervised classification in satellite images through various algorithms and using approches such as Set-Approach, Leave-One-Out Cross-Validation (LOOCV), Cross-Validation (k-fold) and Monte Carlo Cross-Validation (MCCV). |
 | **`calkmeans`**           | This function allows to calibrate the kmeans algorithm. It is possible to obtain the best k value and the best embedded algorithm in kmeans.      |
 | **`coverChange`**         | This algorithm is able to obtain gain and loss in land cover classification.                                      |
@@ -208,10 +209,43 @@ par(mfrow = c(1,2), mar = c(3, 4, 3, 3))
 plotRGB(image, 6,5,2, stretch="lin")
 # Classification
 colmap <- c("#0000FF","#228B22","#FF1493", "#00FF00")
-plot(classRF$Classification, col = colmap, axes = F)
+plot(classRF$Classification, main = "RandomForest Classification", col = colmap, axes = F)
 ```
 
 The output:
 
 <img src="docs/figures/Readme_Image2-1.jpg" width = 100%/>
+
+#### 2.2 Applying K-means (Unsupervised classification)
+
+Parameters:
+- **img**: RasterStack (Landsat 8 OLI).
+- **k**: the number of clusters.
+- **algo**: "MacQueen".
+
+```R
+suppressMessages(library(ForesToolboxRS))
+suppressMessages(library(raster))
+
+# Read raster
+image_path <- "your/folder/LC08_232066_20190727_SR.tif"
+image <- stack(image_path)
+
+# Classification with K-means
+classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
+```
+
+```R
+# Plotting classification
+par(mfrow = c(1,2), mar = c(3, 4, 3, 3))
+# Landsat-8 image
+plotRGB(image, 6,5,2, stretch="lin")
+# Classification
+colmap <- c("#0000FF","#00FF00","#228B22", "#FF1493")
+plot(classKmeans, main = "K-means Classification", col = colmap, axes = F)
+```
+
+The output:
+
+<img src="docs/figures/Readme_Image2-2.jpg" width = 100%/>
 
