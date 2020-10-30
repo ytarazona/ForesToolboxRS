@@ -25,7 +25,7 @@ testing data.}
 \item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
 }
 \description{
-This developed function allows to execute supervised and unsupervised classification
+This developed function allows to execute supervised classification
 in satellite images through various algorithms.
 }
 \section{References}{
