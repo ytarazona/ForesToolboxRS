@@ -10,8 +10,6 @@ coverage](https://codecov.io/gh/csaybar/ForesToolboxRS/branch/master/graph/badge
 
 > :warning: **Note!**: This package is still under construction, so that some of the functions may still need support. => soon :hourglass_flowing_sand:
 
-**ForesToolboxRS** is an initiative that is inspired by the work of [Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving tropical deforestation detection through using photosynthetic vegetation time series (PVts-Beta). Ecological Indicators, 94, 367-379.](https://doi.org/10.1016/j.ecolind.2018.07.012).
-
 <img src="docs/figures/Readme-image.png">
 
 # Funding
