@@ -68,7 +68,7 @@ lines(ndfi, col = "gray45")
 ```
 The output:
 
-<img src="docs/figures/ndfi_serie1.png" width = 75%/>
+<img src="docs/figures/ndfi_serie1.png" width = 100%/>
 
 ### 1.1 Applying a smoothing (**`smootH`** function)
 
