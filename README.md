@@ -90,7 +90,7 @@ points(ndfi_smooth, pch = 20, col = "blue")
 ```
 The output:
 
-<img src="docs/figures/ndfi_serie_smooth2.jpg" width = 75%/>
+<img src="docs/figures/ndfi_serie_smooth2.jpg" width = 90%/>
 
 > **Note**: You can change the detection threshold if you need to. 
 
