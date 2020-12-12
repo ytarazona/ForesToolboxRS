@@ -114,7 +114,7 @@ plot(cd)
 ```
 The output:
 
-<img src="docs/figures/ndfi_serie_pvtsVect3.jpg" width = 90%/>
+<img src="docs/figures/ndfi_serie_pvtsVect3.png" width = 90%/>
 
 ### 1.3 Breakpoint using Time Series
 
