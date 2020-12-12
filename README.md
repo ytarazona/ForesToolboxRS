@@ -102,8 +102,8 @@ Let's use the output of the *smootH* function (**ndfi_smooth**).
 
 Parameters:
 - **x**: smoothed series preferably to optimize detections.
-- **startm**: monitoring year, index 19 (i.e., year 2018)
-- **endm**: year of final monitoring, index 19 (i.e., also year 2018)
+- **startm**: monitoring year, index 19 (i.e., year 2008)
+- **endm**: year of final monitoring, index 19 (i.e., also year 2008)
 - **threshold**: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI or EVI series you can use 5, 3 or 3 respectively. Please see [Tarazona et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326) for more details.
 
 ```R
@@ -120,8 +120,8 @@ The output:
 
 Parameters:
 - **x**: smoothed series preferably to optimize detections.
-- **startm**: monitoring year, in this case year 2018.
-- **endm**: year of final monitoring, also year 2018.
+- **startm**: monitoring year, in this case year 2008.
+- **endm**: year of final monitoring, also year 2008.
 - **threshold**: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI or EVI series you can use 5, 3 or 3 respectively. Please see [Tarazona et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326) for more details.
 
 ```R
@@ -140,6 +140,25 @@ plot(cd)
 The output:
 
 <img src="docs/figures/ndfi_serie_pvtsTs4.png" width = 90%/>
+
+### 1.4 Breakpoint Not Detected
+
+Parameters:
+- **x**: smoothed series preferably to optimize detections.
+- **startm**: monitoring year, index 16 (i.e., year 2005)
+- **endm**: year of final monitoring, index 16 (i.e., also year 2005)
+- **threshold**: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI or EVI series you can use 5, 3 or 3 respectively. Please see [Tarazona et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326) for more details.
+
+```R
+suppressMessages(library(ForesToolboxRS))
+
+# Detect changes in 2008
+cd <- pvts(x = ndfi_smooth, startm = 2005, endm = 2005,  threshold = 5)
+plot(cd)
+```
+The output:
+
+<img src="docs/figures/ndfi_serie_pvtsVect5.png" width = 90%/>
 
 ### 2. Classification in Remote Sensing (**`mla`** function)
 
