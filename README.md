@@ -139,7 +139,7 @@ plot(cd)
 ```
 The output:
 
-<img src="docs/figures/ndfi_serie_pvtsTs4.jpg" width = 75%/>
+<img src="docs/figures/ndfi_serie_pvtsTs4.png" width = 90%/>
 
 ### 2. Classification in Remote Sensing (**`mla`** function)
 
