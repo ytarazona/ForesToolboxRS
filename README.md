@@ -152,7 +152,7 @@ Parameters:
 ```R
 suppressMessages(library(ForesToolboxRS))
 
-# Detect changes in 2008
+# Detect changes in 2005
 cd <- pvts(x = ndfi_smooth, startm = 2005, endm = 2005,  threshold = 5)
 plot(cd)
 ```
@@ -265,4 +265,10 @@ plot(classKmeans, main = "K-means Classification", col = colmap, axes = F)
 The output:
 
 <img src="docs/figures/Readme_Image2-2.jpg" width = 100%/>
+
+### 3. Calibrating supervised classification (**`calmla`** function)
+
+For this tutorial, Landsat 8 OLI image and signatures were used. Download the data [Here](https://drive.google.com/drive/folders/1vH0mSAndVNErRjlQ6rZ1zdnTgpvNUU1R?usp=sharing).
+
+#### 2.1 Applying Random Forest (Supervised classification)
 
