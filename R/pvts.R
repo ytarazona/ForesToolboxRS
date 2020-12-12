@@ -30,7 +30,7 @@
 #' @importFrom raster values
 #' @importFrom forecast na.interp
 #'
-#' @param x Vector, univariate time series (class "ts") or a matrix without NA's.
+#' @param x Vector (class "numeric"), univariate time series (class "ts") without NA's.
 #' @param startm The start of the monitoring time.
 #' @param endm The end of the monitoring time.
 #' @param threshold The default threshold is 5 for photosynthetic vegetation,
@@ -49,7 +49,7 @@
 #'          0.27,0.22,0.52,0.63,0.61,0.67,0.64,0.86)
 #'
 #' # Detecting changes in 2008 (position 19)
-#' # First, let´s apply a smoothing
+#' # First, applying a smoothing
 #' ndfi_smooth <- ndfi
 #' ndfi_smooth[1:19] <- smootH(ndfi[1:19])
 #'
@@ -66,7 +66,9 @@
 #'
 pvts <- function(x, startm, endm, threshold = 5, verbose = FALSE) {
 
-  if(!inherits(x, "numeric") | !inherits(x, "ts")) stop("x must be numeric or time serie (ts)", call. = TRUE)
+  typeVar <- c("numeric", "ts")
+
+  if (!class(x) %in% typeVar) stop("x must be numeric vector (numeric) or time serie (ts)", call. = TRUE)
 
   if (any(is.na(x))){
     stop("The object cannot contain NA. Please use the smootH function of this package to fill missing data and then smooth it.", call. = TRUE)

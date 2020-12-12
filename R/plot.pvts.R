@@ -22,7 +22,7 @@ plot.pvts <- function(x, ylab, type, col, lwd, main, ...){
   }
 
   if (!is.na(x$Breakpoint[1])) {
-    label <- "Breakpoint Detected"
+    label <- "Breakpoint Detected: Non-seasonal detection approach"
   } else {
     label <- "Breakpoint Not Detected"
   }
