@@ -18,7 +18,7 @@ The development of this package was funded by [American Program in GIS and Remot
 
 # Introduction
 
-**ForesToolboxRS** is a R package that was created to provide a variety of tools and algorithms for the processing and analysis of satallite images for the different applications of Remote Sensing for Earth Observation. All implemented algorithms are based on scientific publications. **The PVts-Beta approach**, a non-seasonal detection approach, is implemented in this package and is capable of reading time series, vector, matrix and raster data. Some functions of this package are intended to show, on the one hand, some progress in methods for mapping deforestation, forest degradation, and on the other hand, to provide some tools (not yet available) for routine analysis of remotely detected data. Tools for calibration of unsupervised and supervised algorithms through various calibration approaches are some of the functions embedded in this package. Much of the authors' experience in the field of Remote Sensing is collected by this package, therefore we sincerely hope that **ForesToolboxRS** can facilitate different analyses and simple and robust processes in satellite images.
+**ForesToolboxRS** is a R package that was created to provide a variety of tools and algorithms for the processing and analysis of satallite images for the different applications of Remote Sensing for Earth Observation. All implemented algorithms are based on scientific publications. **The PVts-Beta approach**, a non-seasonal detection approach, is implemented in this package and is capable of reading time series, vector, matrix and raster data. Some functions of this package are intended to show, on the one hand, some progress in methods for mapping deforestation, forest degradation, and on the other hand, to provide some tools (not yet available) for routine analysis of remotely detected data. Tools for calibration of unsupervised and supervised algorithms through various calibration approaches are some of the functions embedded in this package. Therefore we sincerely hope that **ForesToolboxRS** can facilitate different analyses and simple and robust processes in satellite images.
 
 Availables functions:
 
@@ -68,7 +68,7 @@ lines(ndfi, col = "gray45")
 ```
 The output:
 
-<img src="docs/figures/ndfi_serie1.jpg" width = 75%/>
+<img src="docs/figures/ndfi_serie1.png" width = 75%/>
 
 ### 1.1 Applying a smoothing (**`smootH`** function)
 
