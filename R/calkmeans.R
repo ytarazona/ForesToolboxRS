@@ -63,7 +63,9 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
 
     algo_test <- c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueenn")
 
-    if (!algo %in% algo_test) stop("Unsupported algorithm. \nAlgortihm must be Hartigan-Wong, Lloyd, Forgy or MacQueen", call. = TRUE)
+    if (!identical(intersect(algo, algo_test), algo)) stop("Unsupported algorithm. \nAlgortihm must be Hartigan-Wong, Lloyd, Forgy or MacQueen", call. = TRUE)
+
+    #if (!algo %in% algo_test) stop("Unsupported algorithm. \nAlgortihm must be Hartigan-Wong, Lloyd, Forgy or MacQueen", call. = TRUE)
 
     vr <- getValues(img)
 
