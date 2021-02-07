@@ -52,13 +52,9 @@ pvtsRaster <- function(x, startm, endm, threshold = 5, img, vf = FALSE, verbose 
 
   if (is(x, "matrix")) {
 
-    breakR <- img
-
-    if(dim(breakR)[3]!=1) stop("img must have one band", call. = TRUE)
-
-    if(dim(x)[1]!=dim(breakR)[1]) stop("x and img must have the same row", call. = TRUE)
-
-    if(dim(x)[2]!=dim(breakR)[2]) stop("x and img must have the same col", call. = TRUE)
+    if (any(is.na(x))){
+      stop("The object cannot contain NA.", call. = TRUE)
+    }
 
     if(verbose){
       message(paste0(paste0(rep("*",10), collapse = ""), " Calculating the mean, standard deviation and lower limit" , paste0(rep("*",10), collapse = "")))
@@ -68,15 +64,18 @@ pvtsRaster <- function(x, startm, endm, threshold = 5, img, vf = FALSE, verbose 
     mean.pvts <- apply(x[,1:(startm-1)], 1, mean)
     std.ptvs <- apply(x[,1:(startm-1)], 1, sd)
     cd <- ifelse(x[,endm] < (mean.pvts - threshold*std.ptvs), 1, 0)
-    values(breakR) <- cd
 
-    # Photosynthetic vegetation?
-
-    if (vf) {
-      breakR[img < 50 | img < 0.5 | img < 5000] <- 0
-    }
+    return(cd)
 
   } else if (is(x,'RasterStack') | is(x,'RasterBrick')) {
+
+    breakR <- img
+
+    if(dim(breakR)[3]!=1) stop("img must have one band", call. = TRUE)
+
+    if(dim(x)[1]!=dim(breakR)[1]) stop("x and img must have the same row", call. = TRUE)
+
+    if(dim(x)[2]!=dim(breakR)[2]) stop("x and img must have the same col", call. = TRUE)
 
     img <- x[[endm-1]]
     breakR <- x[[1]]
@@ -99,8 +98,8 @@ pvtsRaster <- function(x, startm, endm, threshold = 5, img, vf = FALSE, verbose 
       breakR[img < 50 | img < 0.5 | img < 5000] <- 0
     }
 
-  } else stop(class(x), ' class is not supported', call. = TRUE)
+    return(breakR)
 
-  return(breakR)
+  } else stop(class(x), ' class is not supported', call. = TRUE)
 
 }
