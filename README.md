@@ -12,6 +12,10 @@ coverage](https://codecov.io/gh/csaybar/ForesToolboxRS/branch/master/graph/badge
 
 <img src="docs/figures/Readme-image.png">
 
+# IEEE Geoscience and Remote Sensing Letters
+
+This repository is part of the paper "Fusing Landsat and SAR data for mapping tropical deforestation through machine learning classification and the PVts-beta non-seasonal detection approach" submitted to Canadian Journal of Remote Sensing.
+
 # Funding
 
 The development of this package was funded by [American Program in GIS and Remote Sensing (APROGIS)](https://www.apgis-rs.com/). ARROGIS was established in 2018 as a leading scientific institution and pioneer in the field of Remote Sensing and Geographic Information Systems (GIS). APROGIS promotes the use of state-of-the-art space technology and earth observation for the sustainable development of states. It is an institution capable of generating new knowledge through publications in different journals in the field of Remote Sensing. More about APROGIS [here](https://www.apgis-rs.com/acerca-de-nosotros/mision-y-vision).
@@ -270,5 +274,10 @@ The output:
 
 For this tutorial, Landsat 8 OLI image and signatures were used. Download the data [Here](https://drive.google.com/drive/folders/1vH0mSAndVNErRjlQ6rZ1zdnTgpvNUU1R?usp=sharing).
 
-#### 2.1 Applying Random Forest (Supervised classification)
+#### 3.1 Random Forest vs Support Vector Machine
 
+
+
+```R
+cal_ml <- calmla(img = image, endm = endm, model = c("randomForest", "svm"), training_split = 80, approach = "Set-Approach", iter = 10)
+```
