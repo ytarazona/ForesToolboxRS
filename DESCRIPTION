@@ -7,7 +7,27 @@ Authors@R:
              family = "Tarazona Coronel",
              role = c("aut","cre"),
              email = "geoyons@gmail.com",
-             comment = c(ORCID = "0000-0002-5208-1004")))
+             comment = c(ORCID = "0000-0002-5208-1004"))),
+      person(given = "Alaitz",
+                   family = "Zabala",
+	                 role = c("ctb"),
+	                 email = "alaitz.zabala@uab.cat",
+	                 comment = c(ORCID = "0000-0002-3931-4221")),
+	    person(given = "Xavier",
+                   family = "Pons",
+	                 role = c("ctb"),
+	                 email = "xavier.pons@uab.cat",
+	                 comment = c(ORCID = "0000-0002-6924-1641")),
+	    person(given = "Antoni",
+                   family = "Broquetas",
+	                 role = c("ctb"),
+	                 email = "broquetas@tsc.upc.edu",
+	                 comment = c(ORCID = "0000-0001-9801-9145")),
+	    person(given = "Hamdi",
+                   family = "A. Zurqani",
+	                 role = c("ctb"),
+	                 email = "hzurqan@clemson.edu",
+	                 comment = c(ORCID = "0000-0002-9250-4534")))
 Description: Remote sensing tools for forest monitoring includes a series of 
     novel techniques to monitor forest through optical images and fusion of optical 
     and microwave data. All tools are based on scientific publications.
