@@ -1,7 +1,7 @@
 #' Calibrating Supervised classification in Remote Sensing
 #'
 #' This function allows to calibrate supervised classification in satellite images
-#' through various algorithms and using approches such as Set-Approach,
+#' through various algorithms and using approaches such as Set-Approach,
 #' Leave-One-Out Cross-Validation (LOOCV), Cross-Validation (k-fold) and
 #' Monte Carlo Cross-Validation (MCCV).
 #'
@@ -143,8 +143,8 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
       training$class <- as.factor(training$class)
 
 
-      model <- svm(class~., data=training, type = "C-classification", ...)
-      prediction <- predict(model, testing)
+      model_svm <- svm(class~., data=training, type = "C-classification", ...)
+      prediction <- predict(model_svm, testing)
       # Confusion Matrix
       MC <- table(prediction, testing[,dim(endm)[2]])
       # Overall accuracy
@@ -163,8 +163,8 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
       rf_error_sa[i] <- error_rf
 
 
-      model <- naiveBayes(class~., data=training, ...)
-      prediction <- predict(model, testing[,-dim(endm)[2]])
+      models <- naiveBayes(class~., data=training, ...)
+      prediction <- predict(models, testing[,-dim(endm)[2]])
       # Confusion Matrix
       MC <- table(prediction, testing[,dim(endm)[2]])
       # Overall accuracy
@@ -173,8 +173,8 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
       nb_error_sa[i] <- error
 
 
-      model <- train(class~., method = "LMT", data=training, ...)
-      prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
+      models <- train(class~., method = "LMT", data=training, ...)
+      prediction <- predict(models, testing[,-dim(endm)[2]], type = "raw")
       # Confusion Matrix
       MC <- table(prediction, testing[,dim(endm)[2]])
       # Overall accuracy
@@ -184,8 +184,8 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
 
 
       nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
-      model <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
-      prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
+      models <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
+      prediction <- predict(models, testing[,-dim(endm)[2]], type = "raw")
       # Confusion Matrix
       MC <- table(prediction, testing[,dim(endm)[2]])
       # Overall accuracy
@@ -194,8 +194,8 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
       nt_error_sa[i] <- error
 
 
-      model <- knn3(class~., data = training, k = 5, ...)
-      prediction <- predict(model, testing[,-dim(endm)[2]], type = "class")
+      models <- knn3(class~., data = training, k = 5, ...)
+      prediction <- predict(models, testing[,-dim(endm)[2]], type = "class")
       # Confusion Matrix
       MC <- table(prediction, testing[,dim(endm)[2]])
       # Overall accuracy
@@ -205,28 +205,45 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
 
     }
 
-    if (!"svm" %in% model){
+    # svm
+    int_svm <- intersect("svm", model)
+    if (length(int_svm) == 0) int_svm <- "NoValue"
+    if ("svm" == int_svm){
       lesvm <- list(svm = svm_error_sa)
     } else lesvm <- list()
 
-
-    if (!"randomForest" %in% model){
+    # randomForest
+    int_rf <- intersect("randomForest", model)
+    if (length(int_rf) == 0) int_rf <- "NoValue"
+    if ("randomForest" == int_rf){
       lerf <- list(randomForest = rf_error_sa)
     } else lerf <- list()
 
-    if (!"naiveBayes" %in% model){
+    # naiveBayes
+    int_nb <- intersect("naiveBayes", model)
+    if (length(int_nb) == 0) int_nb <- "NoValue"
+    if ("naiveBayes" == int_nb){
       lenb <- list(naiveBayes = nb_error_sa)
     } else lenb <- list()
 
-    if (!"LMT" %in% model){
+    # LMT
+    int_rp <- intersect("LMT", model)
+    if (length(int_rp) == 0) int_rp <- "NoValue"
+    if ("LMT" == int_rp){
       ledt <- list(rpart = rp_error_sa)
     } else ledt <- list()
 
-    if (!"nnet" %in% model){
+    # nnet
+    int_nt <- intersect("nnet", model)
+    if (length(int_nt) == 0) int_nt <- "NoValue"
+    if ("nnet" == int_nt){
       lennet <- list(nnet = nt_error_sa)
     } else lennet <- list()
 
-    if (!"knn" %in% model){
+    # knn
+    int_knn <- intersect("knn", model)
+    if (length(int_knn) == 0) int_knn <- "NoValue"
+    if ("knn" == int_knn){
       leknn <- list(knn = kn_error_sa)
     } else leknn <- list()
 
@@ -261,8 +278,8 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
         training$class <- as.factor(training$class)
 
 
-        model <- svm(class~., data=training, type = "C-classification", ...)
-        prediction <- predict(model, testing)
+        models <- svm(class~., data=training, type = "C-classification", ...)
+        prediction <- predict(models, testing)
         if(prediction != testing$class){
           svm_ini_error <- svm_ini_error + 1
         }
@@ -275,30 +292,30 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
         }
 
 
-        model <- naiveBayes(class~., data=training, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]])
+        models <- naiveBayes(class~., data=training, ...)
+        prediction <- predict(models, testing[,-dim(endm)[2]])
         if(prediction != testing$class){
           nb_ini_error <- nb_ini_error + 1
         }
 
 
-        model <- train(class~., method = "LMT", data=training, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
+        models <- train(class~., method = "LMT", data=training, ...)
+        prediction <- predict(models, testing[,-dim(endm)[2]], type = "raw")
         if(prediction != testing$class){
           rp_ini_error <- rp_ini_error + 1
         }
 
 
         nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
-        model <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
+        models <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
+        prediction <- predict(models, testing[,-dim(endm)[2]], type = "raw")
         if(prediction != testing$class){
           nt_ini_error <- nt_ini_error + 1
         }
 
 
-        model <- knn3(class~., data = training, k = 5, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]], type = "class")
+        models <- knn3(class~., data = training, k = 5, ...)
+        prediction <- predict(models, testing[,-dim(endm)[2]], type = "class")
         if(prediction != testing$class){
           kn_ini_error <- kn_ini_error + 1
         }
@@ -314,28 +331,45 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
 
     }
 
-    if (!"svm" %in% model){
+    # svm
+    int_svm <- intersect("svm", model)
+    if (length(int_svm) == 0) int_svm <- "NoValue"
+    if ("svm" == int_svm){
       lesvm <- list(svm_loocv = svm_error_loocv)
     } else lesvm <- list()
 
-
-    if (!"randomForest" %in% model){
+    # randomForest
+    int_rf <- intersect("randomForest", model)
+    if (length(int_rf) == 0) int_rf <- "NoValue"
+    if ("randomForest" == int_rf){
       lerf <- list(randomForest_loocv = rf_error_loocv)
     } else lerf <- list()
 
-    if (!"naiveBayes" %in% model){
+    # naiveBayes
+    int_nb <- intersect("naiveBayes", model)
+    if (length(int_nb) == 0) int_nb <- "NoValue"
+    if ("naiveBayes" == int_nb){
       lenb <- list(naiveBayes_loocv = nb_error_loocv)
     } else lenb <- list()
 
-    if (!"LMT" %in% model){
+    # LMT
+    int_rp <- intersect("LMT", model)
+    if (length(int_rp) == 0) int_rp <- "NoValue"
+    if ("LMT" == int_rp){
       ledt <- list(rpart_loocv = rp_error_loocv)
     } else ledt <- list()
 
-    if (!"nnet" %in% model){
+    # nnet
+    int_nt <- intersect("nnet", model)
+    if (length(int_nt) == 0) int_nt <- "NoValue"
+    if ("nnet" == int_nt){
       lennet <- list(nnet_loocv = nt_error_loocv)
     } else lennet <- list()
 
-    if (!"knn" %in% model){
+    # knn
+    int_knn <- intersect("knn", model)
+    if (length(int_knn) == 0) int_knn <- "NoValue"
+    if ("knn" == int_knn){
       leknn <- list(knn_loocv = kn_error_loocv)
     } else leknn <- list()
 
@@ -374,8 +408,8 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
         training$class <- as.factor(training$class)
 
 
-        model <- svm(class~., data=training, type = "C-classification", ...)
-        prediction <- predict(model, testing)
+        models <- svm(class~., data=training, type = "C-classification", ...)
+        prediction <- predict(models, testing)
         # Confusion Matrix
         MC <- table(prediction, testing[,dim(endm)[2]])
         # Overall accuracy
@@ -384,8 +418,8 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
         svm_ini_error <- svm_ini_error + error
 
 
-        model <- randomForest(class~., data=training, importance=TRUE, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]])
+        models <- randomForest(class~., data=training, importance=TRUE, ...)
+        prediction <- predict(models, testing[,-dim(endm)[2]])
         # Confusion Matrix
         MC <- table(prediction, testing[,dim(endm)[2]])
         # Overall accuracy
@@ -394,8 +428,8 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
         rf_ini_error <- rf_ini_error + error
 
 
-        model <- naiveBayes(class~., data=training, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]])
+        models <- naiveBayes(class~., data=training, ...)
+        prediction <- predict(models, testing[,-dim(endm)[2]])
         # Confusion Matrix
         MC <- table(prediction, testing[,dim(endm)[2]])
         # Overall accuracy
@@ -404,8 +438,8 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
         nb_ini_error <- nb_ini_error + error
 
 
-        model <- train(class~., method = "LMT", data=training, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
+        models <- train(class~., method = "LMT", data=training, ...)
+        prediction <- predict(models, testing[,-dim(endm)[2]], type = "raw")
         # Confusion Matrix
         MC <- table(prediction, testing[,dim(endm)[2]])
         # Overall accuracy
@@ -415,8 +449,8 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
 
 
         nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
-        model <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
+        models <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
+        prediction <- predict(models, testing[,-dim(endm)[2]], type = "raw")
         # Confusion Matrix
         MC <- table(prediction, testing[,dim(endm)[2]])
         # Overall accuracy
@@ -425,8 +459,8 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
         nt_ini_error <- nt_ini_error + error
 
 
-        model <- knn3(class~., data = training, k = 5, ...)
-        prediction <- predict(model, testing[,-dim(endm)[2]], type = "class")
+        models <- knn3(class~., data = training, k = 5, ...)
+        prediction <- predict(models, testing[,-dim(endm)[2]], type = "class")
         # Confusion Matrix
         MC <- table(prediction, testing[,dim(endm)[2]])
         # Overall accuracy
@@ -445,28 +479,45 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
 
     }
 
-    if (!"svm" %in% model){
+    # svm
+    int_svm <- intersect("svm", model)
+    if (length(int_svm) == 0) int_svm <- "NoValue"
+    if ("svm" == int_svm){
       lesvm <- list(svm_kfold = svm_error_kf)
     } else lesvm <- list()
 
-
-    if (!"randomForest" %in% model){
+    # randomForest
+    int_rf <- intersect("randomForest", model)
+    if (length(int_rf) == 0) int_rf <- "NoValue"
+    if ("randomForest" == int_rf){
       lerf <- list(randomForest_kfold = rf_error_kf)
     } else lerf <- list()
 
-    if (!"naiveBayes" %in% model){
+    # naiveBayes
+    int_nb <- intersect("naiveBayes", model)
+    if (length(int_nb) == 0) int_nb <- "NoValue"
+    if ("naiveBayes" == int_nb){
       lenb <- list(naiveBayes_kfold = nb_error_kf)
     } else lenb <- list()
 
-    if (!"LMT" %in% model){
+    # LMT
+    int_rp <- intersect("LMT", model)
+    if (length(int_rp) == 0) int_rp <- "NoValue"
+    if ("LMT" == int_rp){
       ledt <- list(rpart_kfold = rp_error_kf)
     } else ledt <- list()
 
-    if (!"nnet" %in% model){
+    # nnet
+    int_nt <- intersect("nnet", model)
+    if (length(int_nt) == 0) int_nt <- "NoValue"
+    if ("nnet" == int_nt){
       lennet <- list(nnet_kfold = nt_error_kf)
     } else lennet <- list()
 
-    if (!"knn" %in% model){
+    # knn
+    int_knn <- intersect("knn", model)
+    if (length(int_knn) == 0) int_knn <- "NoValue"
+    if ("knn" == int_knn){
       leknn <- list(knn_kfold = kn_error_kf)
     } else leknn <- list()
 
@@ -489,7 +540,7 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
     for (i in 1:iter) {
 
       # Training and Testing
-      muestra <- groups_mc[[i]]
+      muestra <- groups_mc[i,]
       testing <- endm[muestra,]
       testing$class <- as.factor(testing$class)
 
@@ -497,32 +548,32 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
       training$class <- as.factor(training$class)
 
 
-      model <- svm(class~., data=training, type = "C-classification", ...)
-      prediction <- predict(model, testing)
+      models <- svm(class~., data=training, type = "C-classification", ...)
+      prediction <- predict(models, testing)
       # Confusion Matrix
       MC <- table(prediction, testing[,dim(endm)[2]])
       # error
       svm_error_mccv[i] <- 1 - sum(diag(MC))/sum(MC)
 
 
-      model <- randomForest(class~., data=training, importance=TRUE, ...)
-      prediction <- predict(model, testing[,-dim(endm)[2]])
+      models <- randomForest(class~., data=training, importance=TRUE, ...)
+      prediction <- predict(models, testing[,-dim(endm)[2]])
       # Confusion Matrix
       MC <- table(prediction, testing[,dim(endm)[2]])
       # error
       rf_error_mccv[i] <- 1 - sum(diag(MC))/sum(MC)
 
 
-      model <- naiveBayes(class~., data=training, ...)
-      prediction <- predict(model, testing[,-dim(endm)[2]])
+      models <- naiveBayes(class~., data=training, ...)
+      prediction <- predict(models, testing[,-dim(endm)[2]])
       # Confusion Matrix
       MC <- table(prediction, testing[,dim(endm)[2]])
       # error
       nb_error_mccv[i] <- 1 - sum(diag(MC))/sum(MC)
 
 
-      model <- train(class~., method = "LMT", data=training, ...)
-      prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
+      models <- train(class~., method = "LMT", data=training, ...)
+      prediction <- predict(models, testing[,-dim(endm)[2]], type = "raw")
       # Confusion Matrix
       MC <- table(prediction, testing[,dim(endm)[2]])
       # error
@@ -530,16 +581,16 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
 
 
       nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
-      model <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
-      prediction <- predict(model, testing[,-dim(endm)[2]], type = "raw")
+      models <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
+      prediction <- predict(models, testing[,-dim(endm)[2]], type = "raw")
       # Confusion Matrix
       MC <- table(prediction, testing[,dim(endm)[2]])
       # error
       nt_error_mccv[i] <- 1 - sum(diag(MC))/sum(MC)
 
 
-      model <- knn3(class~., data = training, k = 5, ...)
-      prediction <- predict(model, testing[,-dim(endm)[2]], type = "class")
+      models <- knn3(class~., data = training, k = 5, ...)
+      prediction <- predict(models, testing[,-dim(endm)[2]], type = "class")
       # Confusion Matrix
       MC <- table(prediction, testing[,dim(endm)[2]])
       # error
@@ -547,28 +598,45 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
 
     }
 
-    if (!"svm" %in% model){
+    # svm
+    int_svm <- intersect("svm", model)
+    if (length(int_svm) == 0) int_svm <- "NoValue"
+    if ("svm" == int_svm){
       lesvm <- list(svm_mccv = svm_error_mccv)
     } else lesvm <- list()
 
-
-    if (!"randomForest" %in% model){
+    # randomForest
+    int_rf <- intersect("randomForest", model)
+    if (length(int_rf) == 0) int_rf <- "NoValue"
+    if ("randomForest" == int_rf){
       lerf <- list(randomForest_mccv = rf_error_mccv)
     } else lerf <- list()
 
-    if (!"naiveBayes" %in% model){
+    # naiveBayes
+    int_nb <- intersect("naiveBayes", model)
+    if (length(int_nb) == 0) int_nb <- "NoValue"
+    if ("naiveBayes" == int_nb){
       lenb <- list(naiveBayes_mccv = nb_error_mccv)
     } else lenb <- list()
 
-    if (!"LMT" %in% model){
+    # LMT
+    int_rp <- intersect("LMT", model)
+    if (length(int_rp) == 0) int_rp <- "NoValue"
+    if ("LMT" == int_rp){
       ledt <- list(rpart_mccv = rp_error_mccv)
     } else ledt <- list()
 
-    if (!"nnet" %in% model){
+    # nnet
+    int_nt <- intersect("nnet", model)
+    if (length(int_nt) == 0) int_nt <- "NoValue"
+    if ("nnet" == int_nt){
       lennet <- list(nnet_mccv = nt_error_mccv)
     } else lennet <- list()
 
-    if (!"knn" %in% model){
+    # knn
+    int_knn <- intersect("knn", model)
+    if (length(int_knn) == 0) int_knn <- "NoValue"
+    if ("knn" == int_knn){
       leknn <- list(knn_mccv = kn_error_mccv)
     } else leknn <- list()
 
@@ -578,7 +646,7 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
 
   } else {
 
-    stop("Unsupported interpolation method.", call. = TRUE)
+    stop("Unsupported calibration approach.", call. = TRUE)
   }
 
 }
