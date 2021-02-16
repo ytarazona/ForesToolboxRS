@@ -125,6 +125,10 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
 
   if (approach == "Set-Approach"){
 
+    if(verbose){
+      message(paste0(paste0(rep("*",10), collapse = ""), " Calibrating with Set-Approach ", TypeEndm , paste0(rep("*",10), collapse = "")))
+    }
+
     svm_error_sa <- rep(0,iter)
     rf_error_sa <- rep(0,iter)
     nb_error_sa <- rep(0,iter)
@@ -253,6 +257,10 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
 
   } else if (approach == "LOOCV"){
 
+    if(verbose){
+      message(paste0(paste0(rep("*",10), collapse = ""), " Calibrating with Leave One Out Cross-Validation (LOOCV) ", TypeEndm , paste0(rep("*",10), collapse = "")))
+    }
+
     svm_error_loocv <- rep(0,iter)
     rf_error_loocv <- rep(0,iter)
     nb_error_loocv <- rep(0,iter)
@@ -378,6 +386,10 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
     return(resulFinal)
 
   } else if (approach == "k-fold"){
+
+    if(verbose){
+      message(paste0(paste0(rep("*",10), collapse = ""), " Calibrating with Cross-Validation (k-fold) ", TypeEndm , paste0(rep("*",10), collapse = "")))
+    }
 
     svm_error_kf <- rep(0,iter)
     rf_error_kf <- rep(0,iter)
@@ -525,7 +537,11 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
 
     return(resulFinal)
 
-  } else if ("MCCV" %in% approach){
+  } else if (approach == "MCCV"){
+
+    if(verbose){
+      message(paste0(paste0(rep("*",10), collapse = ""), " Calibrating with Monte Carlo Cross-Validation (MCCV) ", TypeEndm , paste0(rep("*",10), collapse = "")))
+    }
 
     svm_error_mccv <- rep(0,iter)
     rf_error_mccv <- rep(0,iter)
