@@ -61,7 +61,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
 
   if(is.null(k)) {
 
-    algo_test <- c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueenn")
+    algo_test <- c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen")
 
     if (!identical(intersect(algo, algo_test), algo)) stop("Unsupported algorithm. \nAlgortihm must be Hartigan-Wong, Lloyd, Forgy or MacQueen", call. = TRUE)
 
@@ -69,7 +69,11 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
 
     vr <- getValues(img)
 
-    if ("Hartigan-Wong" %in% algo){
+    # Hartigan-Wong
+    int_hw <- intersect("Hartigan-Wong", algo)
+    if (length(int_hw) == 0) int_hw <- "NoValue"
+
+    if (int_hw == "Hartigan-Wong"){
 
       IntraIC.Hartigan_wong <- rep(0, iter)
       for (k in 1:iter) {
@@ -82,7 +86,11 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
       vecIner.hw <- list()
     }
 
-    if ("Lloyd" %in% algo){
+    # Lloyd
+    int_l <- intersect("Lloyd", algo)
+    if (length(int_l) == 0) int_l <- "NoValue"
+
+    if (int_l == "Lloyd"){
 
       IntraIC.Lloyd <- rep(0, iter)
       for (k in 1:iter) {
@@ -95,7 +103,11 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
       vecIner.l <- list()
     }
 
-    if ("Forgy" %in% algo){
+    # Forgy
+    int_f <- intersect("Forgy", algo)
+    if (length(int_f) == 0) int_f <- "NoValue"
+
+    if (int_f == "Forgy"){
 
       IntraIC.Forgy <- rep(0, iter)
       for (k in 1:iter) {
@@ -108,7 +120,11 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
       vecIner.f <- list()
     }
 
-    if ("MacQueen" %in% algo){
+    # MacQueen
+    int_m <- intersect("MacQueen", algo)
+    if (length(int_m) == 0) int_m <- "NoValue"
+
+    if (int_m == "MacQueen"){
 
       IntraIC.MacQueen <- rep(0, iter)
       for (k in 1:iter) {
@@ -134,7 +150,11 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
 
     vr <- getValues(img)
 
-    if ("Hartigan-Wong" %in% algo){
+    # Hartigan-Wong
+    int_hw <- intersect("Hartigan-Wong", algo)
+    if (length(int_hw) == 0) int_hw <- "NoValue"
+
+    if (int_hw == "Hartigan-Wong"){
 
       InterIC.Hartigan_wong <- 0
       for (k in 1:iter) {
@@ -149,7 +169,11 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
       vecIner.hw <- list()
     }
 
-    if ("Lloyd" %in% algo){
+    # Lloyd
+    int_l <- intersect("Lloyd", algo)
+    if (length(int_l) == 0) int_l <- "NoValue"
+
+    if (int_l == "Lloyd"){
 
       InterIC.Lloyd <- 0
       for (k in 1:iter) {
@@ -164,7 +188,11 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
       vecIner.l <- list()
     }
 
-    if ("Forgy" %in% algo){
+    # Forgy
+    int_f <- intersect("Forgy", algo)
+    if (length(int_f) == 0) int_f <- "NoValue"
+
+    if (int_f == "Forgy"){
 
       InterIC.Forgy <- 0
       for (k in 1:iter) {
@@ -179,7 +207,11 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
       vecIner.f <- list()
     }
 
-    if ("MacQueen" %in% algo){
+    # MacQueen
+    int_m <- intersect("MacQueen", algo)
+    if (length(int_m) == 0) int_m <- "NoValue"
+
+    if (int_m == "MacQueen"){
 
       InterIC.MacQueen <- 0
       for (k in 1:iter) {
