@@ -69,6 +69,10 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
 
     vr <- getValues(img)
 
+    if(verbose){
+      message(paste0(paste0(rep("*",10), collapse = ""), " Selecting k for which the intra-class inertia is stabilized ", TypeEndm , paste0(rep("*",10), collapse = "")))
+    }
+
     # Hartigan-Wong
     int_hw <- intersect("Hartigan-Wong", algo)
     if (length(int_hw) == 0) int_hw <- "NoValue"
@@ -143,6 +147,10 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
 
 
   } else if (inherits(k, "numeric")) {
+
+    if(verbose){
+      message(paste0(paste0(rep("*",10), collapse = ""), " Selecting the best algorithm embedded in kmeans, that maximizes inter-class distances ", TypeEndm , paste0(rep("*",10), collapse = "")))
+    }
 
     algo_test <- c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueenn")
 
