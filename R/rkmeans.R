@@ -37,7 +37,7 @@
 #'
 #' @export
 #'
-rkmeans <- function(img, k, iter.max = 100, nstart = 50, algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), verbose = FALSE, ...){
+rkmeans <- function(img, k, iter.max = 100, nstart = 50, algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), ...){
 
   vr <- getValues(img)
   i <- which(!is.na(vr)) # NA positions
