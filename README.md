@@ -302,7 +302,7 @@ legend("topleft", c("Support Vector Machine", "Random Forest", "Naive Bayes", "K
 ```
 The output:
 
-<img src="docs/figures/Readme_Image3-1.jpg" width = 90%/>
+<img src="docs/figures/ReadmeImage3-1.jpg" width = 90%/>
 
 
 
