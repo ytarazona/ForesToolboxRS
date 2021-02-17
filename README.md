@@ -280,8 +280,8 @@ For this tutorial, Landsat-8 OLI image and signatures were used. Download the da
 
 Parameters:
 - **img**: RasterStack (Landsat-8 OLI).
-- **endm**: the number of clusters.
-- **model**: "MacQueen".
+- **endm**: Signatures.
+- **model**: c("svm", "randomForest", "naiveBayes", "knn"). Machine learning algorithms: Support Vector Machine, Random Forest, Naive Bayes, K-nearest Neighbors.
 - **training_split**: 80.
 - **approach**: "MCCV".
 - **iter**: 10.
