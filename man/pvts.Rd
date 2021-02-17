@@ -7,7 +7,7 @@
 pvts(x, startm, endm, threshold = 5, verbose = FALSE)
 }
 \arguments{
-\item{x}{Vector, univariate time series (class "ts") or a matrix without NA's.}
+\item{x}{Vector (class "numeric"), univariate time series (class "ts") without NA's.}
 
 \item{startm}{The start of the monitoring time.}
 
@@ -60,7 +60,7 @@ ndfi <- c(0.86,0.93,0.97,0.91,0.95,0.96,0.91,0.88,0.92,0.89,
          0.27,0.22,0.52,0.63,0.61,0.67,0.64,0.86)
 
 # Detecting changes in 2008 (position 19)
-# First, letÂ´s apply a smoothing
+# First, applying a smoothing
 ndfi_smooth <- ndfi
 ndfi_smooth[1:19] <- smootH(ndfi[1:19])
 
