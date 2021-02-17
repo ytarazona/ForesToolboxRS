@@ -10,7 +10,7 @@ calmla(
   model = c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn"),
   training_split = 50,
   approach = "Set-Approach",
-  k = 5,
+  k = 10,
   iter = 10,
   verbose = FALSE,
   ...
@@ -33,12 +33,12 @@ like \code{model = 'nnet'}, K-nearest Neighbors (\link[caret]{knn3}) like \code{
 for testing data.}
 
 \item{approach}{Calibration method. There are for options: Simple training and testing
-(Set-Approach) like \code{approach = 'Set-Approach'}, Leave One Out Cross-Validation (LOOCV) like
-\code{approach = 'LOOCV'}, Cross-Validation (K-fold) like \code{approach = 'K-fold'} and
-Monte Carlo Cross-Validation (MCCV) like \code{approach = 'MCCV'}.}
+(Set-Approach) like \code{approach == 'Set-Approach'}, Leave One Out Cross-Validation (LOOCV) like
+\code{approach == 'LOOCV'}, Cross-Validation (K-fold) like \code{approach == 'k-fold'} and
+Monte Carlo Cross-Validation (MCCV) like \code{approach == 'MCCV'}.}
 
 \item{k}{Number of groups for splitting samples. It must be used only with the
-Cross-Validation (k-fold) approach.}
+Cross-Validation (K-fold) approach.}
 
 \item{iter}{Number of iterations, i.e number of times the analysis is executed.}
 
@@ -46,7 +46,7 @@ Cross-Validation (k-fold) approach.}
 }
 \description{
 This function allows to calibrate supervised classification in satellite images
-through various algorithms and using approches such as Set-Approach,
+through various algorithms and using approaches such as Set-Approach,
 Leave-One-Out Cross-Validation (LOOCV), Cross-Validation (k-fold) and
 Monte Carlo Cross-Validation (MCCV).
 }
@@ -96,10 +96,9 @@ library(caret)
 # Load the dataset
 data(FTdata)
 
-
 # Support Vector Machine and Random Forest Classifiers
 # Calibrating using "Set-Approach"
-knn <- calmla(img = image, endm = endm, model = c("svm", "randomForest"), training_split = 80,
+cal_ml <- calmla(img = image, endm = endm, model = c("svm", "randomForest"), training_split = 80,
            approach = "Set-Approach", iter = 10)
 
 }
