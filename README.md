@@ -166,7 +166,7 @@ The output:
 
 ### 2. Classification in Remote Sensing (**`mla`** function)
 
-For this tutorial, Landsat 8 OLI image and signatures were used. Download the data [Here](https://drive.google.com/file/d/1Xf1A84fJN20eC578GwwOsVSuoxLuCRGJ/view?usp=sharing).
+For this tutorial, Landsat-8 OLI image and signatures were used. Download the data [Here](https://drive.google.com/file/d/1Xf1A84fJN20eC578GwwOsVSuoxLuCRGJ/view?usp=sharing).
 
 #### 2.1 Applying Random Forest (Supervised classification)
 
@@ -272,12 +272,37 @@ The output:
 
 ### 3. Calibrating supervised classification (**`calmla`** function)
 
-For this tutorial, Landsat 8 OLI image and signatures were used. Download the data [Here](https://drive.google.com/drive/folders/1vH0mSAndVNErRjlQ6rZ1zdnTgpvNUU1R?usp=sharing).
+For this tutorial, Landsat-8 OLI image and signatures were used. Download the data [Here](https://drive.google.com/drive/folders/1vH0mSAndVNErRjlQ6rZ1zdnTgpvNUU1R?usp=sharing).
 
-#### 3.1 Random Forest vs Support Vector Machine
+#### 3.1 Calibrating with Monte Carlo Cross-Validation (MCCV)
 
+**`ForesToolboxRS`** has several approaches to calibrate machine learning algorithms such as **Set-Approach**, **Leave One Out Cross-Validation (LOOCV)**, **Cross-Validation (k-fold)** and **Monte Carlo Cross-Validation (MCCV)**. 
 
+Parameters:
+- **img**: RasterStack (Landsat-8 OLI).
+- **endm**: the number of clusters.
+- **model**: "MacQueen".
+- **training_split**: 80.
+- **approach**: "MCCV".
+- **iter**: 10.
 
 ```R
-cal_ml <- calmla(img = image, endm = endm, model = c("randomForest", "svm"), training_split = 80, approach = "Set-Approach", iter = 10)
+cal_ml <- calmla(img = image, endm = sig, model = c("svm", "randomForest", "naiveBayes", "knn"), training_split = 80, approach = "MCCV", iter = 10)
 ```
+
+```R
+# Calibration result
+plot(cal_ml$svm_mccv, main = "Monte Carlo Cross-Validation calibration", col = "darkmagenta", type = "b",
+     ylim=c(0, 0.4), ylab="Error between 0 and 1", xlab = "Number of iterations")
+lines(cal_ml$randomForest_mccv, col = "red", type = "b")
+lines(cal_ml$naiveBayes_mccv, col = "green", type = "b")
+lines(cal_ml$knn_mccv, col = "blue", type = "b")
+legend("topleft", c("Support Vector Machine", "Random Forest", "Naive Bayes", "K-nearest Neighbors"),
+       col = c("darkmagenta","red","green", "blue"), lty = 1, cex = 0.7)
+```
+The output:
+
+<img src="docs/figures/Readme_Image3-1.jpg" width = 100%/>
+
+
+
