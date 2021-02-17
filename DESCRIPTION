@@ -7,7 +7,7 @@ Authors@R:
              family = "Tarazona Coronel",
              role = c("aut","cre"),
              email = "geoyons@gmail.com",
-             comment = c(ORCID = "0000-0002-5208-1004"))),
+             comment = c(ORCID = "0000-0002-5208-1004")),
       person(given = "Alaitz",
                    family = "Zabala",
 	                 role = c("ctb"),
