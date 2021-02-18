@@ -1,7 +1,7 @@
 #' Calibrating kmeans
 #'
 #' This function allows to calibrate the kmeans algorithm. It is possible to obtain
-#' the best k value and the best embedded algorithm in kmeans.
+#' the best \code{k} value and the best embedded algorithm in kmeans.
 #'
 #' @author Yonatan Tarazona
 #'
