@@ -306,19 +306,23 @@ The output:
 
 #### 3.2 Calibrating k-means (**`calkmeans`** function)
 
+This function allows to calibrate the *kmeans* algorithm. It is possible to obtain the best \code{k} value and the best embedded algorithm in kmeans. If we want to find the optimal value of \code{k} (clusters or classes), so we must put \code{k = NULL} as an argument of the function. Here, we are finding k for which the intra-class inertia is stabilized.
+
 Parameters:
 - **img**: RasterStack (Landsat 8 OLI).
 - **k**: the number of clusters.
-- **algo**: "MacQueen".
+- **iter.max**: The maximum number of iterations allowed. Strictly related to k-means.
+- **algo**: It can be "Hartigan-Wong", "Lloyd", "Forgy" or "MacQueen". Algorithms embedded in k-means.
+- **iter**: Iterations number to obtain the best k value.
 
 ```R
-# Plotting classification
-par(mfrow = c(1,2), mar = c(3, 4, 3, 3))
-# Landsat-8 image
-plotRGB(image, 6,5,2, stretch="lin")
-# Classification
-colmap <- c("#0000FF","#00FF00","#228B22", "#FF1493")
-plot(classKmeans, main = "K-means Classification", col = colmap, axes = F)
+# Elbow method
+best_k <- calkmeans(img = image, k = NULL, iter.max = 10,
+                    algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), iter = 20)
+```
+
+```R
+plot(best_k)
 ```
 
 The output:
