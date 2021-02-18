@@ -32,8 +32,8 @@ Availables functions:
 | **`pvtsRaster`**          | This algorithm will allow to detect disturbances in the forests using all the available Landsat set. In fact, it can also be run with sensors such as MODIS.     |
 | **`smootH`**              | In order to eliminate outliers in the time series, a  temporary smoothing is used.                  |
 | **`mla`**                 | This developed function allows to execute supervised classification in satellite images through various algorithms.|
-| **`rkmeans`**                 | This function allows to classify satellite images using k-means.|
 | **`calmla`**              | This function allows to calibrate supervised classification in satellite images through various algorithms and using approches such as Set-Approach, Leave-One-Out Cross-Validation (LOOCV), Cross-Validation (k-fold) and Monte Carlo Cross-Validation (MCCV). |
+| **`rkmeans`**                 | This function allows to classify satellite images using k-means.|
 | **`calkmeans`**           | This function allows to calibrate the kmeans algorithm. It is possible to obtain the best k value and the best embedded algorithm in kmeans.      |
 | **`coverChange`**         | This algorithm is able to obtain gain and loss in land cover classification.                                      |
 | **`linearTrend`**         | Linear trend is useful for mapping forest degradation, land degradation, among others. This algorithm is capable of obtaining the slope of an ordinary least-squares linear regression and its reliability (p-value). |
@@ -164,7 +164,7 @@ The output:
 
 <img src="docs/figures/ndfi_serie_pvtsVect5.png" width = 90%/>
 
-### 2. Classification in Remote Sensing (**`mla`** function)
+### 2. Supervised classification in Remote Sensing (**`mla`** function)
 
 For this tutorial, Landsat-8 OLI image and signatures were used. Download the data [Here](https://drive.google.com/file/d/1Xf1A84fJN20eC578GwwOsVSuoxLuCRGJ/view?usp=sharing).
 
@@ -237,7 +237,41 @@ The output:
 
 <img src="docs/figures/Readme_Image2-1.jpg" width = 100%/>
 
-#### 2.2 Applying K-means (Unsupervised classification)
+#### 2.2 Calibrating with Monte Carlo Cross-Validation (**`calmla`** function)
+
+**`ForesToolboxRS`** has several approaches to calibrate machine learning algorithms such as **Set-Approach**, **Leave One Out Cross-Validation (LOOCV)**, **Cross-Validation (k-fold)** and **Monte Carlo Cross-Validation (MCCV)**. 
+
+Parameters:
+- **img**: RasterStack (Landsat-8 OLI).
+- **endm**: Signatures.
+- **model**: c("svm", "randomForest", "naiveBayes", "knn"). Machine learning algorithms: Support Vector Machine, Random Forest, Naive Bayes, K-nearest Neighbors.
+- **training_split**: 80.
+- **approach**: "MCCV".
+- **iter**: 10.
+
+```R
+cal_ml <- calmla(img = image, endm = sig, model = c("svm", "randomForest", "naiveBayes", "knn"), training_split = 80, approach = "MCCV", iter = 10)
+```
+
+```R
+# Calibration result
+plot(cal_ml$svm_mccv, main = "Monte Carlo Cross-Validation calibration", col = "darkmagenta", type = "b",
+     ylim=c(0, 0.4), ylab="Error between 0 and 1", xlab = "Number of iterations")
+lines(cal_ml$randomForest_mccv, col = "red", type = "b")
+lines(cal_ml$naiveBayes_mccv, col = "green", type = "b")
+lines(cal_ml$knn_mccv, col = "blue", type = "b")
+legend("topleft", c("Support Vector Machine", "Random Forest", "Naive Bayes", "K-nearest Neighbors"),
+       col = c("darkmagenta","red","green", "blue"), lty = 1, cex = 0.7)
+```
+The output:
+
+<img src="docs/figures/ReadmeImage3-1.jpg" width = 90%/>
+
+### 3. Unsupervised classification in Remote Sensing (**`rkmeans`** function)
+
+For this tutorial, Landsat-8 OLI image and signatures were used. Download the data [Here](https://drive.google.com/file/d/1Xf1A84fJN20eC578GwwOsVSuoxLuCRGJ/view?usp=sharing).
+
+#### 3.1 Applying K-means
 
 Parameters:
 - **img**: RasterStack (Landsat 8 OLI).
@@ -270,39 +304,23 @@ The output:
 
 <img src="docs/figures/Readme_Image2-2.jpg" width = 100%/>
 
-### 3. Calibrating supervised classification (**`calmla`** function)
-
-For this tutorial, Landsat-8 OLI image and signatures were used. Download the data [Here](https://drive.google.com/drive/folders/1vH0mSAndVNErRjlQ6rZ1zdnTgpvNUU1R?usp=sharing).
-
-#### 3.1 Calibrating with Monte Carlo Cross-Validation (MCCV)
-
-**`ForesToolboxRS`** has several approaches to calibrate machine learning algorithms such as **Set-Approach**, **Leave One Out Cross-Validation (LOOCV)**, **Cross-Validation (k-fold)** and **Monte Carlo Cross-Validation (MCCV)**. 
+#### 3.2 Calibrating k-means (**`calkmeans`** function)
 
 Parameters:
-- **img**: RasterStack (Landsat-8 OLI).
-- **endm**: Signatures.
-- **model**: c("svm", "randomForest", "naiveBayes", "knn"). Machine learning algorithms: Support Vector Machine, Random Forest, Naive Bayes, K-nearest Neighbors.
-- **training_split**: 80.
-- **approach**: "MCCV".
-- **iter**: 10.
+- **img**: RasterStack (Landsat 8 OLI).
+- **k**: the number of clusters.
+- **algo**: "MacQueen".
 
 ```R
-cal_ml <- calmla(img = image, endm = sig, model = c("svm", "randomForest", "naiveBayes", "knn"), training_split = 80, approach = "MCCV", iter = 10)
+# Plotting classification
+par(mfrow = c(1,2), mar = c(3, 4, 3, 3))
+# Landsat-8 image
+plotRGB(image, 6,5,2, stretch="lin")
+# Classification
+colmap <- c("#0000FF","#00FF00","#228B22", "#FF1493")
+plot(classKmeans, main = "K-means Classification", col = colmap, axes = F)
 ```
 
-```R
-# Calibration result
-plot(cal_ml$svm_mccv, main = "Monte Carlo Cross-Validation calibration", col = "darkmagenta", type = "b",
-     ylim=c(0, 0.4), ylab="Error between 0 and 1", xlab = "Number of iterations")
-lines(cal_ml$randomForest_mccv, col = "red", type = "b")
-lines(cal_ml$naiveBayes_mccv, col = "green", type = "b")
-lines(cal_ml$knn_mccv, col = "blue", type = "b")
-legend("topleft", c("Support Vector Machine", "Random Forest", "Naive Bayes", "K-nearest Neighbors"),
-       col = c("darkmagenta","red","green", "blue"), lty = 1, cex = 0.7)
-```
 The output:
 
-<img src="docs/figures/ReadmeImage3-1.jpg" width = 90%/>
-
-
-
+<img src="docs/figures/CalibracionKmeans.jpg" width = 100%/>
