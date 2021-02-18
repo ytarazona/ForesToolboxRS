@@ -323,4 +323,4 @@ plot(classKmeans, main = "K-means Classification", col = colmap, axes = F)
 
 The output:
 
-<img src="docs/figures/CalibracionKmeans.jpg" width = 100%/>
+<img src="docs/figures/Calibracion_Kmeans.jpg" width = 100%/>
