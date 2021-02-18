@@ -250,18 +250,21 @@ Parameters:
 - **iter**: 10.
 
 ```R
-cal_ml <- calmla(img = image, endm = sig, model = c("svm", "randomForest", "naiveBayes", "knn"), training_split = 80, approach = "MCCV", iter = 10)
+cal_ml <- calmla(img = image, endm = sig, model = c("svm", "randomForest", "naiveBayes", "knn"),
+                 training_split = 80, approach = "MCCV", iter = 10)
 ```
 
 ```R
 # Calibration result
-plot(cal_ml$svm_mccv, main = "Monte Carlo Cross-Validation calibration", col = "darkmagenta", type = "b",
-     ylim=c(0, 0.4), ylab="Error between 0 and 1", xlab = "Number of iterations")
+plot(cal_ml$svm_mccv, main = "Monte Carlo Cross-Validation calibration", 
+     col = "darkmagenta", type = "b", ylim=c(0, 0.4), ylab="Error between 0 and 1", 
+     xlab = "Number of iterations")
 lines(cal_ml$randomForest_mccv, col = "red", type = "b")
 lines(cal_ml$naiveBayes_mccv, col = "green", type = "b")
 lines(cal_ml$knn_mccv, col = "blue", type = "b")
-legend("topleft", c("Support Vector Machine", "Random Forest", "Naive Bayes", "K-nearest Neighbors"),
-       col = c("darkmagenta","red","green", "blue"), lty = 1, cex = 0.7)
+legend("topleft", c("Support Vector Machine", "Random Forest", "Naive Bayes", 
+                    "K-nearest Neighbors"), col = c("darkmagenta","red","green", "blue"), 
+                    lty = 1, cex = 0.7)
 ```
 The output:
 
