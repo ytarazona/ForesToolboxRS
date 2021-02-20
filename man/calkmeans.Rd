@@ -33,7 +33,7 @@ expected to be obtained in the classification. Default is 30.}
 }
 \description{
 This function allows to calibrate the kmeans algorithm. It is possible to obtain
-the best k value and the best embedded algorithm in kmeans.
+the best \code{k} value and the best embedded algorithm in kmeans.
 }
 \section{References}{
 
