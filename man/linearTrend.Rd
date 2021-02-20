@@ -26,7 +26,7 @@ Linear regression is widely used to analyze forest degradation or land degradati
 Specifically, the slope and its reliability are parameters for this analysis and these
 can be obtained whit this function. On the other hand, logistic regression allows
 obtaining a degradation risk map, in other words, it is a probability map. Please see
-the references or see [Tarazona and Maria-Miyasiro (2020)](https://doi.org/10.1016/j.rsase.2020.100337).
+the references or see \href{https://doi.org/10.1016/j.rsase.2020.100337}{Tarazona and Maria-Miyasiro (2020)}.
 }
 
 \section{References}{

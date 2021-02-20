@@ -26,15 +26,16 @@
 #' @param ... Options to be passed to the function. See \link[stats]{kmeans}.
 #'
 #' @examples
+#' \dontrun{
 #' library(ForesToolboxRS)
 #'
 #' # Load the dataset
 #' data(FTdata)
 #'
-#'# Selecting the best embedded algorithm in kmeans
+#' # Selecting the best embedded algorithm in kmeans
 #' classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
 #' plot(classKmeans)
-#'
+#' }
 #' @export
 #'
 rkmeans <- function(img, k, iter.max = 100, nstart = 50, algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), ...){

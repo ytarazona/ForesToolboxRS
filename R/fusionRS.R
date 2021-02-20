@@ -27,6 +27,7 @@
 #' @param verbose This paramater is Logical. It Prints progress messages during execution.
 #'
 #' @examples
+#' \dontrun{
 #' library(ForesToolboxRS)
 #' library(raster)
 #'
@@ -36,7 +37,7 @@
 #' # Fusing optical and radar data
 #' fusion <- fusionRS(x=optical, y=radar, na = TRUE)
 #' plotRGB(fusion[[1]], 1,2,3, axes=F, stretch="lin",main ="Fused images")
-#'
+#' }
 #' @export
 #'
 fusionRS <- function(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE) {

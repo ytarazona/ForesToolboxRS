@@ -49,6 +49,7 @@
 #' @param verbose This paramater is Logical. It Prints progress messages during execution.
 #'
 #' @examples
+#' \dontrun{
 #' library(ForesToolboxRS)
 #' library(raster)
 #' library(snow)
@@ -63,7 +64,7 @@
 #'
 #' # Plot image
 #' plot(classMap$Classification)
-#'
+#' }
 #' @export
 #'
 
