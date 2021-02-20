@@ -48,6 +48,7 @@ we must put \code{k = n}, where \code{n} is a specific class number.
 }
 
 \examples{
+\dontrun{
 library(ForesToolboxRS)
 
 # Load the dataset
@@ -56,7 +57,7 @@ data(FTdata)
 # Selecting the best embedded algorithm in kmeans
 classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
 plot(classKmeans)
-
+}
 }
 \author{
 Yonatan Tarazona

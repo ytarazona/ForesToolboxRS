@@ -21,7 +21,7 @@ noise in the time series that in some way or another hinder subsequent analyzes.
 This noise can be due to two reasons: i) no algorithm was used to mask the atmospheric
 noise before analyzing the time series and ii) negative outliers that were not detected
 by the masking algorithm. To minimize this problem, it is possible to eliminate negative
-outliers using the method proposed by [Hamunyela et al. (2013)](https://doi.org/10.3390/rs5126159).
+outliers using the method proposed by \href{https://doi.org/10.3390/rs5126159}{Hamunyela et al. (2013)}.
 
 This method is not able to remove consecutive outliers. The mathematical approach
 of this method of removing outliers implies the non-modification of the first and last

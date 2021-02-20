@@ -51,6 +51,7 @@
 #' \link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}.
 #'
 #' @examples
+#' \dontrun{
 #' library(ForesToolboxRS)
 #' library(raster)
 #' library(snow)
@@ -65,7 +66,7 @@
 #'
 #' # Plot image
 #' plot(classMap$Classification)
-#'
+#' }
 #' @export
 #'
 

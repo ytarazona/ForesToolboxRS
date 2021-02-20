@@ -17,22 +17,18 @@ pvts(x, startm, endm, threshold = 5, verbose = FALSE)
 while for indices such as NDVI and EVI the threshold is 3.
 Please see Tarazona et al. (2018) for more details.}
 
-\item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
+\item{verbose}{This parameter is Logical. It Prints progress messages during execution.}
 }
 \description{
-This algorithm will allow to detect disturbances in the forests using
-all the available Landsat set. In fact, it can also be run with sensors
-such as MODIS.
+This algorithm allows to detect disturbances in the forests using Landsat data.
+It can also be run on data from other sensors such as MODIS.
 }
-\section{References}{
-
-Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving tropical
-deforestation detection through using photosynthetic vegetation time
-series (PVts-\eqn{\beta}). Ecological Indicators, 94, 367 379.
+\details{
+Regarding the example data, if the idea is to detect changes in 2008 (position 19),
+then we will smooth the data only up to that position (i.e. \code{ndfi[1:19]}). This is to avoid
+a smoothing of the monitor position value.
 }
-
-\section{Note}{
-
+\note{
 In order to optimise the detections, it is advisable to make a smoothing
 through the \link[ForesToolboxRS]{smootH} function before detecting changes. The smoothing will
 allow to eliminate outliers that were not eliminated during the masking. If the object is a
@@ -41,23 +37,14 @@ and frequency. See \link[stats]{ts} for more details. In addition, in case the i
 matrix, the first dimension must be rows*columns of the image, and the second dimension the
 number of images.
 }
-
-\section{Details}{
-
-Regarding the example data, if the idea is to detect changes in 2008 (position 19),
-then we will smooth the data only up to that position (i.e. \code{ndfi[1:19]}). This is to avoid
-a smoothing of the monitor position value.
-}
-
 \examples{
 library(ForesToolboxRS)
 library(raster)
 
-# Example
 # Normalized Difference Fraction Index from 1990 to 2017, one index for each year.
-ndfi <- c(0.86,0.93,0.97,0.91,0.95,0.96,0.91,0.88,0.92,0.89,
-         0.90,0.89,0.91,0.92,0.89,0.90,0.92,0.84,0.46,0.20,
-         0.27,0.22,0.52,0.63,0.61,0.67,0.64,0.86)
+ndfi <- c(0.86, 0.93, 0.97, 0.91, 0.95, 0.96, 0.91, 0.88, 0.92, 0.89,
+         0.90, 0.89, 0.91, 0.92, 0.89, 0.90, 0.92, 0.84, 0.46, 0.20,
+         0.27, 0.22, 0.52, 0.63, 0.61, 0.67, 0.64, 0.86)
 
 # Detecting changes in 2008 (position 19)
 # First, applying a smoothing
@@ -74,6 +61,8 @@ cd <- pvts(x = ndfi_smt_ts, startm = 2008, endm = 2008,  threshold = 5)
 plot(cd)
 
 }
-\author{
-Yonatan Tarazona Coronel
+\references{
+Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving tropical
+deforestation detection through using photosynthetic vegetation time
+series (PVts-\eqn{\beta}). Ecological Indicators, 94, 367 379.
 }

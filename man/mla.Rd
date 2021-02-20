@@ -60,6 +60,7 @@ from http://topepo.github.io/caret/train-models-by-tag.html of the \code{caret} 
 }
 
 \examples{
+\dontrun{
 library(ForesToolboxRS)
 library(raster)
 library(snow)
@@ -74,7 +75,7 @@ print(classMap)
 
 # Plot image
 plot(classMap$Classification)
-
+}
 }
 \author{
 Yonatan Tarazona

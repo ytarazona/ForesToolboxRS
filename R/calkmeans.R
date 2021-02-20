@@ -32,6 +32,9 @@
 #' @param ... Options to be passed to the function. See 'Details'.
 #'
 #' @examples
+#'
+#' \dontrun{
+#' # tofix
 #' library(ForesToolboxRS)
 #'
 #' # Load the dataset
@@ -44,13 +47,13 @@
 #' plot(best_k)
 #'
 #'
-#'# Selecting the best embedded algorithm in kmeans
+#' # Selecting the best embedded algorithm in kmeans
 #' best_algo <- calkmeans(img = image[[1:2]], k = 4, iter.max = 10,
 #'            algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), iter = 30)
 #'
 #' # Choose the algorithm with the highest value
 #' best_algo
-#'
+#' }
 #' @export
 #'
 

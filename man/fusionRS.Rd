@@ -21,7 +21,7 @@ matrix (standardized variables) instead of the convariance matrix (non-standardi
 \description{
 This algorithm allows to fusion images coming from different spectral sensors
 (e.g., optical-optical, optical and SAR or SAR-SAR). Among many of the qualities
-of this function, it is possible to obtain the contribution (%) of each variable
+of this function, it is possible to obtain the contribution (\%) of each variable
 in the fused image.
 }
 \section{Value}{
@@ -37,6 +37,7 @@ sensors or from the same sensor have a co-registration.
 }
 
 \examples{
+\dontrun{
 library(ForesToolboxRS)
 library(raster)
 
@@ -46,7 +47,7 @@ data(FTdata)
 # Fusing optical and radar data
 fusion <- fusionRS(x=optical, y=radar, na = TRUE)
 plotRGB(fusion[[1]], 1,2,3, axes=F, stretch="lin",main ="Fused images")
-
+}
 }
 \author{
 Yonatan Tarazona

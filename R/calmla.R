@@ -5,9 +5,7 @@
 #' Leave-One-Out Cross-Validation (LOOCV), Cross-Validation (k-fold) and
 #' Monte Carlo Cross-Validation (MCCV).
 #'
-#' @author Yonatan Tarazona
-#'
-#' @section References:
+#' @references
 #' Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani. (2013).
 #' An introduction to statistical learning : with applications in R. New York: Springer.
 #'
@@ -31,7 +29,7 @@
 #' Holloway, J., Mengersen, K. (2018). Statistical Machine Learning Methods and Remote
 #' Sensing for Sustainable Development Goals: A Review. Remote Sensing, 10(9), 1365.
 #'
-#' @section Note: At the moment, only one calibration approach can be used.
+#' @note At the moment, only one calibration approach can be used.
 #'
 #' @details If the "Set-Approach" method is being used, it is not necessary to use parameter \code{k}.
 #'  \code{k} only can be used when the Cross-Validation (k-fold) method is used. On the other hand,
@@ -70,6 +68,8 @@
 #' \link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}.
 #'
 #' @examples
+#'
+#' \dontrun{
 #' library(ForesToolboxRS)
 #' library(raster)
 #' library(caret)
@@ -81,7 +81,7 @@
 #' # Calibrating using "Set-Approach"
 #' cal_ml <- calmla(img = image, endm = endm, model = c("svm", "randomForest"), training_split = 80,
 #'            approach = "Set-Approach", iter = 10)
-#'
+#' }
 #' @export
 #'
 

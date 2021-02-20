@@ -27,9 +27,8 @@ then switch to \code{TRUE}.}
 \item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
 }
 \description{
-This algorithm will allow to detect disturbances in the forests using
-all the available Landsat set. In fact, it can also be run with sensors
-such as MODIS.
+This algorithm allows to detect disturbances in the forests using Landsat data.
+It can also be run on data from other sensors such as MODIS.
 }
 \section{References}{
 
@@ -49,13 +48,14 @@ number of images.
 }
 
 \examples{
+\dontrun{
 library(ForesToolboxRS)
 library(raster)
 data(FTdata)
 
 # Detect changes in 2008 (position 19) using a raster(RasterStack)
 cd <- pvtsRaster(x=serie_pv, startm=19, endm=19,  threshold= 5)
-
+}
 }
 \author{
 Yonatan Tarazona Coronel

@@ -54,6 +54,9 @@ we must put \code{k = n}, where \code{n} is a specific class number.
 }
 
 \examples{
+
+\dontrun{
+# tofix
 library(ForesToolboxRS)
 
 # Load the dataset
@@ -72,7 +75,7 @@ best_algo <- calkmeans(img = image[[1:2]], k = 4, iter.max = 10,
 
 # Choose the algorithm with the highest value
 best_algo
-
+}
 }
 \author{
 Yonatan Tarazona
