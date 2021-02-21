@@ -1,10 +1,8 @@
 #' Smoothing time series
 #'
-#' In order to eliminate outliers in the time series, a temporary smoothing is used.
+#' Temporary smoothing is used in order to eliminate outliers in the time series.
 #'
-#' @author Yonatan Tarazona Coronel
-#'
-#' @section References:
+#' @references
 #' Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving tropical
 #' deforestation detection through using photosynthetic vegetation time
 #' series (PVts-\eqn{\beta}). Ecological Indicators, 94, 367 379.
@@ -37,78 +35,71 @@
 #' library(ForesToolboxRS)
 #'
 #' # Here a vector with an outlier
-#' x <- c(80,78,75,76,79,-100,82,76,81,77,76)
-#' plot(x, type="o", col="red")
+#' x <- c(80, 78, 75, 76, 79, -100, 82, 76, 81, 77, 76)
+#' plot(x, type = "o", col = "red")
 #'
 #' # Applying a smoothing
 #' smth <- smootH(x)
-#' plot(x, type="o", ylab="Reflectance %", xlab="Time")
-#' lines(smth, col="blue", type="o")
-#'
+#' plot(x, type = "o", ylab = "Reflectance %", xlab = "Time")
+#' lines(smth, col = "blue", type = "o")
 #' @export
 #'
-smootH <- function(x, method.interp = "na.interp"){
-
+smootH <- function(x, method.interp = "na.interp") {
   if (is.vector(x)) {
-
-    if (any(is.na(x))){
-      x[x <= -1 | x== -1] <- NA
-      x[sum(is.na(x)) >= (length(x)-1)] <- 100
+    if (any(is.na(x))) {
+      x[x <= -1 | x == -1] <- NA
+      x[sum(is.na(x)) >= (length(x) - 1)] <- 100
 
       # Type of interpolation
-      if (method.interp =="na.interp") {
+      if (method.interp == "na.interp") {
         x <- na.interp(x)
-
-      } else if (method.interp =="na.approx") {
+      } else if (method.interp == "na.approx") {
         x <- na.approx(x)
-
-      } else if (method.interp =="na.spline") {
+      } else if (method.interp == "na.spline") {
         x <- na.spline(x)
-
-      } else stop("Unsupported interpolation method.", call. = TRUE)
+      } else {
+        stop("Unsupported interpolation method.", call. = TRUE)
+      }
     }
 
     # Apply Hamunyela Smoothing
-    for (j in 2:(length(x)-1)) {
-      x[j] <- ifelse(((x[j]-x[j-1]) < -0.01*x[j-1]) & ((x[j]-x[j+1]) < -0.01*x[j+1]),
-                     (x[j-1]+x[j+1])/2, x[j])
+    for (j in 2:(length(x) - 1)) {
+      x[j] <- ifelse(((x[j] - x[j - 1]) < -0.01 * x[j - 1]) & ((x[j] - x[j + 1]) < -0.01 * x[j + 1]),
+        (x[j - 1] + x[j + 1]) / 2, x[j]
+      )
     }
 
     np <- x
-
-  } else if (is(x, 'matrix')) {
-
+  } else if (is(x, "matrix")) {
     if (any(is.na(x))) {
       for (i in 1:dim(x)[1]) {
-        x[i,][x[i,] <= -1 | x[i,] == -1] <- NA
-        x[i,][sum(is.na(x[i,])) >= (dim(x)[2]-1)] <- 100
+        x[i, ][x[i, ] <= -1 | x[i, ] == -1] <- NA
+        x[i, ][sum(is.na(x[i, ])) >= (dim(x)[2] - 1)] <- 100
 
         # Type of interpolation
-        if (method.interp =="na.interp") {
-          x[i,] <- na.interp(x[i,])
-
-        } else if (method.interp =="na.approx") {
-          x[i,] <- na.approx(x[i,])
-
-        } else if (method.interp =="na.spline") {
-          x[i,] <- na.spline(x[i,])
-
-        } else stop("Unsupported interpolation method.", call. = TRUE)
+        if (method.interp == "na.interp") {
+          x[i, ] <- na.interp(x[i, ])
+        } else if (method.interp == "na.approx") {
+          x[i, ] <- na.approx(x[i, ])
+        } else if (method.interp == "na.spline") {
+          x[i, ] <- na.spline(x[i, ])
+        } else {
+          stop("Unsupported interpolation method.", call. = TRUE)
+        }
       }
     }
 
     # Apply Hamunyela Smoothing
-    for(i in 1:dim(x)[1]){
-      for(j in 2:(dim(x)[2]-1)){
-        x[i,][j]<-ifelse(((x[i,][j]-x[i,][j-1])< -0.01*x[i,][j-1]) & ((x[i,][j]-x[i,][j+1])< -0.01*x[i,][j+1]),
-                         (x[i,][j-1]+x[i,][j+1])/2,x[i,][j])
+    for (i in 1:dim(x)[1]) {
+      for (j in 2:(dim(x)[2] - 1)) {
+        x[i, ][j] <- ifelse(((x[i, ][j] - x[i, ][j - 1]) < -0.01 * x[i, ][j - 1]) & ((x[i, ][j] - x[i, ][j + 1]) < -0.01 * x[i, ][j + 1]),
+          (x[i, ][j - 1] + x[i, ][j + 1]) / 2, x[i, ][j]
+        )
       }
     }
     np <- x
-
   } else {
-
-    stop(class(x), ' class is not supported', call. = TRUE)
+    stop(class(x), " class is not supported", call. = TRUE)
   }
   return(np)
 }
