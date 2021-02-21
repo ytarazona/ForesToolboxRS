@@ -48,7 +48,7 @@ rkmeans <- function(img, k, iter.max = 100, nstart = 50, algo = c("Hartigan-Wong
   }
 
   # Applying kmeans
-  km <- kmeans(na.omit(vr), k, iter.max, nstart, algorithm = algo, ...)
+  km <- stats::kmeans(na.omit(vr), k, iter.max, nstart, algorithm = algo, ...)
 
   if(verbose){
     message(paste0(paste0(rep("*",10), collapse = ""), " Obtained raster ", paste0(rep("*",10), collapse = "")))

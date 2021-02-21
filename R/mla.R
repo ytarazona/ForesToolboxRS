@@ -27,7 +27,7 @@
 #' @section Note: If \code{model = "LMT"}, the function is using "Logistic Model Trees"
 #' from http://topepo.github.io/caret/train-models-by-tag.html of the \code{caret} package.
 #'
-#' @importFrom caret confusionMatrix train knn3
+#' @importFrom caret train knn3
 #' @importFrom raster getValues extract predict
 #' @importFrom e1071 svm naiveBayes
 #' @importFrom randomForest randomForest
@@ -70,7 +70,7 @@
 mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...) {
   if (!inherits(img, "Raster")) stop("img must be a RasterBrick or RasterStack", call. = TRUE)
 
-  if (!compareCRS(img, endm)) stop("img and endm must have the same projection", call. = TRUE)
+  if (!raster::compareCRS(img, endm)) stop("img and endm must have the same projection", call. = TRUE)
 
   if (inherits(endm, "SpatialPointsDataFrame")) {
     TypeEndm <- "points"
@@ -179,9 +179,9 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...) {
   if (model %in% algoSM) {
 
     # Apply model to the raster
-    beginCluster(type = "SOCK")
-    raster_class <- clusterR(img, raster::predict, args = list(model = model_algo, type = "class"))
-    endCluster()
+    raster::beginCluster(type = "SOCK")
+    raster_class <- raster::clusterR(img, raster::predict, args = list(model = model_algo, type = "class"))
+    raster::endCluster()
   } else {
     raster_class <- predict(img, model = model_algo)
   }
@@ -194,7 +194,7 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...) {
   MC <- errorMatrix(prediction = prediction, reference = testing[, dim(endm)[2]])
 
   results <- list(
-    Overall_accuracy = (confusionMatrix(MC$MC_ini)$overall[1:6]) * 100,
+    Overall_accuracy = (caret::confusionMatrix(MC$MC_ini)$overall[1:6]) * 100,
     Confusion_matrix = MC$MCf,
     Classification = raster_class
   )
@@ -208,12 +208,12 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...) {
 #'
 #' @export
 #'
-print.mla <- function(x) {
+print.mla <- function(x, ...) {
   cat("******************** ForesToolboxRS CLASSIFICATION ********************\n")
   cat("\n****Overall Accuracy****\n")
   print(x$Overall_accuracy)
   cat("\n****Confusion Matrix****\n")
   print(x$Confusion_matrix)
   cat("\n****Classification Map****\n")
-  show(x$Classification)
+  methods::show(x$Classification)
 }

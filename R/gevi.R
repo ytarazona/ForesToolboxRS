@@ -20,7 +20,7 @@
 #' @param img It could be RasterStack or RasterBrick.
 #' @param sat Specify satellite and sensor type (Landsat5TM, Landsat7ETM or Landsat8OLI).
 #'
-#' @importFrom raster as.matrix
+#' @importFrom raster as.matrix `values<-`
 #'
 #' @examples
 #' library(ForesToolboxRS)
