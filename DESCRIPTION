@@ -1,11 +1,10 @@
 Package: ForesToolboxRS
-Version: 0.0.1
-Type: Package
 Title: Remote Sensing Tools for Forest Monitoring
+Version: 0.0.2
 Authors@R: 
     c(person(given = "Yonatan",
              family = "Tarazona Coronel",
-             role = c("aut","cre"),
+             role = c("aut", "cre"),
              email = "geoyons@gmail.com",
              comment = c(ORCID = "0000-0002-5208-1004")),
       person(given = "Alaitz",
@@ -27,18 +26,22 @@ Authors@R:
                    family = "A. Zurqani",
 	                 role = c("ctb"),
 	                 email = "hzurqan@clemson.edu",
-	                 comment = c(ORCID = "0000-0002-9250-4534")))
+	                 comment = c(ORCID = "0000-0002-9250-4534")),
+	    person(given = "Jakub",
+                   family = "Nowosad",
+	                 role = c("aut"),
+	                 email = "nowosad.jakub@gmail.com",
+	                 comment = c(ORCID = "0000-0002-1057-3721")))
 Description: Remote sensing tools for forest monitoring includes a series of 
     novel techniques to monitor forest through optical images and fusion of optical 
     and microwave data. All tools are based on scientific publications.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends:
-    R (>= 3.5.0),
-    raster,
-    caret
+    R (>= 3.5.0)
 Imports:
     methods,
     stats,
@@ -65,4 +68,7 @@ Suggests:
     testthat (>= 2.1.0),
     rmarkdown,
     covr,
-    roxygen2
+    roxygen2,
+    snow
+URL: https://ytarazona.github.io/ForesToolboxRS/
+BugReports: https://github.com/ytarazona/ForesToolboxRS/issues
