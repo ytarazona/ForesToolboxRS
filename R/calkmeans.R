@@ -80,7 +80,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
     if (int_hw == "Hartigan-Wong") {
       IntraIC.Hartigan_wong <- rep(0, iter)
       for (k in 1:iter) {
-        grupos <- kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "Hartigan-Wong", ...)
+        grupos <- stats::kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "Hartigan-Wong", ...)
         IntraIC.Hartigan_wong[k] <- grupos$tot.withinss
       }
 
@@ -96,7 +96,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
     if (int_l == "Lloyd") {
       IntraIC.Lloyd <- rep(0, iter)
       for (k in 1:iter) {
-        grupos <- kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "Lloyd", ...)
+        grupos <- stats::kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "Lloyd", ...)
         IntraIC.Lloyd[k] <- grupos$tot.withinss
       }
 
@@ -112,7 +112,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
     if (int_f == "Forgy") {
       IntraIC.Forgy <- rep(0, iter)
       for (k in 1:iter) {
-        grupos <- kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "Forgy", ...)
+        grupos <- stats::kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "Forgy", ...)
         IntraIC.Forgy[k] <- grupos$tot.withinss
       }
 
@@ -128,7 +128,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
     if (int_m == "MacQueen") {
       IntraIC.MacQueen <- rep(0, iter)
       for (k in 1:iter) {
-        grupos <- kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "MacQueen", ...)
+        grupos <- stats::kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "MacQueen", ...)
         IntraIC.MacQueen[k] <- grupos$tot.withinss
       }
 
@@ -158,7 +158,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
     if (int_hw == "Hartigan-Wong") {
       InterIC.Hartigan_wong <- 0
       for (k in 1:iter) {
-        grupos <- kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "Hartigan-Wong", ...)
+        grupos <- stats::kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "Hartigan-Wong", ...)
         InterIC.Hartigan_wong <- InterIC.Hartigan_wong + grupos$betweenss
       }
 
@@ -176,7 +176,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
     if (int_l == "Lloyd") {
       InterIC.Lloyd <- 0
       for (k in 1:iter) {
-        grupos <- kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "Lloyd", ...)
+        grupos <- stats::kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "Lloyd", ...)
         InterIC.Lloyd <- InterIC.Lloyd + grupos$betweenss
       }
 
@@ -194,7 +194,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
     if (int_f == "Forgy") {
       InterIC.Forgy <- 0
       for (k in 1:iter) {
-        grupos <- kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "Forgy", ...)
+        grupos <- stats::kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "Forgy", ...)
         InterIC.Forgy <- InterIC.Forgy + grupos$betweenss
       }
 
@@ -212,7 +212,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
     if (int_m == "MacQueen") {
       InterIC.MacQueen <- 0
       for (k in 1:iter) {
-        grupos <- kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "MacQueen", ...)
+        grupos <- stats::kmeans(na.omit(vr), k, iter.max = iter.max, algorithm = "MacQueen", ...)
         InterIC.MacQueen <- InterIC.MacQueen + grupos$betweenss
       }
 
@@ -278,7 +278,7 @@ plot.calkmeans <- function(x, xlab, ylab, type, main, cex, ...) {
   names_algo <- names(x)
 
   if ("IntraIC.Hartigan_wong" %in% names_algo) {
-    lines(x$IntraIC.Hartigan_wong, col = "green", type = type, cex = cex)
+    graphics::lines(x$IntraIC.Hartigan_wong, col = "green", type = type, cex = cex)
     name_hw <- "Hartigan-Wong"
     color_hw <- "blue"
   } else {
@@ -287,7 +287,7 @@ plot.calkmeans <- function(x, xlab, ylab, type, main, cex, ...) {
   }
 
   if ("IntraIC.Lloyd" %in% names_algo) {
-    lines(x$IntraIC.Lloyd, col = "red", type = type, cex = cex)
+    graphics::lines(x$IntraIC.Lloyd, col = "red", type = type, cex = cex)
     name_l <- "Lloyd"
     color_l <- "red"
   } else {
@@ -296,7 +296,7 @@ plot.calkmeans <- function(x, xlab, ylab, type, main, cex, ...) {
   }
 
   if ("IntraIC.Forgy" %in% names_algo) {
-    lines(x$IntraIC.Forgy, col = "magenta", type = type, cex = cex)
+    graphics::lines(x$IntraIC.Forgy, col = "magenta", type = type, cex = cex)
     name_f <- "Forgy"
     color_f <- "green"
   } else {
@@ -305,7 +305,7 @@ plot.calkmeans <- function(x, xlab, ylab, type, main, cex, ...) {
   }
 
   if ("IntraIC.MacQueen" %in% names_algo) {
-    lines(x$IntraIC.MacQueen, col = "blue", type = type, cex = cex)
+    graphics::lines(x$IntraIC.MacQueen, col = "blue", type = type, cex = cex)
     name_m <- "MacQueen"
     color_m <- "magenta"
   } else {

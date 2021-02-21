@@ -39,7 +39,7 @@
 #'
 fusionRS <- function(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE) {
   if (inherits(x, "stars")) {
-    x <- brick(mapply(function(z) as(x[z], "Raster"), seq_len(length(x))))
+    x <- brick(mapply(function(z) methods::as(x[z], "Raster"), seq_len(length(x))))
   }
 
   if (verbose) {
@@ -49,7 +49,7 @@ fusionRS <- function(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE) {
 
   if (inherits(x, "RasterStack") | inherits(x, "RasterBrick") & inherits(y, "RasterStack") | inherits(y, "RasterBrick")) {
     if (extent(x) == extent(y)) {
-      img <- stack(x, y)
+      img <- raster::stack(x, y)
     } else {
       stop(" The extent of the images are different.", call. = TRUE)
     }
@@ -118,10 +118,10 @@ fusionRS <- function(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE) {
 #'
 #' @export
 #'
-print.fusionRS <- function(x) {
+print.fusionRS <- function(x, ...) {
   cat("******************** ForesToolboxRS - FUSION OF IMAGES ********************\n")
   cat("\n**** Fused images ****\n")
-  show(x$Fused_images)
+  methods::show(x$Fused_images)
   cat("\n**** Variance ****\n")
   print(x$Variance)
   cat("\n**** Proportion_of_variance ****\n")

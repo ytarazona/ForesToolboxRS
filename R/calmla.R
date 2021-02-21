@@ -33,8 +33,8 @@
 #'
 #' @details If the "Set-Approach" method is being used, it is not necessary to use parameter \code{k}.
 #'  \code{k} only can be used when the Cross-Validation (k-fold) method is used. On the other hand,
-#'  to create groups in Cross-Validation, the \code{createFolds} function of the "confusionMatrix" is used.
-#'  See \link[confusionMatrix]{createFolds} for more details. In addition, to generate random splits
+#'  to create groups in Cross-Validation, the \code{createFolds} function of "caret" is used.
+#'  See \link[caret]{createFolds} for more details. In addition, to generate random splits
 #'  in Monte Carlos Cross-Validation the \code{generate.split} function of the "WilcoxCV" package was used.
 #'  Please see \link[WilcoxCV]{generate.split} for more details.
 #'
@@ -89,7 +89,7 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
                    training_split = 50, approach = "Set-Approach", k = 10, iter = 10, verbose = FALSE, ...) {
   if (!inherits(img, "Raster")) stop("img must be a RasterBrick or RasterStack", call. = TRUE)
 
-  if (!compareCRS(img, endm)) stop("img and endm must have the same projection", call. = TRUE)
+  if (!raster::compareCRS(img, endm)) stop("img and endm must have the same projection", call. = TRUE)
 
   if (inherits(endm, "SpatialPointsDataFrame")) {
     TypeEndm <- "points"

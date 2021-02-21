@@ -38,7 +38,7 @@ rkmeans <- function(img, k, iter.max = 100, nstart = 50, algo = c("Hartigan-Wong
   i <- which(!is.na(vr)) # NA positions
 
   # Applying kmeans
-  km <- kmeans(na.omit(vr), k, iter.max, nstart, algorithm = algo, ...)
+  km <- stats::kmeans(na.omit(vr), k, iter.max, nstart, algorithm = algo, ...)
 
   raster_class <- raster(img)
   raster_class[i] <- km$cluster

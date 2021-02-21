@@ -48,7 +48,7 @@ plot.pvts <- function(x, ylab, type, col, lwd, main, ...) {
 
   plot(x$Ts, ylab = ylab, type = type, lwd = lwd, col = col, main = main, ...)
   grid()
-  lines(x$Ts, type = "l", col = "gray45", lwd = 1.5)
+  graphics::lines(x$Ts, type = "l", col = "gray45", lwd = 1.5)
   points(x$Ts, pch = 19, lwd = 2, cex = 1.1)
   abline(h = x$Threshold[2], col = "red", lty = 2, lwd = 2)
 

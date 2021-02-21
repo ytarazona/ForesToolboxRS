@@ -42,43 +42,43 @@
 #' plot(trend[[2]]) # raster of p-value
 linearTrend <- function(x, type = "lm", ...) {
   if (type == "lm") {
-    if (is(x, "RasterStack") | is(x, "RasterBrick")) {
+    if (inherits(x, "RasterStack") | inherits(x, "RasterBrick")) {
       mat <- raster::as.matrix(x)
-    } else if (is(x, "matrix")) {
+    } else if (inherits(x, "matrix")) {
       mat <- x
     } else {
       stop(class(x), " class is not supported", call. = TRUE)
     }
 
     x_axis <- 1:dim(mat)[2]
-    my_lms <- lapply(1:dim(mat)[1], function(i) reg <- lm(mat[i, ] ~ x_axis, ...))
+    my_lms <- lapply(1:dim(mat)[1], function(i) reg <- stats::lm(mat[i, ] ~ x_axis, ...))
     summy <- suppressWarnings(
       lapply(my_lms, function(x) summary(x)$coefficients[2, 1:4])
     )
 
     summy <- as.data.frame(bind_rows(summy))
 
-    if (is(x, "RasterStack") | is(x, "RasterBrick")) {
+    if (inherits(x, "RasterStack") | inherits(x, "RasterBrick")) {
       slope <- raster(x[[1]])
       p_value <- raster(x[[2]])
 
       slope[] <- summy[, 1]
       p_value[] <- summy[, 4]
-      result <- stack(slope, p_value)
+      result <- raster::stack(slope, p_value)
       names(result) <- c("slope", "p_value")
 
       return(result)
-    } else if (is(x, "matrix")) {
+    } else if (inherits(x, "matrix")) {
       result <- array(c(summy[, 1], summy[, 4]), c(dim(x)[1], dim(x)[2], 2))
 
       return(result)
     }
   } else if (type == "glm") {
-    if (is(x, "RasterStack") | is(x, "RasterBrick")) {
+    if (inherits(x, "RasterStack") | inherits(x, "RasterBrick")) {
       names(x[[1]]) <- c("FD")
       df <- raster::as.matrix(x)
 
-      mod <- glm(FD ~ ., data = df, ...)
+      mod <- stats::glm(FD ~ ., data = df, ...)
 
       prob <- predict(mod, type = "response")
 
@@ -87,15 +87,15 @@ linearTrend <- function(x, type = "lm", ...) {
       names(result) <- c("MapProbability")
 
       return(result)
-    } else if (is(x, "list")) {
-      if (class(try(stack(x), silent = TRUE)) == "try-error") {
+    } else if (inherits(x, "list")) {
+      if (class(try(raster::stack(x), silent = TRUE)) == "try-error") {
         master <- raster(x[1])
         meta <- raster(extent(master), nrows = master@nrows, ncols = master@ncols)
 
         varib_rast <- c()
         for (k in 1:length(x)) {
           ras_ini <- raster(x[[k]])
-          ras_post <- resample(ras_ini, meta, method = "ngb")
+          ras_post <- raster::resample(ras_ini, meta, method = "ngb")
           ras_post[is.na(ras_post)] <- 0
           varib_rast <- c(varib_rast, ras_post)
         }
@@ -103,13 +103,13 @@ linearTrend <- function(x, type = "lm", ...) {
         x <- varib_rast
         names(x[[1]]) <- c("FD")
       } else {
-        x <- stack(x)
+        x <- raster::stack(x)
         names(x[[1]]) <- c("FD")
       }
 
       df <- raster::as.matrix(x)
 
-      mod <- glm(FD ~ ., data = df, ...)
+      mod <- stats::glm(FD ~ ., data = df, ...)
       prob <- predict(mod, type = "response")
 
       result <- master
