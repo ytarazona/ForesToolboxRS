@@ -4,7 +4,7 @@
 \alias{print.mla}
 \title{Print for the "mla" class}
 \usage{
-\method{print}{mla}(x)
+\method{print}{mla}(x, ...)
 }
 \description{
 Print for the "mla" class

@@ -4,7 +4,7 @@
 \alias{print.fusionRS}
 \title{Print for the "fusionRS" class}
 \usage{
-\method{print}{fusionRS}(x)
+\method{print}{fusionRS}(x, ...)
 }
 \description{
 Print for the "fusionRS" class
