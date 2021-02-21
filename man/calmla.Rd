@@ -2,7 +2,7 @@
 % Please edit documentation in R/calmla.R
 \name{calmla}
 \alias{calmla}
-\title{Calibrating Supervised classification in Remote Sensing}
+\title{Calibrating supervised classification in Remote Sensing}
 \usage{
 calmla(
   img,
@@ -73,8 +73,10 @@ data(FTdata)
 
 # Support Vector Machine and Random Forest Classifiers
 # Calibrating using "Set-Approach"
-cal_ml <- calmla(img = image, endm = endm, model = c("svm", "randomForest"), training_split = 80,
-           approach = "Set-Approach", iter = 10)
+cal_ml <- calmla(
+  img = image, endm = endm, model = c("svm", "randomForest"), training_split = 80,
+  approach = "Set-Approach", iter = 10
+)
 }
 }
 \references{
