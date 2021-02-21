@@ -7,7 +7,7 @@
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Codecov test
 coverage](https://codecov.io/gh/ytarazona/ForesToolboxRS/branch/master/graph/badge.svg)](https://codecov.io/gh/ytarazona/ForesToolboxRS?branch=dev)
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC) -->
 
 > **Note!**: This package is still under construction
@@ -369,24 +369,26 @@ best_k <- calkmeans(img = image, k = NULL, iter.max = 10,
 #> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
 
 #> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
+
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
+
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
+
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
+
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
+
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
+
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
+
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
+
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
+
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
 #> Warning: did not converge in 10 iterations
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
 
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
 #> Warning: did not converge in 10 iterations
 
 #> Warning: did not converge in 10 iterations
