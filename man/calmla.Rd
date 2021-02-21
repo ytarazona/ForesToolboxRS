@@ -53,8 +53,8 @@ Monte Carlo Cross-Validation (MCCV).
 \details{
 If the "Set-Approach" method is being used, it is not necessary to use parameter \code{k}.
 \code{k} only can be used when the Cross-Validation (k-fold) method is used. On the other hand,
-to create groups in Cross-Validation, the \code{createFolds} function of the "confusionMatrix" is used.
-See \link[confusionMatrix]{createFolds} for more details. In addition, to generate random splits
+to create groups in Cross-Validation, the \code{createFolds} function of "caret" is used.
+See \link[caret]{createFolds} for more details. In addition, to generate random splits
 in Monte Carlos Cross-Validation the \code{generate.split} function of the "WilcoxCV" package was used.
 Please see \link[WilcoxCV]{generate.split} for more details.
 }
