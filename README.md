@@ -162,7 +162,7 @@ The output:
 
 ### 2. Supervised classification in Remote Sensing (**`mla`** function)
 
-For this tutorial, Landsat-8 OLI image and signatures were used. Download the data [Here](https://drive.google.com/file/d/1Xf1A84fJN20eC578GwwOsVSuoxLuCRGJ/view?usp=sharing).
+For this tutorial, Landsat-8 OLI image and signatures were used. Download the data [Here](https://drive.google.com/drive/folders/1vH0mSAndVNErRjlQ6rZ1zdnTgpvNUU1R?usp=sharing).
 
 #### 2.1 Applying Random Forest (Supervised classification)
 
