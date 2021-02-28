@@ -43,6 +43,9 @@ Cross-Validation (K-fold) approach.}
 \item{iter}{Number of iterations, i.e number of times the analysis is executed.}
 
 \item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
+
+\item{...}{Parameters to be passed in machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest},
+\link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}.}
 }
 \description{
 This function allows to calibrate supervised classification in satellite images

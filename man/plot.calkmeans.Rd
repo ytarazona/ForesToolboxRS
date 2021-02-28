@@ -6,6 +6,21 @@
 \usage{
 \method{plot}{calkmeans}(x, xlab, ylab, type, main, cex, ...)
 }
+\arguments{
+\item{x}{Object of class "calkmeans".}
+
+\item{xlab}{X-axis title.}
+
+\item{ylab}{Y-axis title.}
+
+\item{type}{Type of line.}
+
+\item{main}{Title of the graph.}
+
+\item{cex}{Graph line point size.}
+
+\item{...}{Graphical parameters to be passed in \link[base]{plot}.}
+}
 \description{
 Plot for the "calkmeans" class
 }

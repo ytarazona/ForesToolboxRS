@@ -6,6 +6,9 @@
 \usage{
 \method{print}{fusionRS}(x)
 }
+\arguments{
+\item{x}{Object of class "fusionRS".}
+}
 \description{
 Print for the "fusionRS" class
 }

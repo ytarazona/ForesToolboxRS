@@ -23,6 +23,9 @@ like \code{model = 'nnet'}, K-nearest Neighbors (\link[caret]{knn3}) like \code{
 testing data.}
 
 \item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
+
+\item{...}{Parameters to be passed in machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest},
+\link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}.}
 }
 \description{
 This developed function allows to execute supervised classification

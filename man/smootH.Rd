@@ -9,7 +9,7 @@ smootH(x, method.interp = "na.interp")
 \arguments{
 \item{x}{Numeric, matrix.}
 
-\item{interp}{Four interpolation methods are presented, "na.interp",
+\item{method.interp}{Four interpolation methods are presented, "na.interp",
 "na.approx" and "na.spline". By default is the method "na.interp".}
 }
 \description{

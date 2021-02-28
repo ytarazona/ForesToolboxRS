@@ -10,6 +10,7 @@ rkmeans(
   iter.max = 100,
   nstart = 50,
   algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"),
+  verbose = FALSE,
   ...
 )
 }
@@ -24,9 +25,9 @@ rkmeans(
 
 \item{algo}{It can be "Hartigan-Wong", "Lloyd", "Forgy" or "MacQueen". See \link[stats]{kmeans}.}
 
-\item{...}{Options to be passed to the function. See \link[stats]{kmeans}.}
-
 \item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
+
+\item{...}{Options to be passed to the function. See \link[stats]{kmeans}.}
 }
 \description{
 This function allows to classify satellite images using k-means.

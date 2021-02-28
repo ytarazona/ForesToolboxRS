@@ -6,6 +6,9 @@
 \usage{
 \method{print}{mla}(x)
 }
+\arguments{
+\item{x}{Object of class "mla".}
+}
 \description{
 Print for the "mla" class
 }

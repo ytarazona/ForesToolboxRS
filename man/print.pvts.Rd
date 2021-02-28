@@ -4,7 +4,10 @@
 \alias{print.pvts}
 \title{Printing for the "pvts" class}
 \usage{
-\method{print}{pvts}(x, ...)
+\method{print}{pvts}(x)
+}
+\arguments{
+\item{x}{Object of class "pvts".}
 }
 \description{
 Printing for the "pvts" class

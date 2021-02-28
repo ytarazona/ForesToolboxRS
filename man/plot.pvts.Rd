@@ -6,6 +6,23 @@
 \usage{
 \method{plot}{pvts}(x, ylab, type, col, lwd, main, ...)
 }
+\arguments{
+\item{x}{Object of class "pvts".}
+
+\item{ylab}{Y-axis title.}
+
+\item{type}{Type of line.}
+
+\item{col}{Type of color line.}
+
+\item{lwd}{Line thickness size.}
+
+\item{main}{Title of the graph.}
+
+\item{...}{Graphical parameters to be passed in \link[base]{plot}.}
+
+\item{cex}{Graph line point size.}
+}
 \description{
 Plot for the "pvts" class
 }
