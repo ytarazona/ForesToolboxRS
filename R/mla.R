@@ -47,6 +47,8 @@
 #' @param training_split For splitting samples into two subsets, i.e. training data and for
 #' testing data.
 #' @param verbose This paramater is Logical. It Prints progress messages during execution.
+#' @param ... Parameters to be passed in machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest},
+#' \link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}.
 #'
 #' @examples
 #' library(ForesToolboxRS)
@@ -210,6 +212,8 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...){
 }
 
 #' Print for the "mla" class
+#'
+#' @param x Object of class "mla".
 #'
 #' @export
 #'

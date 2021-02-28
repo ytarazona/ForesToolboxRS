@@ -247,6 +247,14 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
 
 #' Plot for the "calkmeans" class
 #'
+#' @param x Object of class "calkmeans".
+#' @param xlab X-axis title.
+#' @param ylab Y-axis title.
+#' @param type Type of line.
+#' @param main Title of the graph.
+#' @param cex Graph line point size.
+#' @param ... Graphical parameters to be passed in \link[base]{plot}.
+#'
 #' @export
 #'
 plot.calkmeans <- function(x, xlab, ylab, type, main, cex, ...){

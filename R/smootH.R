@@ -29,7 +29,7 @@
 #' @importFrom zoo na.approx na.spline
 #'
 #' @param x Numeric, matrix.
-#' @param interp Four interpolation methods are presented, "na.interp",
+#' @param method.interp Four interpolation methods are presented, "na.interp",
 #' "na.approx" and "na.spline". By default is the method "na.interp".
 #'
 #' @examples

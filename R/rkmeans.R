@@ -37,13 +37,26 @@
 #'
 #' @export
 #'
-rkmeans <- function(img, k, iter.max = 100, nstart = 50, algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), ...){
+rkmeans <- function(img, k, iter.max = 100, nstart = 50, algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), verbose = FALSE, ...){
 
   vr <- getValues(img)
+
+  if(verbose){
+    message(paste0(paste0(rep("*",10), collapse = ""), " Getting NA positions ", paste0(rep("*",10), collapse = "")))
+  }
+
   i <- which(!is.na(vr)) # NA positions
+
+  if(verbose){
+    message(paste0(paste0(rep("*",10), collapse = ""), " Appling kmeans ", paste0(rep("*",10), collapse = "")))
+  }
 
   # Applying kmeans
   km <- kmeans(na.omit(vr), k, iter.max, nstart, algorithm = algo, ...)
+
+  if(verbose){
+    message(paste0(paste0(rep("*",10), collapse = ""), " Obtained raster ", paste0(rep("*",10), collapse = "")))
+  }
 
   raster_class <- raster(img)
   raster_class[i] <- km$cluster

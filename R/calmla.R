@@ -66,6 +66,8 @@
 #' Cross-Validation (K-fold) approach.
 #' @param iter Number of iterations, i.e number of times the analysis is executed.
 #' @param verbose This paramater is Logical. It Prints progress messages during execution.
+#' @param ... Parameters to be passed in machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest},
+#' \link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}.
 #'
 #' @examples
 #' library(ForesToolboxRS)

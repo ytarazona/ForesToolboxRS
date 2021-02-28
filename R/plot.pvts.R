@@ -2,6 +2,15 @@
 #'
 #' @importFrom grDevices adjustcolor
 #'
+#' @param x Object of class "pvts".
+#' @param ylab Y-axis title.
+#' @param type Type of line.
+#' @param col Type of color line.
+#' @param lwd Line thickness size.
+#' @param main Title of the graph.
+#' @param cex Graph line point size.
+#' @param ... Graphical parameters to be passed in \link[base]{plot}.
+#'
 #' @export
 #'
 
