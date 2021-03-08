@@ -47,13 +47,13 @@
 #'
 #' @export
 #'
-smootH <- function(x, method.interp = "na.interp"){
+smootH <- function(x, na = FALSE, method.interp = "na.interp"){
 
-  if (is.vector(x)) {
+  if (inherits(x, 'numeric')) {
 
-    if (any(is.na(x))){
-      x[x <= -1 | x== -1] <- NA
-      x[sum(is.na(x)) >= (length(x)-1)] <- 100
+    if (na){
+      #x[x <= -1 | x== -1] <- NA
+      x[sum(is.na(x)) >= (length(x)-1)] <- sample(99:100, 1) # These data are evidently masked areas or bodies of water, so that it is just to fill out data
 
       # Type of interpolation
       if (method.interp =="na.interp") {
@@ -74,14 +74,14 @@ smootH <- function(x, method.interp = "na.interp"){
                      (x[j-1]+x[j+1])/2, x[j])
     }
 
-    np <- x
+    np <- as.numeric(x)
 
-  } else if (is(x, 'matrix')) {
+  } else if (inherits(x, 'matrix')) {
 
-    if (any(is.na(x))) {
+    if (na) {
       for (i in 1:dim(x)[1]) {
-        x[i,][x[i,] <= -1 | x[i,] == -1] <- NA
-        x[i,][sum(is.na(x[i,])) >= (dim(x)[2]-1)] <- 100
+        #x[i,][x[i,] <= -1 | x[i,] == -1] <- NA
+        x[i,][sum(is.na(x[i,])) >= (dim(x)[2]-1)] <- sample(99:100, 1) # These data are evidently masked areas or bodies of water, so that it is just to fill out data
 
         # Type of interpolation
         if (method.interp =="na.interp") {
@@ -104,11 +104,14 @@ smootH <- function(x, method.interp = "na.interp"){
                          (x[i,][j-1]+x[i,][j+1])/2,x[i,][j])
       }
     }
+
     np <- x
 
   } else {
 
-    stop(class(x), ' class is not supported', call. = TRUE)
+    stop(class(x), ' class is not supported. It must be numeric (vector) or matrix.', call. = TRUE)
   }
+
   return(np)
+
 }
