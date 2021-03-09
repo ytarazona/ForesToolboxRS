@@ -4,7 +4,7 @@
 #' (e.g., optical-optical, optical and SAR, or SAR-SAR). It is also possible to obtain the contribution (%) of each variable
 #' in the fused image.
 #'
-#' @value
+#' @return
 #' A list with Fused images (RasterStack), Variance, Proportion of variance, Cumulative variance,
 #' Correlation and Contribution in percentage.
 #'
@@ -28,8 +28,9 @@
 #' library(ForesToolboxRS)
 #' library(raster)
 #'
-#' # Load an example dataset
-#' data(FTdata)
+#' # Load example datasets
+#' data(img_optical)
+#' data(img_radar)
 #'
 #' # Fusing optical and radar data
 #' fusion <- fusionRS(x = optical, y = radar, na = TRUE)
@@ -114,7 +115,10 @@ fusionRS <- function(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE) {
   return(structure(results, class = "fusionRS"))
 }
 
-#' Print for the "fusionRS" class
+#' Print of the "fusionRS" class
+#'
+#' @param x Object of class "fusionRS".
+#' @param ... Not used.
 #'
 #' @param x Object of class "fusionRS".
 #'

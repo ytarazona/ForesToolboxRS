@@ -2,13 +2,18 @@
 % Please edit documentation in R/fusionRS.R
 \name{print.fusionRS}
 \alias{print.fusionRS}
-\title{Print for the "fusionRS" class}
+\title{Print of the "fusionRS" class}
 \usage{
 \method{print}{fusionRS}(x, ...)
 }
 \arguments{
 \item{x}{Object of class "fusionRS".}
+<<<<<<< HEAD
+=======
+
+\item{...}{Not used.}
+>>>>>>> 1b58dd1 (updates data)
 }
 \description{
-Print for the "fusionRS" class
+Print of the "fusionRS" class
 }

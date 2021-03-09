@@ -1,4 +1,12 @@
-#' Plot for the "pvts" class
+#' Plot of the "pvts" class
+#'
+#' @param x Object of class "pvts".
+#' @param ylab Y-axis title.
+#' @param type Line type.
+#' @param col Line color.
+#' @param lwd Line thickness.
+#' @param main Title.
+#' @param ... Additional graphical parameters to be passed to \link[base]{plot}.
 #'
 #' @importFrom grDevices adjustcolor
 #'

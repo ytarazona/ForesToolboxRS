@@ -43,10 +43,9 @@
 #' like \code{model = 'LMT'}, Neural Networks (\link[nnet]{nnet})
 #' like \code{model = 'nnet'}, K-nearest Neighbors (\link[caret]{knn3}) like \code{model = 'knn'}.
 #' @param training_split For splitting samples into two subsets, i.e. training data and for
-#' testing data.
-#' @param verbose This paramater is Logical. It Prints progress messages during execution.
-#' @param ... Parameters to be passed in machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest},
-#' \link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}.
+#' testing data
+#' @param verbose This parameter is Logical. It Prints progress messages during execution
+#' @param ... Parameters to be passed to a machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest}, \link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}
 #'
 #' @examples
 #' library(ForesToolboxRS)
@@ -54,11 +53,12 @@
 #' library(snow)
 #' library(caret)
 #'
-#' # Load the dataset
-#' data(FTdata)
+#' # Load the datasets
+#' data(img_l8)
+#' data(endm)
 #'
 #' # Random Forest Classifier
-#' classMap <- mla(img = image, endm = endm, model = "randomForest", training_split = 80)
+#' classMap <- mla(img = img_l8, endm = endm, model = "randomForest", training_split = 80)
 #' print(classMap)
 #'
 #' # Plot image
@@ -202,7 +202,10 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...) {
   return(structure(results, class = "mla"))
 }
 
-#' Print for the "mla" class
+#' Print of the "mla" class
+#'
+#' @param x Object of class "mla".
+#' @param ... Not used.
 #'
 #' @param x Object of class "mla".
 #'

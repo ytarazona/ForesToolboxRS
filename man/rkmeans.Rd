@@ -31,9 +31,12 @@ rkmeans(
 \item{...}{Options to be passed to the function. See \link[stats]{kmeans}.}
 =======
 \item{...}{Options to be passed to the function. See \link[stats]{kmeans}}
+<<<<<<< HEAD
 
 \item{verbose}{This paramater is Logical. It Prints progress messages during execution}
 >>>>>>> be6d0b1 (cleans code styles and documentation)
+=======
+>>>>>>> 1b58dd1 (updates data)
 }
 \description{
 This function allows to classify satellite images using k-means.
@@ -49,10 +52,10 @@ we must put \code{k = n}, where \code{n} is a specified number of classes.
 library(ForesToolboxRS)
 
 # Load the dataset
-data(FTdata)
+data(img_l8)
 
 # Selecting the best embedded algorithm in kmeans
-classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
+classKmeans <- rkmeans(img = img_l8, k = 4, algo = "MacQueen")
 }
 \references{
 Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani. (2013).

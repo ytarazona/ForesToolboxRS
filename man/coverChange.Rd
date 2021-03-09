@@ -11,6 +11,9 @@ coverChange(x, y)
 
 \item{y}{Second classified image of a time later.}
 }
+\value{
+A list with loss raster, gain raster, loss hectares and gain hectares.
+}
 \description{
 This algorithm is able to obtain gain and loss in the land cover classification.
 }

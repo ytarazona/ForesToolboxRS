@@ -18,6 +18,10 @@ matrix (standardized variables) instead of the covariance matrix (non-standardiz
 
 \item{verbose}{This parameter is Logical. It prints progress messages during execution}
 }
+\value{
+A list with Fused images (RasterStack), Variance, Proportion of variance, Cumulative variance,
+Correlation and Contribution in percentage.
+}
 \description{
 This algorithm allows to fusion images coming from different spectral sensors
 (e.g., optical-optical, optical and SAR, or SAR-SAR). It is also possible to obtain the contribution (\%) of each variable
@@ -32,8 +36,9 @@ sensors or from the same sensor have a co-registration.
 library(ForesToolboxRS)
 library(raster)
 
-# Load an example dataset
-data(FTdata)
+# Load example datasets
+data(img_optical)
+data(img_radar)
 
 # Fusing optical and radar data
 fusion <- fusionRS(x = optical, y = radar, na = TRUE)

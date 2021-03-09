@@ -34,7 +34,7 @@
 #' library(raster)
 #'
 #' # Load an example dataset
-#' data(FTdata)
+#' data(img_l8)
 #'
 #' # Endmembers (Surface reflectance between 0 and 10000)
 #' soil <- c(8980, 8508, 8704, 13636, 16579, 11420)
@@ -46,7 +46,7 @@
 #' )
 #'
 #' # Unmix the image
-#' fractions <- sma(img = image, endm = endmembers)
+#' fractions <- sma(img = img_l8, endm = endmembers)
 #' plotRGB(fractions, 1, 2, 3, stretch = "lin")
 #' @export
 #'

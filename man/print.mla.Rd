@@ -2,13 +2,18 @@
 % Please edit documentation in R/mla.R
 \name{print.mla}
 \alias{print.mla}
-\title{Print for the "mla" class}
+\title{Print of the "mla" class}
 \usage{
 \method{print}{mla}(x, ...)
 }
 \arguments{
 \item{x}{Object of class "mla".}
+<<<<<<< HEAD
+=======
+
+\item{...}{Not used.}
+>>>>>>> 1b58dd1 (updates data)
 }
 \description{
-Print for the "mla" class
+Print of the "mla" class
 }
