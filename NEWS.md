@@ -1,3 +1,11 @@
+# ForesToolboxRS 0.0.2
+=====================================
+
+* Improves package documentation
+* Adds CI tests
+* Adds a website
+* Adds example data documentation
+
 
 # ForesToolboxRS 0.0.1
 =====================================
