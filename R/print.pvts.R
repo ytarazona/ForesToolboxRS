@@ -8,7 +8,7 @@
 #' @export
 #'
 
-print.pvts <- function(x) {
+print.pvts <- function(x, ...) {
   cat("\n  NON-SEASONAL DETECTION APPROACH
         PVts-Beta Approach\n")
   if (!is.na(x$Breakpoint[1])) {
