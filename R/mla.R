@@ -1,11 +1,9 @@
 #' Supervised and unsupervised classification in Remote Sensing
 #'
-#' This developed function allows to execute supervised classification
+#' It allows to execute supervised classification
 #' in satellite images through various algorithms.
 #'
-#' @author Yonatan Tarazona
-#'
-#' @section References:
+#' @references
 #' Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani. (2013).
 #' An introduction to statistical learning : with applications in R. New York: Springer.
 #'
@@ -35,9 +33,9 @@
 #' @importFrom randomForest randomForest
 #' @importFrom rgeos gIntersects
 #'
-#' @param img RasterStack or RasterBrick.
+#' @param img RasterStack or RasterBrick
 #' @param endm Signatures. SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
-#' containing the training data.
+#' containing the training data
 #' @param model Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
 #' \code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})
 #' like \code{model = 'randomForest'}, Naive Bayes (\link[e1071]{naiveBayes})
@@ -51,7 +49,6 @@
 #' \link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}.
 #'
 #' @examples
-#' \dontrun{
 #' library(ForesToolboxRS)
 #' library(raster)
 #' library(snow)
@@ -66,33 +63,31 @@
 #'
 #' # Plot image
 #' plot(classMap$Classification)
-#' }
+#'
 #' @export
 #'
 
-mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...){
+mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...) {
+  if (!inherits(img, "Raster")) stop("img must be a RasterBrick or RasterStack", call. = TRUE)
 
-  if(!inherits(img, "Raster")) stop("img must be a RasterBrick or RasterStack", call. = TRUE)
+  if (!compareCRS(img, endm)) stop("img and endm must have the same projection", call. = TRUE)
 
-  if(!compareCRS(img, endm)) stop("img and endm must have the same projection", call. = TRUE)
-
-  if(inherits(endm, 'SpatialPointsDataFrame')) {
+  if (inherits(endm, "SpatialPointsDataFrame")) {
     TypeEndm <- "points"
-
   } else {
-
-    if(inherits(endm, 'SpatialPolygonsDataFrame')){
+    if (inherits(endm, "SpatialPolygonsDataFrame")) {
       TypeEndm <- "polygons"
-
-    } else stop("Signatures (endm) must be SpatialPointsDataFrame or SpatialPolygonsDataFrame", call. = TRUE)
+    } else {
+      stop("Signatures (endm) must be SpatialPointsDataFrame or SpatialPolygonsDataFrame", call. = TRUE)
+    }
   }
 
   algoS <- c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn")
 
   algoSM <- c("svm", "randomForest", "naiveBayes", "knn")
 
-  if(verbose){
-    message(paste0(paste0(rep("*",10), collapse = ""), " The origin of the signatures are ", TypeEndm , paste0(rep("*",10), collapse = "")))
+  if (verbose) {
+    message(paste0(paste0(rep("*", 10), collapse = ""), " The origin of the signatures are ", TypeEndm, paste0(rep("*", 10), collapse = "")))
   }
 
   vegt <- extract(img, endm)
@@ -100,116 +95,111 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...){
   endm <- data.frame(vegt, class = endm@data)
 
   if (model %in% algoS) {
-
     if (is.numeric(endm$class)) {
       endm$class <- as.factor(endm$class)
     }
 
     # Training and Testing
-    sample_split <- sample(1:dim(endm)[1],
-                           training_split*dim(endm)[1]/100)
-    testing <- endm[sample_split,]
-    training <- endm[-sample_split,]
-
+    sample_split <- sample(
+      1:dim(endm)[1],
+      training_split * dim(endm)[1] / 100
+    )
+    testing <- endm[sample_split, ]
+    training <- endm[-sample_split, ]
   }
 
-  errorMatrix <- function(prediction, reference){
+  errorMatrix <- function(prediction, reference) {
 
     # Confusion matrix
     MC_ini <- table(prediction, reference)
-    OA <- sum(diag(MC_ini))/sum(MC_ini)
+    OA <- sum(diag(MC_ini)) / sum(MC_ini)
 
-    ua <- diag(MC_ini)/rowSums(MC_ini)*100
-    co <- 100-ua
+    ua <- diag(MC_ini) / rowSums(MC_ini) * 100
+    co <- 100 - ua
 
-    pa <- diag(MC_ini)/colSums(MC_ini)*100
-    om <- 100-pa
+    pa <- diag(MC_ini) / colSums(MC_ini) * 100
+    om <- 100 - pa
 
-    MCp <- cbind(MC_ini, Total = as.vector(rowSums(MC_ini)),Users_Accuracy = as.vector(ua), Commission=as.vector(co))
+    MCp <- cbind(MC_ini, Total = as.vector(rowSums(MC_ini)), Users_Accuracy = as.vector(ua), Commission = as.vector(co))
 
-    MCf <- rbind(MCp, Total = c(as.vector(colSums(MC_ini)),rep(NA,3)), Producer_Accuracy = c(as.vector(pa), rep(NA,3)),
-                Omission = c(as.vector(om), rep(NA,3)))
+    MCf <- rbind(MCp,
+      Total = c(as.vector(colSums(MC_ini)), rep(NA, 3)), Producer_Accuracy = c(as.vector(pa), rep(NA, 3)),
+      Omission = c(as.vector(om), rep(NA, 3))
+    )
 
     mc <- list(MCf = MCf, MC_ini = MC_ini)
 
     return(mc)
-
   }
 
-  if (model=="svm"){
+  if (model == "svm") {
 
     # Applying svm
-    model_algo <- svm(class~., data=training, type = "C-classification", ...)
+    model_algo <- svm(class ~ ., data = training, type = "C-classification", ...)
     prediction <- predict(model_algo, testing)
-
-  } else if(model=="randomForest"){
+  } else if (model == "randomForest") {
 
     # Applying randomForest
-    model_algo <- randomForest(class~., data=training, importance=TRUE, ...)
-    prediction <- predict(model_algo, testing[,-dim(endm)[2]])
-
-  } else if (model=="naiveBayes"){
+    model_algo <- randomForest(class ~ ., data = training, importance = TRUE, ...)
+    prediction <- predict(model_algo, testing[, -dim(endm)[2]])
+  } else if (model == "naiveBayes") {
 
     # Applying naiveBayes
-    model_algo <- naiveBayes(class~., data=training, ...)
-    prediction <- predict(model_algo, testing[,-dim(endm)[2]])
-
-  } else if (model=="LMT"){
+    model_algo <- naiveBayes(class ~ ., data = training, ...)
+    prediction <- predict(model_algo, testing[, -dim(endm)[2]])
+  } else if (model == "LMT") {
 
     # Applying Logistic Model Trees
-    model_algo <- train(class~., method = "LMT", data=training, ...)
-    prediction <- predict(model_algo, testing[,-dim(endm)[2]], type = "raw")
-
-  } else if (model=="nnet"){
+    model_algo <- train(class ~ ., method = "LMT", data = training, ...)
+    prediction <- predict(model_algo, testing[, -dim(endm)[2]], type = "raw")
+  } else if (model == "nnet") {
 
     # Applying nnet
-    nnet.grid = expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
-    model_algo <- train(class~., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
-    prediction <- predict(model_algo, testing[,-dim(endm)[2]], type = "raw")
-
+    nnet.grid <- expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
+    model_algo <- train(class ~ ., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
+    prediction <- predict(model_algo, testing[, -dim(endm)[2]], type = "raw")
   } else if (model == "knn") {
 
     # Applying knn
-    model_algo <- knn3(class~., data = training, k = 5, ...)
-    prediction <- predict(model_algo, testing[,-dim(endm)[2]], type = "class")
+    model_algo <- knn3(class ~ ., data = training, k = 5, ...)
+    prediction <- predict(model_algo, testing[, -dim(endm)[2]], type = "class")
+  } else {
+    stop("Unsupported classification method.", call. = TRUE)
+  }
 
-  } else stop("Unsupported classification method.", call. = TRUE)
-
-  if(verbose){
-    message(paste0(paste0(rep("*",10), collapse = ""), " Model summary " , paste0(rep("*",10), collapse = "")))
+  if (verbose) {
+    message(paste0(paste0(rep("*", 10), collapse = ""), " Model summary ", paste0(rep("*", 10), collapse = "")))
     print(model_algo)
   }
 
-  if(verbose){
-    message(paste0(paste0(rep("*",10), collapse = ""), " Apply model to the raster " , paste0(rep("*",10), collapse = "")))
+  if (verbose) {
+    message(paste0(paste0(rep("*", 10), collapse = ""), " Apply model to the raster ", paste0(rep("*", 10), collapse = "")))
   }
 
   if (model %in% algoSM) {
 
     # Apply model to the raster
-    beginCluster(type="SOCK")
-    raster_class <- clusterR(img, raster::predict, args = list(model = model_algo, type="class"))
+    beginCluster(type = "SOCK")
+    raster_class <- clusterR(img, raster::predict, args = list(model = model_algo, type = "class"))
     endCluster()
-
   } else {
-
     raster_class <- predict(img, model = model_algo)
-
   }
 
-  if(verbose){
-    message(paste0(paste0(rep("*",10), collapse = ""), " Confusion Matrix and finel result " , paste0(rep("*",10), collapse = "")))
+  if (verbose) {
+    message(paste0(paste0(rep("*", 10), collapse = ""), " Confusion Matrix and finel result ", paste0(rep("*", 10), collapse = "")))
   }
 
   # Confusion matrix
-  MC <- errorMatrix(prediction = prediction, reference = testing[,dim(endm)[2]])
+  MC <- errorMatrix(prediction = prediction, reference = testing[, dim(endm)[2]])
 
-  results <- list(Overall_accuracy = (confusionMatrix(MC$MC_ini)$overall[1:6])*100,
-                  Confusion_matrix = MC$MCf,
-                  Classification = raster_class)
+  results <- list(
+    Overall_accuracy = (confusionMatrix(MC$MC_ini)$overall[1:6]) * 100,
+    Confusion_matrix = MC$MCf,
+    Classification = raster_class
+  )
 
   return(structure(results, class = "mla"))
-
 }
 
 #' Print for the "mla" class
@@ -218,7 +208,7 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...){
 #'
 #' @export
 #'
-print.mla <- function(x){
+print.mla <- function(x) {
   cat("******************** ForesToolboxRS CLASSIFICATION ********************\n")
   cat("\n****Overall Accuracy****\n")
   print(x$Overall_accuracy)

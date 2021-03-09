@@ -7,35 +7,25 @@
 ndfiSMA(img, procesLevel = "SR", verbose = FALSE)
 }
 \arguments{
-\item{img}{It could be RasterStack or RasterBrick.}
+\item{img}{It could be RasterStack or RasterBrick}
 
 \item{procesLevel}{Processing level. It is possible to obtain the NDFI from images
 in surface reflectance (SR) from TM, ETM+ and OLI, or Top of Atmosphere (TOA) values
 only for Landsat 8 OLI. The default is SR. In addition, for any processing level,
-the image values must be rescaled between 0 and 10000.}
+the image values must be rescaled between 0 and 10000}
 
-\item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
+\item{verbose}{This paramater is Logical. It Prints progress messages during execution}
 }
 \description{
 The NDFI it is sensitive to the state of the canopy cover, and
 has been successfully applied to monitor forest degradation and deforestation
-in Peru and Brazil. This index comes from the endmembers Green Vegetation (GV),
+in Peru and Brazil. This index comes from the Green Vegetation (GV),
 non-photosynthetic vegetation (NPV), Soil (S) and the reminder is the shade
 component.
 }
-\section{References}{
-
-Souza Jr., C.M., Roberts, D.A., Cochrane, M.A., 2005. Combining spectral and
-spatialinformation to map canopy damage from selective logging and forest
-fires. Remote Sens. Environ. 98 (2-3), 329-343.
+\note{
+The fractions is obtained from the Spectral Mixture Analysis physical model.
 }
-
-\section{Note}{
-
-The fractions will be obtained from the Spectral Mixture Analysis physical model
-that was implemented in this function.
-}
-
 \examples{
 library(ForesToolboxRS)
 library(raster)
@@ -44,7 +34,11 @@ library(raster)
 data(FTdata)
 
 # Unmix the image
-ndfi <- ndfiSMA(img = image, procesLevel="SR")
+ndfi <- ndfiSMA(img = image, procesLevel = "SR")
 plot(ndfi)
-
+}
+\references{
+Souza Jr., C.M., Roberts, D.A., Cochrane, M.A., 2005. Combining spectral and
+spatialinformation to map canopy damage from selective logging and forest
+fires. Remote Sens. Environ. 98 (2-3), 329-343.
 }

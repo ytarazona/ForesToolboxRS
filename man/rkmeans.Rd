@@ -15,40 +15,37 @@ rkmeans(
 )
 }
 \arguments{
-\item{img}{RasterStack or RasterBrick.}
+\item{img}{RasterStack or RasterBrick}
 
-\item{k}{the number of clusters.}
+\item{k}{the number of clusters}
 
-\item{iter.max}{The maximum number of iterations allowed.}
+\item{iter.max}{The maximum number of iterations allowed}
 
-\item{nstart}{if centers is a number, how many random sets should be chosen?.}
+\item{nstart}{if centers is a number, how many random sets should be chosen?}
 
-\item{algo}{It can be "Hartigan-Wong", "Lloyd", "Forgy" or "MacQueen". See \link[stats]{kmeans}.}
+\item{algo}{It can be "Hartigan-Wong", "Lloyd", "Forgy" or "MacQueen". See \link[stats]{kmeans}}
 
+<<<<<<< HEAD
 \item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
 
 \item{...}{Options to be passed to the function. See \link[stats]{kmeans}.}
+=======
+\item{...}{Options to be passed to the function. See \link[stats]{kmeans}}
+
+\item{verbose}{This paramater is Logical. It Prints progress messages during execution}
+>>>>>>> be6d0b1 (cleans code styles and documentation)
 }
 \description{
 This function allows to classify satellite images using k-means.
 }
-\section{References}{
-
-
-Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani. (2013).
-An introduction to statistical learning : with applications in R. New York: Springer.
-}
-
-\section{Details}{
- If we want to find the optimal value of \code{k} (clusters or classes),
-so we must put \code{k = NULL} as an argument of the function. Here, we are finding k for
+\details{
+If we want to find the optimal value of \code{k} (clusters or classes),
+we should use \code{k = NULL}. This approach will look for the k values for
 which the intra-class inertia is stabilized. If we know the \code{k} value and the idea
-is to find the best algorithm embedded in kmeans, that maximizes inter-class distances,
-we must put \code{k = n}, where \code{n} is a specific class number.
+is to find the best algorithm embedded in k-means, that maximizes inter-class distances,
+we must put \code{k = n}, where \code{n} is a specified number of classes.
 }
-
 \examples{
-\dontrun{
 library(ForesToolboxRS)
 
 # Load the dataset
@@ -56,9 +53,8 @@ data(FTdata)
 
 # Selecting the best embedded algorithm in kmeans
 classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
-plot(classKmeans)
 }
-}
-\author{
-Yonatan Tarazona
+\references{
+Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani. (2013).
+An introduction to statistical learning : with applications in R. New York: Springer.
 }

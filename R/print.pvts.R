@@ -8,7 +8,7 @@
 print.pvts <- function(x) {
   cat("\n  NON-SEASONAL DETECTION APPROACH
         PVts-Beta Approach\n")
-  if(!is.na(x$Breakpoint[1])) {
+  if (!is.na(x$Breakpoint[1])) {
     cat("\nBreakpoint Detected \n")
     print(x$Breakpoint)
     cat("\nMonitoring Period \n")

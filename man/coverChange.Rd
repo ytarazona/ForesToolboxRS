@@ -2,7 +2,7 @@
 % Please edit documentation in R/coverChange.R
 \name{coverChange}
 \alias{coverChange}
-\title{Gain and loss in land cover classification}
+\title{Gain and loss in the land cover classification}
 \usage{
 coverChange(x, y)
 }
@@ -12,32 +12,22 @@ coverChange(x, y)
 \item{y}{Second classified image of a time later.}
 }
 \description{
-This algorithm is able to obtain gain and loss in land cover classification.
+This algorithm is able to obtain gain and loss in the land cover classification.
 }
-\section{Value}{
-
-A list with loss raster, gain raster, loss hectares and gain hectares.
-}
-
-\section{Note}{
-
+\note{
 It is important to mention that the images used to obtain gain and loss in land cover classification
 must have the same extent. It is preferable that the classified images come from the same software.
 }
-
 \examples{
 library(ForesToolboxRS)
 library(raster)
 
-rastClas1 <- raster(ncol=10, nrow=10, xmn=-1000, xmx=1000, ymn=-100, ymx=900)
+rastClas1 <- raster(ncol = 10, nrow = 10,
+  xmn = -1000, xmx = 1000, ymn = -100, ymx = 900)
 values(rastClas1) <- floor(runif(100, min = 1, max = 5))
 
-rastClas2 <- raster(ncol=10, nrow=10, xmn=-1000, xmx=1000, ymn=-100, ymx=900)
+rastClas2 <- raster(ncol = 10, nrow = 10, xmn = -1000, xmx = 1000, ymn = -100, ymx = 900)
 values(rastClas2) <- floor(runif(100, min = 1, max = 5))
 
 change <- coverChange(rastClas1, rastClas2)
-
-}
-\author{
-Yonatan Tarazona
 }
