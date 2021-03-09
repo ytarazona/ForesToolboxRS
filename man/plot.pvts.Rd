@@ -2,10 +2,25 @@
 % Please edit documentation in R/plot.pvts.R
 \name{plot.pvts}
 \alias{plot.pvts}
-\title{Plot for the "pvts" class}
+\title{Plot of the "pvts" class}
 \usage{
 \method{plot}{pvts}(x, ylab, type, col, lwd, main, ...)
 }
+\arguments{
+\item{x}{Object of class "pvts".}
+
+\item{ylab}{Y-axis title.}
+
+\item{type}{Line type.}
+
+\item{col}{Line color.}
+
+\item{lwd}{Line thickness.}
+
+\item{main}{Title.}
+
+\item{...}{Additional graphical parameters to be passed to \link[base]{plot}.}
+}
 \description{
-Plot for the "pvts" class
+Plot of the "pvts" class
 }

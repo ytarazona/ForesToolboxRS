@@ -20,17 +20,16 @@
 #' @param iter.max The maximum number of iterations allowed
 #' @param nstart if centers is a number, how many random sets should be chosen?
 #' @param algo It can be "Hartigan-Wong", "Lloyd", "Forgy" or "MacQueen". See \link[stats]{kmeans}
-#' @param verbose This paramater is Logical. It Prints progress messages during execution
 #' @param ... Options to be passed to the function. See \link[stats]{kmeans}
 #'
 #' @examples
 #' library(ForesToolboxRS)
 #'
 #' # Load the dataset
-#' data(FTdata)
+#' data(img_l8)
 #'
 #' # Selecting the best embedded algorithm in kmeans
-#' classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
+#' classKmeans <- rkmeans(img = img_l8, k = 4, algo = "MacQueen")
 #' @export
 #'
 rkmeans <- function(img, k, iter.max = 100, nstart = 50, algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), ...) {

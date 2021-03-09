@@ -27,10 +27,10 @@
 #' library(raster)
 #'
 #' # Load an example dataset
-#' data(FTdata)
+#' data(img_l8)
 #'
 #' # Tasseled-cap using Landsat8OLI
-#' gevi_index <- gevi(img = image / 10000, sat = "Landsat8OLI")
+#' gevi_index <- gevi(img = img_l8 / 10000, sat = "Landsat8OLI")
 #'
 #' # Improving the plot histogram
 #' gevi_index[gevi_index > 1] <- NA

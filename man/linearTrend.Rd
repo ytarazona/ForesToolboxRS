@@ -30,6 +30,8 @@ the references or see \href{https://doi.org/10.1016/j.rsase.2020.100337}{Tarazon
 library(ForesToolboxRS)
 library(raster)
 
+data(serie_pv)
+
 e <- extent(350420.9, 352028.8, -1417869, -1416288)
 imgs <- crop(serie_pv, e)
 

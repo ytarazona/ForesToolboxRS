@@ -63,7 +63,8 @@
 #' @param k Number of groups for splitting samples. It must be used only with the
 #' Cross-Validation (K-fold) approach.
 #' @param iter Number of iterations, i.e number of times the analysis is executed.
-#' @param verbose This paramater is Logical. It Prints progress messages during execution.
+#' @param verbose This parameter is Logical. It Prints progress messages during execution.
+#' @param ... Parameters to be passed to a machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest}, \link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}
 #'
 #' @examples
 #'
@@ -72,13 +73,14 @@
 #' library(raster)
 #' library(caret)
 #'
-#' # Load the dataset
-#' data(FTdata)
+#' # Load the datasets
+#' data(img_l8)
+#' data(endm)
 #'
 #' # Support Vector Machine and Random Forest Classifiers
 #' # Calibrating using "Set-Approach"
 #' cal_ml <- calmla(
-#'   img = image, endm = endm, model = c("svm", "randomForest"), training_split = 80,
+#'   img = img_l8, endm = endm, model = c("svm", "randomForest"), training_split = 80,
 #'   approach = "Set-Approach", iter = 10
 #' )
 #' }

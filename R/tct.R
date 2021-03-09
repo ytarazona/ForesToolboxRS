@@ -43,10 +43,10 @@
 #' library(raster)
 #'
 #' # Load an example dataset
-#' data(FTdata)
+#' data(img_l8)
 #'
 #' # Tasseled-cap using Landsat8OLI
-#' sat_tct <- tct(img = image, sat = "Landsat8OLI")
+#' sat_tct <- tct(img = img_l8, sat = "Landsat8OLI")
 #' plotRGB(sat_tct, 1, 2, 3, stretch = "lin")
 #' @export
 #'

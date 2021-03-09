@@ -25,8 +25,6 @@ rkmeans(
 \item{algo}{It can be "Hartigan-Wong", "Lloyd", "Forgy" or "MacQueen". See \link[stats]{kmeans}}
 
 \item{...}{Options to be passed to the function. See \link[stats]{kmeans}}
-
-\item{verbose}{This paramater is Logical. It Prints progress messages during execution}
 }
 \description{
 This function allows to classify satellite images using k-means.
@@ -42,10 +40,10 @@ we must put \code{k = n}, where \code{n} is a specified number of classes.
 library(ForesToolboxRS)
 
 # Load the dataset
-data(FTdata)
+data(img_l8)
 
 # Selecting the best embedded algorithm in kmeans
-classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
+classKmeans <- rkmeans(img = img_l8, k = 4, algo = "MacQueen")
 }
 \references{
 Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani. (2013).

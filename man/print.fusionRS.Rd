@@ -2,10 +2,15 @@
 % Please edit documentation in R/fusionRS.R
 \name{print.fusionRS}
 \alias{print.fusionRS}
-\title{Print for the "fusionRS" class}
+\title{Print of the "fusionRS" class}
 \usage{
 \method{print}{fusionRS}(x, ...)
 }
+\arguments{
+\item{x}{Object of class "fusionRS".}
+
+\item{...}{Not used.}
+}
 \description{
-Print for the "fusionRS" class
+Print of the "fusionRS" class
 }

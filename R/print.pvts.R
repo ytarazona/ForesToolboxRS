@@ -1,4 +1,7 @@
-#' Printing for the "pvts" class
+#' Printing of the "pvts" class
+#'
+#' @param x Object of class "pvts".
+#' @param ... Not used
 #'
 #' @export
 #'

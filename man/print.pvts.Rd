@@ -2,10 +2,15 @@
 % Please edit documentation in R/print.pvts.R
 \name{print.pvts}
 \alias{print.pvts}
-\title{Printing for the "pvts" class}
+\title{Printing of the "pvts" class}
 \usage{
 \method{print}{pvts}(x, ...)
 }
+\arguments{
+\item{x}{Object of class "pvts".}
+
+\item{...}{Not used}
+}
 \description{
-Printing for the "pvts" class
+Printing of the "pvts" class
 }

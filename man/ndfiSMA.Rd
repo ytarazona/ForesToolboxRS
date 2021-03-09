@@ -31,10 +31,10 @@ library(ForesToolboxRS)
 library(raster)
 
 # Load an example dataset
-data(FTdata)
+data(img_l8)
 
 # Unmix the image
-ndfi <- ndfiSMA(img = image, procesLevel = "SR")
+ndfi <- ndfiSMA(img = img_l8, procesLevel = "SR")
 plot(ndfi)
 }
 \references{

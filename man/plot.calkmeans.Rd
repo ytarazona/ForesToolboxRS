@@ -2,10 +2,25 @@
 % Please edit documentation in R/calkmeans.R
 \name{plot.calkmeans}
 \alias{plot.calkmeans}
-\title{Plot for the "calkmeans" class}
+\title{Plot of the "calkmeans" class}
 \usage{
 \method{plot}{calkmeans}(x, xlab, ylab, type, main, cex, ...)
 }
+\arguments{
+\item{x}{Object of class "pvts".}
+
+\item{xlab}{X-axis title.}
+
+\item{ylab}{Y-axis title.}
+
+\item{type}{Line type.}
+
+\item{main}{Title.}
+
+\item{cex}{Points size.}
+
+\item{...}{Additional graphical parameters to be passed to \link[base]{plot}.}
+}
 \description{
-Plot for the "calkmeans" class
+Plot of the "calkmeans" class
 }

@@ -2,8 +2,7 @@
 #'
 #' This algorithm is able to obtain gain and loss in the land cover classification.
 #'
-#' @value
-#' A list with loss raster, gain raster, loss hectares and gain hectares.
+#' @return A list with loss raster, gain raster, loss hectares and gain hectares.
 #'
 #' @note
 #' It is important to mention that the images used to obtain gain and loss in land cover classification

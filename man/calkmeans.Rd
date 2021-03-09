@@ -47,11 +47,11 @@ we must put \code{k = n}, where \code{n} is a specific class number.
 library(ForesToolboxRS)
 
 # Load the dataset
-data(FTdata)
+data(img_l8)
 
 # Selecting the best k value
 best_k <- calkmeans(
-  img = image[[1:2]], k = NULL, iter.max = 10,
+  img = img_l8[[1:2]], k = NULL, iter.max = 10,
   algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), iter = 30
 )
 # Jambu Elbow
@@ -60,7 +60,7 @@ plot(best_k)
 
 # Selecting the best embedded algorithm in kmeans
 best_algo <- calkmeans(
-  img = image[[1:2]], k = 4, iter.max = 10,
+  img = img_l8[[1:2]], k = 4, iter.max = 10,
   algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), iter = 30
 )
 
