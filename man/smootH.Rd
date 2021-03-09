@@ -9,11 +9,8 @@ smootH(x, na = FALSE, method.interp = "na.interp")
 \arguments{
 \item{x}{Numeric, matrix.}
 
-<<<<<<< HEAD
 \item{na}{??}
 
-=======
->>>>>>> 1bdb84b91b0ac0713ba67af38b240ed237d82425
 \item{method.interp}{Four interpolation methods are presented, "na.interp",
 "na.approx" and "na.spline". By default is the method "na.interp".}
 }
