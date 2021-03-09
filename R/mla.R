@@ -207,8 +207,6 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...) {
 #' @param x Object of class "mla".
 #' @param ... Not used.
 #'
-#' @param x Object of class "mla".
-#'
 #' @export
 #'
 print.mla <- function(x, ...) {

@@ -20,7 +20,7 @@
 #' @param iter.max The maximum number of iterations allowed
 #' @param nstart if centers is a number, how many random sets should be chosen?
 #' @param algo It can be "Hartigan-Wong", "Lloyd", "Forgy" or "MacQueen". See \link[stats]{kmeans}
-#' @param verbose ??
+#' @param verbose This paramater is Logical. It Prints progress messages during execution.
 #' @param ... Options to be passed to the function. See \link[stats]{kmeans}
 #'
 #' @examples

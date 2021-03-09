@@ -120,8 +120,6 @@ fusionRS <- function(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE) {
 #' @param x Object of class "fusionRS".
 #' @param ... Not used.
 #'
-#' @param x Object of class "fusionRS".
-#'
 #' @export
 #'
 print.fusionRS <- function(x, ...) {

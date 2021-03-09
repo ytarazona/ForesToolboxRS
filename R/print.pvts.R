@@ -3,8 +3,6 @@
 #' @param x Object of class "pvts".
 #' @param ... Not used
 #'
-#' @param x Object of class "pvts".
-#'
 #' @export
 #'
 

@@ -212,6 +212,12 @@ plot(cd)
 <!-- The output: -->
 <!-- <img src="man/figures/ndfi_serie_pvtsVect5.png" width = 90%/> -->
 
+
+
+
+=======
+## 2. Supervised classification in Remote Sensing (the **`mla()`** function)
+
 For this tutorial, Landsat-8 OLI image and signatures were used.
 Download the data
 [Here](https://drive.google.com/drive/folders/1vH0mSAndVNErRjlQ6rZ1zdnTgpvNUU1R?usp=sharing).

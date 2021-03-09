@@ -25,8 +25,11 @@ rkmeans(
 
 \item{algo}{It can be "Hartigan-Wong", "Lloyd", "Forgy" or "MacQueen". See \link[stats]{kmeans}}
 
+<<<<<<< HEAD
 \item{verbose}{??}
 
+=======
+>>>>>>> 1bdb84b91b0ac0713ba67af38b240ed237d82425
 \item{...}{Options to be passed to the function. See \link[stats]{kmeans}}
 }
 \description{
