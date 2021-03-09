@@ -1,5 +1,6 @@
 .gitignore
 README.md
+README.Rmd
 TODO
 ^revdep$
 ^.*\.Rproj$
@@ -7,3 +8,4 @@ TODO
 .travis.yml
 ^LICENSE\.md$
 .github
+cache
