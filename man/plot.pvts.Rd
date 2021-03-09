@@ -11,7 +11,6 @@
 
 \item{ylab}{Y-axis title.}
 
-<<<<<<< HEAD
 \item{type}{Type of line.}
 
 \item{col}{Type of color line.}
@@ -23,17 +22,6 @@
 \item{...}{Graphical parameters to be passed in \link[base]{plot}.}
 
 \item{cex}{Graph line point size.}
-=======
-\item{type}{Line type.}
-
-\item{col}{Line color.}
-
-\item{lwd}{Line thickness.}
-
-\item{main}{Title.}
-
-\item{...}{Additional graphical parameters to be passed to \link[base]{plot}.}
->>>>>>> 1b58dd1 (updates data)
 }
 \description{
 Plot of the "pvts" class

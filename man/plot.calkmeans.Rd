@@ -7,17 +7,12 @@
 \method{plot}{calkmeans}(x, xlab, ylab, type, main, cex, ...)
 }
 \arguments{
-<<<<<<< HEAD
 \item{x}{Object of class "calkmeans".}
-=======
-\item{x}{Object of class "pvts".}
->>>>>>> 1b58dd1 (updates data)
 
 \item{xlab}{X-axis title.}
 
 \item{ylab}{Y-axis title.}
 
-<<<<<<< HEAD
 \item{type}{Type of line.}
 
 \item{main}{Title of the graph.}
@@ -25,15 +20,6 @@
 \item{cex}{Graph line point size.}
 
 \item{...}{Graphical parameters to be passed in \link[base]{plot}.}
-=======
-\item{type}{Line type.}
-
-\item{main}{Title.}
-
-\item{cex}{Points size.}
-
-\item{...}{Additional graphical parameters to be passed to \link[base]{plot}.}
->>>>>>> 1b58dd1 (updates data)
 }
 \description{
 Plot of the "calkmeans" class

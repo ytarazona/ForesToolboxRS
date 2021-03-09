@@ -8,11 +8,8 @@
 }
 \arguments{
 \item{x}{Object of class "mla".}
-<<<<<<< HEAD
-=======
 
 \item{...}{Not used.}
->>>>>>> 1b58dd1 (updates data)
 }
 \description{
 Print of the "mla" class

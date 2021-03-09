@@ -25,18 +25,7 @@ rkmeans(
 
 \item{algo}{It can be "Hartigan-Wong", "Lloyd", "Forgy" or "MacQueen". See \link[stats]{kmeans}}
 
-<<<<<<< HEAD
-\item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
-
-\item{...}{Options to be passed to the function. See \link[stats]{kmeans}.}
-=======
 \item{...}{Options to be passed to the function. See \link[stats]{kmeans}}
-<<<<<<< HEAD
-
-\item{verbose}{This paramater is Logical. It Prints progress messages during execution}
->>>>>>> be6d0b1 (cleans code styles and documentation)
-=======
->>>>>>> 1b58dd1 (updates data)
 }
 \description{
 This function allows to classify satellite images using k-means.

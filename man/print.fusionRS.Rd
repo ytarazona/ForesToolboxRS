@@ -8,11 +8,8 @@
 }
 \arguments{
 \item{x}{Object of class "fusionRS".}
-<<<<<<< HEAD
-=======
 
 \item{...}{Not used.}
->>>>>>> 1b58dd1 (updates data)
 }
 \description{
 Print of the "fusionRS" class

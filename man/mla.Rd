@@ -22,19 +22,9 @@ like \code{model = 'nnet'}, K-nearest Neighbors (\link[caret]{knn3}) like \code{
 \item{training_split}{For splitting samples into two subsets, i.e. training data and for
 testing data}
 
-<<<<<<< HEAD
-\item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
-
-\item{...}{Parameters to be passed in machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest},
-\link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}.}
-=======
 \item{verbose}{This parameter is Logical. It Prints progress messages during execution}
-<<<<<<< HEAD
->>>>>>> be6d0b1 (cleans code styles and documentation)
-=======
 
 \item{...}{Parameters to be passed to a machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest}, \link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}}
->>>>>>> 1b58dd1 (updates data)
 }
 \description{
 It allows to execute supervised classification

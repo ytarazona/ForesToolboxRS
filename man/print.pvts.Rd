@@ -8,9 +8,6 @@
 }
 \arguments{
 \item{x}{Object of class "pvts".}
-}
-\arguments{
-\item{x}{Object of class "pvts".}
 
 \item{...}{Not used}
 }
