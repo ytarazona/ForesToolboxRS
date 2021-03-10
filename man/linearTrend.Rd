@@ -7,30 +7,39 @@
 linearTrend(x, type = "lm", ...)
 }
 \arguments{
-\item{x}{RasterStack, RasterBrick or Matrix (row*col, n_images).}
+\item{x}{RasterStack, RasterBrick or Matrix (row*col, n_images)}
 
-\item{type}{There are two options: "lm" for linear regressions and "glm" for Fitting
-Generalized Linear Models.}
+\item{type}{There are two options: "lm" for a linear regression and "glm" for Generalized Linear Models}
 
 \item{...}{For "lm" and "glm": arguments to be used to form the default control argument
 if it is not supplied directly. See \link[stats]{lm} and \link[stats]{glm}.}
 }
 \description{
-Linear trend is useful for mapping forest degradation, land degradation, among others.
+Linear trend is useful for mapping forest degradation, land degradation, etc.
 This algorithm is capable of obtaining the slope of an ordinary least-squares
 linear regression and its reliability (p-value).
 }
-\section{Details}{
-
+\details{
 Linear regression is widely used to analyze forest degradation or land degradation.
-Specifically, the slope and its reliability are parameters for this analysis and these
-can be obtained whit this function. On the other hand, logistic regression allows
+Specifically, the slope and its reliability are used as main parameters and they
+can be obtained with this function. On the other hand, logistic regression allows
 obtaining a degradation risk map, in other words, it is a probability map. Please see
-the references or see [Tarazona and Maria-Miyasiro (2020)](https://doi.org/10.1016/j.rsase.2020.100337).
+the references or see \href{https://doi.org/10.1016/j.rsase.2020.100337}{Tarazona and Maria-Miyasiro (2020)}.
 }
+\examples{
+library(ForesToolboxRS)
+library(raster)
 
-\section{References}{
+data(serie_pv)
 
+e <- extent(350420.9, 352028.8, -1417869, -1416288)
+imgs <- crop(serie_pv, e)
+
+trend <- linearTrend(x = imgs)
+plot(trend[[1]]) # raster of slope
+plot(trend[[2]]) # raster of p-value
+}
+\references{
 Tarazona, Y., Maria, Miyasiro-Lopez. (2020). Monitoring tropical forest degradation using
 remote sensing. Challenges and opportunities in the Madre de Dios region, Peru. Remote
 Sensing Applications: Society and Environment, 19, 100337.
@@ -39,20 +48,4 @@ Wilkinson, G.N., Rogers, C.E., 1973. Symbolic descriptions of factorial models f
 analysis of variance. Appl. Stat. 22, 392-399.
 
 Chambers, J.M., 1992. Statistical Models in S. CRS Press.
-}
-
-\examples{
-library(ForesToolboxRS)
-library(raster)
-
-e <- extent(350420.9,352028.8,-1417869,-1416288)
-imgs <- crop(serie_pv, e)
-
-trend <- linearTrend(x = imgs)
-plot(trend[[1]]) # raster of slope
-plot(trend[[2]]) # raster of p-value
-
-}
-\author{
-Yonatan Tarazona
 }

@@ -14,8 +14,7 @@ gevi(img, sat = "Landsat8OLI")
 \description{
 Greenness Vegetation Index is obtained from the Tasseled Cap Transformation.
 }
-\section{Details}{
-
+\details{
 Currently implemented for satellites such as Landsat-4 TM, Landsat-5 TM, Landsat-7 ETM+,
 Landsat-8 OLI and Sentinel2. The input data must be in top of atmosphere reflectance (toa).
 Bands required as input must be ordered as:
@@ -30,23 +29,18 @@ Landsat8OLI-Li2016  \tab coastal,blue,green,red,nir,swir1,swir2 \cr
 Sentinel2MSI \tab coastal,blue,green,red,nir-1,mir-1,mir-2 \cr
 }
 }
-
 \examples{
 library(ForesToolboxRS)
 library(raster)
 
 # Load an example dataset
-data(FTdata)
+data(img_l8)
 
 # Tasseled-cap using Landsat8OLI
-gevi_index <- gevi(img = image/10000, sat = "Landsat8OLI")
+gevi_index <- gevi(img = img_l8 / 10000, sat = "Landsat8OLI")
 
 # Improving the plot histogram
 gevi_index[gevi_index > 1] <- NA
 gevi_index[gevi_index < -1] <- NA
 plot(gevi_index)
-
-}
-\author{
-Yonatan Tarazona
 }

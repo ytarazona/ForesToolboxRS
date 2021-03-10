@@ -2,11 +2,13 @@ library(testthat)
 library(ForesToolboxRS)
 library(stars)
 library(raster)
+library(caret)
+data(endm)
 context("ForesToolboxRS ndfiSMA")
 
 
 training_split = 80
-vegt <- extract(img, endm)
+vegt <- extract(img_l8, endm)
 
 endm <- data.frame(vegt, class = endm@data)
 endm$class <- as.factor(endm$class)
@@ -44,10 +46,10 @@ model_algo <- knn3(class~., data = training, k = 5)
 prediction <- predict(model_algo, testing[,-dim(endm)[2]], type = "class")
 
 beginCluster(type="SOCK")
-raster_class <- clusterR(img, raster::predict, args = list(model = model_algo, type = "class"))
+raster_class <- clusterR(img_l8, raster::predict, args = list(model = model_algo, type = "class"))
 endCluster()
 
-raster_class <- predict(img, model = model_algo)
+raster_class <- predict(img_l8, model = model_algo)
 
 # Confusion matrix
 MC <- errorMatrix(prediction = prediction, reference = testing[,dim(endm)[2]])

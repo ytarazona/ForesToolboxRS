@@ -7,10 +7,10 @@
 mla(img, endm, model, training_split = 80, verbose = FALSE, ...)
 }
 \arguments{
-\item{img}{RasterStack or RasterBrick.}
+\item{img}{RasterStack or RasterBrick}
 
 \item{endm}{Signatures. SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
-containing the training data.}
+containing the training data}
 
 \item{model}{Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
 \code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})
@@ -20,19 +20,40 @@ like \code{model = 'LMT'}, Neural Networks (\link[nnet]{nnet})
 like \code{model = 'nnet'}, K-nearest Neighbors (\link[caret]{knn3}) like \code{model = 'knn'}.}
 
 \item{training_split}{For splitting samples into two subsets, i.e. training data and for
-testing data.}
+testing data}
 
-\item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
+\item{verbose}{This parameter is Logical. It Prints progress messages during execution}
 
-\item{...}{Parameters to be passed in machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest},
-\link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}.}
+\item{...}{Parameters to be passed to a machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest}, \link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}}
 }
 \description{
-This developed function allows to execute supervised classification
+It allows to execute supervised classification
 in satellite images through various algorithms.
 }
-\section{References}{
+\section{Note}{
+ If \code{model = "LMT"}, the function is using "Logistic Model Trees"
+from http://topepo.github.io/caret/train-models-by-tag.html of the \code{caret} package.
+}
 
+\examples{
+library(ForesToolboxRS)
+library(raster)
+library(snow)
+library(caret)
+
+# Load the datasets
+data(img_l8)
+data(endm)
+
+# Random Forest Classifier
+classMap <- mla(img = img_l8, endm = endm, model = "randomForest", training_split = 80)
+print(classMap)
+
+# Plot image
+plot(classMap$Classification)
+
+}
+\references{
 Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani. (2013).
 An introduction to statistical learning : with applications in R. New York: Springer.
 
@@ -52,30 +73,4 @@ of Computer Applications, 7(11).
 
 Holloway, J., Mengersen, K. (2018). Statistical Machine Learning Methods and Remote
 Sensing for Sustainable Development Goals: A Review. Remote Sensing, 10(9), 1365.
-}
-
-\section{Note}{
- If \code{model = "LMT"}, the function is using "Logistic Model Trees"
-from http://topepo.github.io/caret/train-models-by-tag.html of the \code{caret} package.
-}
-
-\examples{
-library(ForesToolboxRS)
-library(raster)
-library(snow)
-library(caret)
-
-# Load the dataset
-data(FTdata)
-
-# Random Forest Classifier
-classMap <- mla(img = image, endm = endm, model = "randomForest", training_split = 80)
-print(classMap)
-
-# Plot image
-plot(classMap$Classification)
-
-}
-\author{
-Yonatan Tarazona
 }

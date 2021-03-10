@@ -2,52 +2,46 @@
 % Please edit documentation in R/fusionRS.R
 \name{fusionRS}
 \alias{fusionRS}
-\title{Fusion of images with different observation geometry}
+\title{Fusion of images with different observation geometries}
 \usage{
 fusionRS(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{x}{Optical image. It could be RasterStack or RasterBrick.}
+\item{x}{Optical image. It should be RasterStack or RasterBrick}
 
-\item{y}{Radar image. It could be RasterStack or RasterBrick.}
+\item{y}{Radar image. It should be RasterStack or RasterBrick}
 
 \item{stand.varb}{Logical. If \code{TRUE}, the PCA is calculated using the correlation
-matrix (standardized variables) instead of the convariance matrix (non-standardized variables).}
+matrix (standardized variables) instead of the covariance matrix (non-standardized variables)}
 
-\item{na}{If \code{TRUE} the NA values of the images will be omitted from the analysis.}
+\item{na}{If \code{TRUE} the NA values of the images will be omitted from the analysis}
 
-\item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
+\item{verbose}{This parameter is Logical. It prints progress messages during execution}
 }
-\description{
-This algorithm allows to fusion images coming from different spectral sensors
-(e.g., optical-optical, optical and SAR or SAR-SAR). Among many of the qualities
-of this function, it is possible to obtain the contribution (%) of each variable
-in the fused image.
-}
-\section{Value}{
-
+\value{
 A list with Fused images (RasterStack), Variance, Proportion of variance, Cumulative variance,
 Correlation and Contribution in percentage.
 }
-
-\section{Note}{
-
+\description{
+This algorithm allows to fusion images coming from different spectral sensors
+(e.g., optical-optical, optical and SAR, or SAR-SAR). It is also possible to obtain the contribution (\%) of each variable
+in the fused image.
+}
+\note{
 Before executing the function, it is recommended that images coming from different
 sensors or from the same sensor have a co-registration.
 }
-
 \examples{
+\dontrun{
 library(ForesToolboxRS)
 library(raster)
 
-# Load an example dataset
-data(FTdata)
+# Load example datasets
+data(img_optical)
+data(img_radar)
 
 # Fusing optical and radar data
-fusion <- fusionRS(x=optical, y=radar, na = TRUE)
-plotRGB(fusion[[1]], 1,2,3, axes=F, stretch="lin",main ="Fused images")
-
+fusion <- fusionRS(x = optical, y = radar, na = TRUE)
+plotRGB(fusion[[1]], 1, 2, 3, axes = FALSE, stretch = "lin", main = "Fused images")
 }
-\author{
-Yonatan Tarazona
 }

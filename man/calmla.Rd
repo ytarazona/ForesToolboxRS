@@ -2,7 +2,7 @@
 % Please edit documentation in R/calmla.R
 \name{calmla}
 \alias{calmla}
-\title{Calibrating Supervised classification in Remote Sensing}
+\title{Calibrating supervised classification in Remote Sensing}
 \usage{
 calmla(
   img,
@@ -42,10 +42,9 @@ Cross-Validation (K-fold) approach.}
 
 \item{iter}{Number of iterations, i.e number of times the analysis is executed.}
 
-\item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
+\item{verbose}{This parameter is Logical. It Prints progress messages during execution.}
 
-\item{...}{Parameters to be passed in machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest},
-\link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}.}
+\item{...}{Parameters to be passed to a machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest}, \link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}}
 }
 \description{
 This function allows to calibrate supervised classification in satellite images
@@ -55,14 +54,35 @@ Monte Carlo Cross-Validation (MCCV).
 }
 \details{
 If the "Set-Approach" method is being used, it is not necessary to use parameter \code{k}.
- \code{k} only can be used when the Cross-Validation (k-fold) method is used. On the other hand,
- to create groups in Cross-Validation, the \code{createFolds} function of the "confusionMatrix" is used.
- See \link[confusionMatrix]{createFolds} for more details. In addition, to generate random splits
- in Monte Carlos Cross-Validation the \code{generate.split} function of the "WilcoxCV" package was used.
- Please see \link[WilcoxCV]{generate.split} for more details.
+\code{k} only can be used when the Cross-Validation (k-fold) method is used. On the other hand,
+to create groups in Cross-Validation, the \code{createFolds} function of "caret" is used.
+See \link[caret]{createFolds} for more details. In addition, to generate random splits
+in Monte Carlos Cross-Validation the \code{generate.split} function of the "WilcoxCV" package was used.
+Please see \link[WilcoxCV]{generate.split} for more details.
 }
-\section{References}{
+\note{
+At the moment, only one calibration approach can be used.
+}
+\examples{
 
+\dontrun{
+library(ForesToolboxRS)
+library(raster)
+library(caret)
+
+# Load the datasets
+data(img_l8)
+data(endm)
+
+# Support Vector Machine and Random Forest Classifiers
+# Calibrating using "Set-Approach"
+cal_ml <- calmla(
+  img = img_l8, endm = endm, model = c("svm", "randomForest"), training_split = 80,
+  approach = "Set-Approach", iter = 10
+)
+}
+}
+\references{
 Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani. (2013).
 An introduction to statistical learning : with applications in R. New York: Springer.
 
@@ -85,26 +105,4 @@ of Computer Applications, 7(11).
 
 Holloway, J., Mengersen, K. (2018). Statistical Machine Learning Methods and Remote
 Sensing for Sustainable Development Goals: A Review. Remote Sensing, 10(9), 1365.
-}
-
-\section{Note}{
- At the moment, only one calibration approach can be used.
-}
-
-\examples{
-library(ForesToolboxRS)
-library(raster)
-library(caret)
-
-# Load the dataset
-data(FTdata)
-
-# Support Vector Machine and Random Forest Classifiers
-# Calibrating using "Set-Approach"
-cal_ml <- calmla(img = image, endm = endm, model = c("svm", "randomForest"), training_split = 80,
-           approach = "Set-Approach", iter = 10)
-
-}
-\author{
-Yonatan Tarazona
 }

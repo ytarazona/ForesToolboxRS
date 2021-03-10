@@ -18,22 +18,7 @@ remote sensing data. Not only can it perform volume data compression, but it
 can also provide parameters associated with the physical characteristics,
 such as brightness, greenness and wetness indices.
 }
-\section{References}{
-
-Crist, E.P., R. Laurin, and R.C. Cicone. 1986. Vegetation and soils information
-contained in transformed Thematic Mapper data. Pages 1465-1470 Ref. ESA SP-254.
-European Space Agency, Paris, France. http://www.ciesin.org/docs/005-419/005-419.html.
-
-Baig, M.H.A., Shuai, T., Tong, Q., 2014. Derivation of a tasseled cap transformation
-based on Landsat 8 at-satellite reflectance. Remote Sensing Letters, 5(5), 423-431.
-
-Li, B., Ti, C., Zhao, Y., Yan, X., 2016. Estimating Soil Moisture with Landsat Data
-and Its Application in Extracting the Spatial Distribution of Winter Flooded Paddies.
-Remote Sensing, 8(1), 38.
-}
-
-\section{Note}{
-
+\note{
 Currently implemented for satellites such as Landsat-4 TM, Landsat-5 TM, Landsat-7 ETM+,
 Landsat-8 OLI and Sentinel2. The input data must be in top of atmosphere reflectance (toa).
 Bands required as input must be ordered as:
@@ -48,19 +33,26 @@ Landsat8OLI-Li2016  \tab coastal,blue,green,red,nir,swir1,swir2 \cr
 Sentinel2MSI \tab coastal,blue,green,red,nir-1,mir-1,mir-2 \cr
 }
 }
-
 \examples{
 library(ForesToolboxRS)
 library(raster)
 
 # Load an example dataset
-data(FTdata)
+data(img_l8)
 
 # Tasseled-cap using Landsat8OLI
-sat_tct <- tct(img = image, sat="Landsat8OLI")
-plotRGB(sat_tct, 1,2,3, stretch="lin")
-
+sat_tct <- tct(img = img_l8, sat = "Landsat8OLI")
+plotRGB(sat_tct, 1, 2, 3, stretch = "lin")
 }
-\author{
-Yonatan Tarazona Coronel
+\references{
+Crist, E.P., R. Laurin, and R.C. Cicone. 1986. Vegetation and soils information
+contained in transformed Thematic Mapper data. Pages 1465-1470 Ref. ESA SP-254.
+European Space Agency, Paris, France. http://www.ciesin.org/docs/005-419/005-419.html.
+
+Baig, M.H.A., Shuai, T., Tong, Q., 2014. Derivation of a tasseled cap transformation
+based on Landsat 8 at-satellite reflectance. Remote Sensing Letters, 5(5), 423-431.
+
+Li, B., Ti, C., Zhao, Y., Yan, X., 2016. Estimating Soil Moisture with Landsat Data
+and Its Application in Extracting the Spatial Distribution of Winter Flooded Paddies.
+Remote Sensing, 8(1), 38.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/calkmeans.R
 \name{plot.calkmeans}
 \alias{plot.calkmeans}
-\title{Plot for the "calkmeans" class}
+\title{Plot of the "calkmeans" class}
 \usage{
 \method{plot}{calkmeans}(x, xlab, ylab, type, main, cex, ...)
 }
@@ -22,5 +22,5 @@
 \item{...}{Graphical parameters to be passed in \link[base]{plot}.}
 }
 \description{
-Plot for the "calkmeans" class
+Plot of the "calkmeans" class
 }

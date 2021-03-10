@@ -13,15 +13,40 @@ sma(img, endm, verbose = FALSE)
 Rows represent the endmembers and columns represent the spectral bands.  The number
 of bands must be greater than the number of endmembers.}
 
-\item{verbose}{This paramater is Logical. It Prints progress messages during execution.}
+\item{verbose}{This parameter is Logical. It Prints progress messages during execution.}
 }
 \description{
-The SMA assumes that the energy received, within the field of vision of the
-remote sensor, can be considered as the sum of the energies received from each
+The SMA assumes that the energy received within the field of vision of the
+remote sensor can be considered as the sum of the energies received from each
 dominant endmember. This function addresses a Linear Mixing Model.
 }
-\section{References}{
+\details{
+A regression analysis is used to obtain the fractions. In least squares
+inversion algorithms, the common objective is to estimate abundances that
+minimize the squared error between the actual spectrum and the estimated spectrum.
+The values of the fractions will be between 0 and 1.
+}
+\examples{
+library(ForesToolboxRS)
+library(raster)
 
+# Load an example dataset
+data(img_l8)
+
+# Endmembers (Surface reflectance between 0 and 10000)
+soil <- c(8980, 8508, 8704, 13636, 16579, 11420)
+forest <- c(8207, 7545, 6548, 16463, 9725, 6673)
+water <- c(9276, 9570, 10089, 6743, 5220, 5143)
+endmembers <- matrix(c(soil, forest, water), 3, 6,
+  byrow = TRUE, dimnames =
+    list(c("soil", "forest", "water"), c("B1", "B2", "B3", "B4", "B5", "B6"))
+)
+
+# Unmix the image
+fractions <- sma(img = img_l8, endm = endmembers)
+plotRGB(fractions, 1, 2, 3, stretch = "lin")
+}
+\references{
 Adams, J. B., Smith, M. O., & Gillespie, A. R. (1993). Imaging spectroscopy:
 Interpretation based on spectral mixture analysis. In C. M. Pieters & P.
 Englert (Eds.), Remote geochemical analysis: Elements and mineralogical
@@ -30,36 +55,4 @@ composition. NY: Cambridge Univ. Press 145-166 pp.
 Shimabukuro, Y.E. and Smith, J., (1991). The least squares mixing models to
 generate fraction images derived from remote sensing multispectral data.
 IEEE Transactions on Geoscience and Remote Sensing, 29, pp. 16-21.
-}
-
-\section{Details}{
-
-A regression analysis is used to obtain the fractions. In least squares
-inversion algorithms, the common objective is to estimate abundances that
-minimize the squared error between the actual spectrum and the estimated spectrum.
-The values of the fractions will be between 0 and 1.
-}
-
-\examples{
-
-library(ForesToolboxRS)
-library(raster)
-
-# Load an example dataset
-data(FTdata)
-
-# Endmembers (Surface reflectance between 0 and 10000)
-soil<-c(8980,8508,8704,13636,16579,11420)
-forest<-c(8207,7545,6548,16463,9725,6673)
-water<-c(9276,9570,10089,6743,5220,5143)
-endmembers <- matrix(c(soil,forest,water), 3, 6, byrow = TRUE, dimnames =
-list(c("soil", "forest","water"), c("B1", "B2", "B3","B4","B5","B6")))
-
-# Unmix the image
-fractions <- sma(img = image, endm = endmembers)
-plotRGB(fractions, 1, 2, 3, stretch = "lin")
-
-}
-\author{
-Yonatan Tarazona Coronel
 }
