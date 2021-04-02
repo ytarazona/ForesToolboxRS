@@ -30,23 +30,23 @@
 #' @param x Vector (class "numeric"), univariate time series (class "ts") without NA's.
 #' @param startm The start of the monitoring time.
 #' @param endm The end of the monitoring time.
-#' @param threshold The default threshold is 5 for photosynthetic vegetation,
-#' while for indices such as NDVI and EVI the threshold is 3.
-#' Please see Tarazona et al. (2018) for more details.
+#' @param threshold The default threshold is 5 for photosynthetic vegetation or for
+#' Normalized Difference Fraction Index (NDFI), while for indices such as NDVI and EVI
+#' the threshold is 3. Please see Tarazona et al. (2018) for more details.
 #' @param verbose This parameter is Logical. It Prints progress messages during execution.
 #'
 #' @examples
 #' library(ForesToolboxRS)
 #' library(raster)
 #'
-#' # Normalized Difference Fraction Index from 1990 to 2017, one index for each year.
+#' # NDFI from 1990 to 2017, one index for each year.
 #' ndfi <- c(
 #'   0.86, 0.93, 0.97, 0.91, 0.95, 0.96, 0.91, 0.88, 0.92, 0.89,
 #'   0.90, 0.89, 0.91, 0.92, 0.89, 0.90, 0.92, 0.84, 0.46, 0.20,
 #'   0.27, 0.22, 0.52, 0.63, 0.61, 0.67, 0.64, 0.86
 #' )
 #'
-#' # Detecting changes in 2008 (position 19)
+#' # Detect change in 2008 (position 19)
 #' # First, applying a smoothing
 #' ndfi_smooth <- ndfi
 #' ndfi_smooth[1:19] <- smootH(ndfi[1:19])
@@ -62,6 +62,7 @@
 #' @export
 #'
 pvts <- function(x, startm, endm, threshold = 5, verbose = FALSE) {
+
   typeVar <- c("numeric", "ts")
 
   if (!class(x) %in% typeVar) stop("x must be numeric vector (numeric) or time serie (ts)", call. = TRUE)
@@ -73,7 +74,6 @@ pvts <- function(x, startm, endm, threshold = 5, verbose = FALSE) {
   if (is(x, "vector")) {
     if (verbose) {
       message(paste0(paste0(rep("*", 10), collapse = ""), " Calculating the mean, standard deviation and lower limit", paste0(rep("*", 10), collapse = "")))
-      print(model_algo)
     }
 
     mean.pvts <- mean(x[1:(startm - 1)])
@@ -86,7 +86,6 @@ pvts <- function(x, startm, endm, threshold = 5, verbose = FALSE) {
   } else if (is(x, "ts")) {
     if (verbose) {
       message(paste0(paste0(rep("*", 10), collapse = ""), " Calculating the mean, standard deviation and lower limit ", paste0(rep("*", 10), collapse = "")))
-      print(model_algo)
     }
 
     startm.pvts <- which(time(x) == startm)

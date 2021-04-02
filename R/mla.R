@@ -34,8 +34,8 @@
 #' @importFrom rgeos gIntersects
 #'
 #' @param img RasterStack or RasterBrick
-#' @param endm Signatures. SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
-#' containing the training data
+#' @param endm Signatures. Geometry type, Points or Polygons (typically shapefile),
+#' containing the training data.
 #' @param model Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
 #' \code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})
 #' like \code{model = 'randomForest'}, Naive Bayes (\link[e1071]{naiveBayes})
@@ -72,14 +72,10 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...) {
 
   if (!raster::compareCRS(img, endm)) stop("img and endm must have the same projection", call. = TRUE)
 
-  if (inherits(endm, "SpatialPointsDataFrame")) {
-    TypeEndm <- "points"
+  if (inherits(endm, "sf")) {
+    TypeEndm <- "sf class"
   } else {
-    if (inherits(endm, "SpatialPolygonsDataFrame")) {
-      TypeEndm <- "polygons"
-    } else {
-      stop("Signatures (endm) must be SpatialPointsDataFrame or SpatialPolygonsDataFrame", call. = TRUE)
-    }
+    stop("Signatures (endm) must be sf class", call. = TRUE)
   }
 
   algoS <- c("svm", "randomForest", "naiveBayes", "LMT", "nnet", "knn")
@@ -92,7 +88,10 @@ mla <- function(img, endm, model, training_split = 80, verbose = FALSE, ...) {
 
   vegt <- extract(img, endm)
 
-  endm <- data.frame(vegt, class = endm@data)
+  endm <- as.data.frame(endm)
+  names(endm[1]) <- c("class")
+
+  endm <- data.frame(vegt, class = endm[,1])
 
   if (model %in% algoS) {
     if (is.numeric(endm$class)) {

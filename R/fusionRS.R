@@ -20,7 +20,7 @@
 #' @param y Radar image. It should be RasterStack or RasterBrick
 #' @param stand.varb Logical. If \code{TRUE}, the PCA is calculated using the correlation
 #' matrix (standardized variables) instead of the covariance matrix (non-standardized variables)
-#' @param na If \code{TRUE} the NA values of the images will be omitted from the analysis
+#' @param na.rm If \code{TRUE} the NA values of the images will be omitted from the analysis
 #' @param verbose This parameter is Logical. It prints progress messages during execution
 #'
 #' @examples
@@ -32,16 +32,13 @@
 #' data(img_optical)
 #' data(img_radar)
 #'
-#' # Fusing optical and radar data
-#' fusion <- fusionRS(x = optical, y = radar, na = TRUE)
+#' # Fusion of images - optical and radar data
+#' fusion <- fusionRS(x = img_optical, y = img_radar, na.rm = TRUE)
 #' plotRGB(fusion[[1]], 1, 2, 3, axes = FALSE, stretch = "lin", main = "Fused images")
 #' }
 #' @export
 #'
-fusionRS <- function(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE) {
-  if (inherits(x, "stars")) {
-    x <- brick(mapply(function(z) methods::as(x[z], "Raster"), seq_len(length(x))))
-  }
+fusionRS <- function(x, y, stand.varb = TRUE, na.rm = FALSE, verbose = FALSE) {
 
   if (verbose) {
     message(paste0(paste0(rep("*", 10), collapse = ""), " Verifying the same extent ", paste0(rep("*", 10), collapse = "")))
@@ -61,7 +58,7 @@ fusionRS <- function(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE) {
   df <- as.data.frame(img)
 
   # Omit NA
-  if (na) {
+  if (na.rm) {
     df <- na.omit(df)
   }
 
@@ -69,7 +66,6 @@ fusionRS <- function(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE) {
   if (stand.varb) {
     if (verbose) {
       message(paste0(paste0(rep("*", 10), collapse = ""), " Standardizing variables ", paste0(rep("*", 10), collapse = "")))
-      print(model_algo)
     }
 
     acp <- prcomp(df, center = TRUE, scale = TRUE) # standardized variables
@@ -79,7 +75,6 @@ fusionRS <- function(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE) {
 
   if (verbose) {
     message(paste0(paste0(rep("*", 10), collapse = ""), " Contributions and correlations ", paste0(rep("*", 10), collapse = "")))
-    print(model_algo)
   }
 
   var <- summary(acp)$importance[1, ]^2 # Variance

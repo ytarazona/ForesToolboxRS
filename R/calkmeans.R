@@ -11,11 +11,11 @@
 #' Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani. (2013).
 #' An introduction to statistical learning : with applications in R. New York: Springer.
 #'
-#' @details If we want to find the optimal value of \code{k} (clusters or classes),
-#' so we must put \code{k = NULL} as an argument of the function. Here, we are finding k for
-#' which the intra-class inertia is stabilized. If we know the \code{k} value and the idea
-#' is to find the best algorithm embedded in kmeans, that maximizes inter-class distances,
-#' we must put \code{k = n}, where \code{n} is a specific class number.
+#' @details If the idea is to find the optimal value of \code{k} (clusters or classes),
+#' \code{k = NULL} as an argument of the function must be put, because the function find k for
+#' which the intra-class inertia is stabilized. If the \code{k} value is known and the idea
+#' is to find the best algorithm embedded in kmeans (that maximizes inter-class distances),
+#' \code{k = n}, which \code{n} is a specific class number, must be put.
 #'
 #' @importFrom raster getValues
 #'
@@ -36,7 +36,7 @@
 #' # Load the dataset
 #' data(img_l8)
 #'
-#' # Selecting the best k value
+#' # Select the best k value
 #' best_k <- calkmeans(
 #'   img = img_l8[[1:2]], k = NULL, iter.max = 10,
 #'   algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), iter = 30
@@ -45,7 +45,7 @@
 #' plot(best_k)
 #'
 #'
-#' # Selecting the best embedded algorithm in kmeans
+#' # Select the best embedded algorithm in kmeans
 #' best_algo <- calkmeans(
 #'   img = img_l8[[1:2]], k = 4, iter.max = 10,
 #'   algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), iter = 30
@@ -70,7 +70,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
     vr <- getValues(img)
 
     if (verbose) {
-      message(paste0(paste0(rep("*", 10), collapse = ""), " Selecting k for which the intra-class inertia is stabilized ", TypeEndm, paste0(rep("*", 10), collapse = "")))
+      message(paste0(paste0(rep("*", 10), collapse = ""), " Selecting k for which the intra-class inertia is stabilized ", collapse = ""))
     }
 
     # Hartigan-Wong
@@ -140,6 +140,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
     resulFinal <- c(vecIner.hw, vecIner.l, vecIner.f, vecIner.m)
 
     return(structure(resulFinal, class = "calkmeans"))
+
   } else if (inherits(k, "numeric")) {
     if (verbose) {
       message(paste0(paste0(rep("*", 10), collapse = ""), " Selecting the best algorithm embedded in kmeans, that maximizes inter-class distances ", TypeEndm, paste0(rep("*", 10), collapse = "")))
@@ -275,7 +276,7 @@ plot.calkmeans <- function(x, xlab, ylab, type, main, cex, ...) {
   maxVal <- max(sapply(x, max))
 
   plot(0,
-    xlim = c(0.5, length(best_k[[1]]) + 0.5),
+    xlim = c(0.5, length(x[[1]]) + 0.5),
     ylim = c(0, maxVal),
     xlab = xlab,
     ylab = ylab,

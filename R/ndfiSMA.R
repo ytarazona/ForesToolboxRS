@@ -36,6 +36,7 @@
 #' # Unmix the image
 #' ndfi <- ndfiSMA(img = img_l8, procesLevel = "SR")
 #' plot(ndfi)
+#'
 ndfiSMA <- function(img, procesLevel = "SR", verbose = FALSE) {
   if (is(img, "RasterStack") | is(img, "RasterBrick")) {
     df <- as.matrix(img)

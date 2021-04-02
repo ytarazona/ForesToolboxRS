@@ -42,6 +42,7 @@
 #' trend <- linearTrend(x = imgs)
 #' plot(trend[[1]]) # raster of slope
 #' plot(trend[[2]]) # raster of p-value
+#'
 linearTrend <- function(x, type = "lm", ...) {
   if (type == "lm") {
     if (inherits(x, "RasterStack") | inherits(x, "RasterBrick")) {

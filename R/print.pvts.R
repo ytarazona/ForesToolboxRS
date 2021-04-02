@@ -1,4 +1,4 @@
-#' Printing of the "pvts" class
+#' Print of the "pvts" class
 #'
 #' @param x Object of class "pvts".
 #' @param ... Not used
@@ -16,7 +16,7 @@ print.pvts <- function(x, ...) {
     print(x$Monitoring_period)
   } else {
     cat("\nBreakpoint Not Detected\n")
-    print(cd$Breakpoint)
+    print(x$Breakpoint)
     cat("\nMonitoring Period \n")
     print(x$Monitoring_period)
   }

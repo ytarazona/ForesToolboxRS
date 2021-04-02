@@ -24,13 +24,12 @@
 #' @param x Matrix, RasterStack or Rasterbrick without NA's
 #' @param startm The start of the monitoring time
 #' @param endm The end of the monitoring time
-#' @param threshold The default threshold is 5 for photosynthetic vegetation,
-#' while for indices such as NDVI and EVI the threshold is 3.
-#' Please see Tarazona et al. (2018) for more details
+#' @param threshold The default threshold is 5 for photosynthetic vegetation or for
+#' Normalized Difference Fraction Index (NDFI), while for indices such as NDVI and EVI
+#' the threshold is 3. Please see Tarazona et al. (2018) for more details.
 #' @param img The image of the position immediately before the monitoring start,
 #' i.e. the "start-1" position (in case "x" is a matrix). The matrix \code{x} and
-#' the image \code{img} must have the same dimension (i.e. rows and cols)
-#'
+#' the image \code{img} must have the same dimension (i.e. rows and cols).
 #' @param vf If the monitoring is with Photosynthetic Vegetation series,
 #' then switch to \code{TRUE}
 #' @param verbose This parameter is Logical. It Prints progress messages during execution
@@ -47,6 +46,7 @@
 #' @export
 #'
 pvtsRaster <- function(x, startm, endm, threshold = 5, img, vf = FALSE, verbose = FALSE) {
+
   if (is(x, "matrix")) {
     if (any(is.na(x))) {
       stop("The object cannot contain NA.", call. = TRUE)
@@ -54,7 +54,6 @@ pvtsRaster <- function(x, startm, endm, threshold = 5, img, vf = FALSE, verbose 
 
     if (verbose) {
       message(paste0(paste0(rep("*", 10), collapse = ""), " Calculating the mean, standard deviation and lower limit", paste0(rep("*", 10), collapse = "")))
-      print(model_algo)
     }
 
     mean.pvts <- apply(x[, 1:(startm - 1)], 1, mean)
@@ -78,7 +77,6 @@ pvtsRaster <- function(x, startm, endm, threshold = 5, img, vf = FALSE, verbose 
 
     if (verbose) {
       message(paste0(paste0(rep("*", 10), collapse = ""), " Calculating the mean, standard deviation and lower limit", paste0(rep("*", 10), collapse = "")))
-      print(model_algo)
     }
 
     mean.pvts <- apply(x[, 1:(startm - 1)], 1, mean)

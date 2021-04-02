@@ -7,11 +7,9 @@
 #' Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani. (2013).
 #' An introduction to statistical learning : with applications in R. New York: Springer.
 #'
-#' @details If we want to find the optimal value of \code{k} (clusters or classes),
-#' we should use \code{k = NULL}. This approach will look for the k values for
-#' which the intra-class inertia is stabilized. If we know the \code{k} value and the idea
-#' is to find the best algorithm embedded in k-means, that maximizes inter-class distances,
-#' we must put \code{k = n}, where \code{n} is a specified number of classes.
+#' @details In principle, this function allows to classify satellite images specifying
+#' a \code{k} value, however it is recommended to find the optimal value of \code{k} using
+#' the \link[ForesToolboxRS]{calkmeans} function.
 #'
 #' @importFrom raster getValues raster
 #'
@@ -29,7 +27,7 @@
 #' # Load the dataset
 #' data(img_l8)
 #'
-#' # Selecting the best embedded algorithm in kmeans
+#' # Select the best embedded algorithm in kmeans
 #' classKmeans <- rkmeans(img = img_l8, k = 4, algo = "MacQueen")
 #' @export
 #'
@@ -38,13 +36,13 @@ rkmeans <- function(img, k, iter.max = 100, nstart = 50, algo = c("Hartigan-Wong
   vr <- getValues(img)
 
   if(verbose){
-    message(paste0(paste0(rep("*",10), collapse = ""), " Getting NA positions ", paste0(rep("*",10), collapse = "")))
+    message(paste0(paste0(rep("*",10), collapse = ""), " Get NA positions ", paste0(rep("*",10), collapse = "")))
   }
 
   i <- which(!is.na(vr)) # NA positions
 
   if(verbose){
-    message(paste0(paste0(rep("*",10), collapse = ""), " Appling kmeans ", paste0(rep("*",10), collapse = "")))
+    message(paste0(paste0(rep("*",10), collapse = ""), " Apply kmeans ", paste0(rep("*",10), collapse = "")))
   }
 
   # Applying kmeans
