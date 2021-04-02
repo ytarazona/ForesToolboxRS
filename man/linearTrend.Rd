@@ -38,6 +38,7 @@ imgs <- crop(serie_pv, e)
 trend <- linearTrend(x = imgs)
 plot(trend[[1]]) # raster of slope
 plot(trend[[2]]) # raster of p-value
+
 }
 \references{
 Tarazona, Y., Maria, Miyasiro-Lopez. (2020). Monitoring tropical forest degradation using

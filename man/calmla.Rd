@@ -19,7 +19,7 @@ calmla(
 \arguments{
 \item{img}{RasterStack or RasterBrick.}
 
-\item{endm}{SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
+\item{endm}{Signatures. Geometry type, Points or Polygons (typically shapefile),
 containing the training data.}
 
 \item{model}{Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like

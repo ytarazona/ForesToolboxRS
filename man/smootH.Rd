@@ -38,7 +38,7 @@ library(ForesToolboxRS)
 x <- c(80, 78, 75, 76, 79, -100, 82, 76, 81, 77, 76)
 plot(x, type = "o", col = "red")
 
-# Applying a smoothing
+# Apply a smoothing
 smth <- smootH(x)
 plot(x, type = "o", ylab = "Reflectance \%", xlab = "Time")
 lines(smth, col = "blue", type = "o")

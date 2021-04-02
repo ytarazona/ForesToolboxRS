@@ -36,6 +36,7 @@ data(img_l8)
 # Unmix the image
 ndfi <- ndfiSMA(img = img_l8, procesLevel = "SR")
 plot(ndfi)
+
 }
 \references{
 Souza Jr., C.M., Roberts, D.A., Cochrane, M.A., 2005. Combining spectral and

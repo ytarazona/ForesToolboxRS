@@ -13,9 +13,9 @@ pvts(x, startm, endm, threshold = 5, verbose = FALSE)
 
 \item{endm}{The end of the monitoring time.}
 
-\item{threshold}{The default threshold is 5 for photosynthetic vegetation,
-while for indices such as NDVI and EVI the threshold is 3.
-Please see Tarazona et al. (2018) for more details.}
+\item{threshold}{The default threshold is 5 for photosynthetic vegetation or for
+Normalized Difference Fraction Index (NDFI), while for indices such as NDVI and EVI
+the threshold is 3. Please see Tarazona et al. (2018) for more details.}
 
 \item{verbose}{This parameter is Logical. It Prints progress messages during execution.}
 }
@@ -41,14 +41,14 @@ number of images.
 library(ForesToolboxRS)
 library(raster)
 
-# Normalized Difference Fraction Index from 1990 to 2017, one index for each year.
+# NDFI from 1990 to 2017, one index for each year.
 ndfi <- c(
   0.86, 0.93, 0.97, 0.91, 0.95, 0.96, 0.91, 0.88, 0.92, 0.89,
   0.90, 0.89, 0.91, 0.92, 0.89, 0.90, 0.92, 0.84, 0.46, 0.20,
   0.27, 0.22, 0.52, 0.63, 0.61, 0.67, 0.64, 0.86
 )
 
-# Detecting changes in 2008 (position 19)
+# Detect change in 2008 (position 19)
 # First, applying a smoothing
 ndfi_smooth <- ndfi
 ndfi_smooth[1:19] <- smootH(ndfi[1:19])

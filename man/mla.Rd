@@ -9,8 +9,8 @@ mla(img, endm, model, training_split = 80, verbose = FALSE, ...)
 \arguments{
 \item{img}{RasterStack or RasterBrick}
 
-\item{endm}{Signatures. SpatialPointsDataFrame or SpatialPolygonsDataFrame (typically shapefile)
-containing the training data}
+\item{endm}{Signatures. Geometry type, Points or Polygons (typically shapefile),
+containing the training data.}
 
 \item{model}{Model to use. It can be Support Vector Machine (\link[e1071]{svm}) like
 \code{model = 'svm'}, Random Forest (\link[randomForest]{randomForest})

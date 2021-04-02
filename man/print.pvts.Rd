@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.pvts.R
 \name{print.pvts}
 \alias{print.pvts}
-\title{Printing of the "pvts" class}
+\title{Print of the "pvts" class}
 \usage{
 \method{print}{pvts}(x, ...)
 }
@@ -12,5 +12,5 @@
 \item{...}{Not used}
 }
 \description{
-Printing of the "pvts" class
+Print of the "pvts" class
 }

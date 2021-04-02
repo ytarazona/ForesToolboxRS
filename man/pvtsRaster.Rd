@@ -13,13 +13,13 @@ pvtsRaster(x, startm, endm, threshold = 5, img, vf = FALSE, verbose = FALSE)
 
 \item{endm}{The end of the monitoring time}
 
-\item{threshold}{The default threshold is 5 for photosynthetic vegetation,
-while for indices such as NDVI and EVI the threshold is 3.
-Please see Tarazona et al. (2018) for more details}
+\item{threshold}{The default threshold is 5 for photosynthetic vegetation or for
+Normalized Difference Fraction Index (NDFI), while for indices such as NDVI and EVI
+the threshold is 3. Please see Tarazona et al. (2018) for more details.}
 
 \item{img}{The image of the position immediately before the monitoring start,
 i.e. the "start-1" position (in case "x" is a matrix). The matrix \code{x} and
-the image \code{img} must have the same dimension (i.e. rows and cols)}
+the image \code{img} must have the same dimension (i.e. rows and cols).}
 
 \item{vf}{If the monitoring is with Photosynthetic Vegetation series,
 then switch to \code{TRUE}}

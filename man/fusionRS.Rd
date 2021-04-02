@@ -4,7 +4,7 @@
 \alias{fusionRS}
 \title{Fusion of images with different observation geometries}
 \usage{
-fusionRS(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE)
+fusionRS(x, y, stand.varb = TRUE, na.rm = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{x}{Optical image. It should be RasterStack or RasterBrick}
@@ -14,7 +14,7 @@ fusionRS(x, y, stand.varb = TRUE, na = FALSE, verbose = FALSE)
 \item{stand.varb}{Logical. If \code{TRUE}, the PCA is calculated using the correlation
 matrix (standardized variables) instead of the covariance matrix (non-standardized variables)}
 
-\item{na}{If \code{TRUE} the NA values of the images will be omitted from the analysis}
+\item{na.rm}{If \code{TRUE} the NA values of the images will be omitted from the analysis}
 
 \item{verbose}{This parameter is Logical. It prints progress messages during execution}
 }
@@ -40,8 +40,8 @@ library(raster)
 data(img_optical)
 data(img_radar)
 
-# Fusing optical and radar data
-fusion <- fusionRS(x = optical, y = radar, na = TRUE)
+# Fusion of images - optical and radar data
+fusion <- fusionRS(x = img_optical, y = img_radar, na.rm = TRUE)
 plotRGB(fusion[[1]], 1, 2, 3, axes = FALSE, stretch = "lin", main = "Fused images")
 }
 }

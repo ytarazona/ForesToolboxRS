@@ -36,11 +36,11 @@ This function allows to calibrate the kmeans algorithm. It is possible to obtain
 the best \code{k} value and the best embedded algorithm in kmeans.
 }
 \details{
-If we want to find the optimal value of \code{k} (clusters or classes),
-so we must put \code{k = NULL} as an argument of the function. Here, we are finding k for
-which the intra-class inertia is stabilized. If we know the \code{k} value and the idea
-is to find the best algorithm embedded in kmeans, that maximizes inter-class distances,
-we must put \code{k = n}, where \code{n} is a specific class number.
+If the idea is to find the optimal value of \code{k} (clusters or classes),
+\code{k = NULL} as an argument of the function must be put, because the function find k for
+which the intra-class inertia is stabilized. If the \code{k} value is known and the idea
+is to find the best algorithm embedded in kmeans (that maximizes inter-class distances),
+\code{k = n}, which \code{n} is a specific class number, must be put.
 }
 \examples{
 
@@ -49,7 +49,7 @@ library(ForesToolboxRS)
 # Load the dataset
 data(img_l8)
 
-# Selecting the best k value
+# Select the best k value
 best_k <- calkmeans(
   img = img_l8[[1:2]], k = NULL, iter.max = 10,
   algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), iter = 30
@@ -58,7 +58,7 @@ best_k <- calkmeans(
 plot(best_k)
 
 
-# Selecting the best embedded algorithm in kmeans
+# Select the best embedded algorithm in kmeans
 best_algo <- calkmeans(
   img = img_l8[[1:2]], k = 4, iter.max = 10,
   algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"), iter = 30
