@@ -1,6 +1,5 @@
 library(testthat)
 library(ForesToolboxRS)
-library(stars)
 library(raster)
 library(forecast)
 context("ForesToolboxRS smootH")
@@ -21,7 +20,6 @@ test_smootH <- function(x, interp = "na.interp") {
       stop("Unsupported interpolation method")
     }
 
-    # We apply Hamunyela Smoothing
     for (j in 2:(length(x) - 1)) {
       x[j] <- ifelse(((x[j] - x[j - 1]) < -0.01 * x[j - 1]) & ((x[j] - x[j + 1]) < -0.01 * x[j + 1]),
         (x[j - 1] + x[j + 1]) / 2, x[j]
@@ -44,7 +42,7 @@ test_smootH <- function(x, interp = "na.interp") {
         stop("Unsupported interpolation method")
       }
     }
-    # We apply Hamunyela Smoothing
+
     for (i in 1:dim(x)[1]) {
       for (j in 2:(dim(x)[2] - 1)) {
         x[i, ][j] <- ifelse(((x[i, ][j] - x[i, ][j - 1]) < -0.01 * x[i, ][j - 1]) & ((x[i, ][j] - x[i, ][j + 1]) < -0.01 * x[i, ][j + 1]),

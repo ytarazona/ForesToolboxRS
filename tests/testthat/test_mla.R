@@ -1,11 +1,9 @@
 library(testthat)
 library(ForesToolboxRS)
-library(stars)
 library(raster)
 library(caret)
 data(endm)
-context("ForesToolboxRS ndfiSMA")
-
+context("ForesToolboxRS mla")
 
 training_split = 80
 vegt <- extract(img_l8, endm)
@@ -57,3 +55,14 @@ MC <- errorMatrix(prediction = prediction, reference = testing[,dim(endm)[2]])
 results <- list(Overall_accuracy = (confusionMatrix(MC$MC_ini)$overall[1:6])*100,
                 Confusion_matrix = MC$MCf,
                 Classification = raster_class)
+
+test_that("try mla", {
+  ndfi <- c(
+    0.86, 0.93, 0.97, 0.91, 0.95, 0.96, 0.91, 0.88, 0.92, 0.89,
+    0.90, 0.89, 0.91, 0.92, 0.89, 0.90, 0.92, 0.84, 0.46, 0.20,
+    0.27, 0.22, 0.52, 0.63, 0.61, 0.67, 0.64, 0.86
+  )
+  ndfi_ts <- ts(ndfi, start = 1990, end = 2017, frequency = 1)
+  cd <- pvts(x = ndfi_ts, startm = 2008, endm = 2008, threshold = 5)
+  expect_equal(as.vector(cd$Threshold[2]), test_pvts_ts(ndfi_ts,  startm = 2008, endm = 2008, threshold = 5))
+})
