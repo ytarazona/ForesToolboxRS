@@ -56,7 +56,7 @@ Imports:
     FactoMineR,
     graphics,
     grDevices,
-    stars,
+    sf,
     caret,
     e1071,
     rpart,
