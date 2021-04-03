@@ -94,6 +94,7 @@ sma <- function(img, endm, verbose = FALSE) {
       }
 
       names(sma_fractions) <- c(as.vector(row.names(endm)), "RMSE")
+
     } else {
       stop(" The number of values extracted in band should be equal.", call. = TRUE)
     }

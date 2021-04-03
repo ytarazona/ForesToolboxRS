@@ -1,5 +1,6 @@
 library(testthat)
 library(ForesToolboxRS)
-library(stars)
 library(raster)
+data(img_l8)
+
 context("ForesToolboxRS tct")
