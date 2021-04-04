@@ -40,6 +40,7 @@ library(ForesToolboxRS)
 library(raster)
 library(snow)
 library(caret)
+library(sf)
 
 # Load the datasets
 data(img_l8)

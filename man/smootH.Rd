@@ -4,12 +4,12 @@
 \alias{smootH}
 \title{Smoothing time series}
 \usage{
-smootH(x, na = FALSE, method.interp = "na.interp")
+smootH(x, na.rm = FALSE, method.interp = "na.interp")
 }
 \arguments{
 \item{x}{Numeric, matrix.}
 
-\item{na}{??}
+\item{na.rm}{If \code{TRUE} the NA values will be treated with interpolations in the analysis.}
 
 \item{method.interp}{Four interpolation methods are presented, "na.interp",
 "na.approx" and "na.spline". By default is the method "na.interp".}
