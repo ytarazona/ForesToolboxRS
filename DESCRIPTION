@@ -22,16 +22,16 @@ Authors@R:
 	                 role = c("ctb"),
 	                 email = "broquetas@tsc.upc.edu",
 	                 comment = c(ORCID = "0000-0001-9801-9145")),
-	    person(given = "Hamdi",
-                   family = "A. Zurqani",
-	                 role = c("ctb"),
-	                 email = "hzurqan@clemson.edu",
-	                 comment = c(ORCID = "0000-0002-9250-4534")),
 	    person(given = "Jakub",
                    family = "Nowosad",
 	                 role = c("aut"),
 	                 email = "nowosad.jakub@gmail.com",
-	                 comment = c(ORCID = "0000-0002-1057-3721")))
+	                 comment = c(ORCID = "0000-0002-1057-3721")),
+	    person(given = "Hamdi",
+                   family = "A. Zurqani",
+	                 role = c("ctb"),
+	                 email = "hzurqan@clemson.edu",
+	                 comment = c(ORCID = "0000-0002-9250-4534")))
 Description: Remote sensing tools for forest monitoring includes a series of 
     novel techniques to monitor forest through optical images and fusion of optical 
     and microwave data. All tools are based on scientific publications.
