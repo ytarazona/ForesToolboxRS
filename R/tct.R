@@ -123,6 +123,8 @@ tct <- function(img, sat = "Landsat8OLI") {
     stop("Satellite not supported.")
   }
 
+  if(dim(img)[3] != dim(coefc)[2]) stop(" The number of bands must be equal to the number of coefficients in band.", call. = TRUE)
+
   val <- as.matrix(img) %*% t(coefc)
 
   bgw <- img[[1:3]]

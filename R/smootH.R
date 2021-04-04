@@ -27,7 +27,7 @@
 #' @importFrom zoo na.approx na.spline
 #'
 #' @param x Numeric, matrix.
-#' @param na ??
+#' @param na.rm If \code{TRUE} the NA values will be treated with interpolations in the analysis.
 #' @param method.interp Four interpolation methods are presented, "na.interp",
 #' "na.approx" and "na.spline". By default is the method "na.interp".
 #'
@@ -45,11 +45,11 @@
 #' lines(smth, col = "blue", type = "o")
 #' @export
 #'
-smootH <- function(x, na = FALSE, method.interp = "na.interp"){
+smootH <- function(x, na.rm = FALSE, method.interp = "na.interp"){
 
   if (inherits(x, 'numeric')) {
 
-    if (na){
+    if (na.rm){
       #x[x <= -1 | x== -1] <- NA
       x[sum(is.na(x)) >= (length(x)-1)] <- sample(99:100, 1) # These data are evidently masked areas or bodies of water, so that it is just to fill out data
       # Type of interpolation
@@ -75,7 +75,7 @@ smootH <- function(x, na = FALSE, method.interp = "na.interp"){
 
   } else if (inherits(x, 'matrix')) {
 
-    if (na) {
+    if (na.rm) {
       for (i in 1:dim(x)[1]) {
         #x[i,][x[i,] <= -1 | x[i,] == -1] <- NA
         x[i,][sum(is.na(x[i,])) >= (dim(x)[2]-1)] <- sample(99:100, 1) # These data are evidently masked areas or bodies of water, so that it is just to fill out data
