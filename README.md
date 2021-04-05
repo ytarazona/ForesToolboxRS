@@ -141,9 +141,9 @@ Parameters:
 -   **startm**: monitoring year, index 19 (i.e., year 2008)
 -   **endm**: year of final monitoring, index 19 (i.e., also year 2008)
 -   **threshold**: detection threshold (for NDFI series we will use 5).
-    If you are using PV series, NDVI or EVI series you can use 5, 3 or 3
+    If you are using PV series, NDVI or EVI series you can use like threshold 5, 3 or 3
     respectively. <!--JN: 5, 3 or 3???--> Please see [Tarazona et
-    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
+    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
 
 ``` r
@@ -165,9 +165,9 @@ Parameters:
 -   **startm**: monitoring year, in this case year 2008.
 -   **endm**: year of final monitoring, also year 2008.
 -   **threshold**: detection threshold (for NDFI series we will use 5).
-    If you are using PV series, NDVI or EVI series you can use 5, 3 or 3
+    If you are using PV series, NDVI or EVI series you can use like threshold 5, 3 or 3
     respectively. <!--JN: 5, 3 or 3???--> Please see [Tarazona et
-    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
+    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
 
 ``` r
@@ -196,9 +196,9 @@ Parameters:
 -   **startm**: monitoring year, index 16 (i.e., year 2005)
 -   **endm**: year of final monitoring, index 16 (i.e., also year 2005)
 -   **threshold**: detection threshold (for NDFI series we will use 5).
-    If you are using PV series, NDVI or EVI series you can use 5, 3 or 3
+    If you are using PV series, NDVI or EVI series you can use like threshold 5, 3 or 3
     respectively. <!--JN: 5, 3 or 3???--> Please see [Tarazona et
-    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
+    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
 
 ``` r
@@ -213,8 +213,6 @@ plot(cd)
 <!-- <img src="man/figures/ndfi_serie_pvtsVect5.png" width = 90%/> -->
 
 
-
-
 =======
 ## 2. Supervised classification in Remote Sensing (the **`mla()`** function)
 
@@ -226,10 +224,9 @@ Download the data
 
 Parameters:
 
--   **img**: RasterStack (Landsat 8 OLI)
--   **endm**: Signatures, SpatialPointsDataFrame (shapefile)
--   **model**: Random Forest like ‘svm’
-    <!--JN: svm is not Random Forest...-->
+-   **img**: RasterStack (Landsat-8 OLI)
+-   **endm**: Signatures, a *sf* object (shapefile)
+-   **model**: Random Forest like ‘randomForest’
 -   **training\_split**: 80 percent to train and 20 percent to validate
     the model
 
@@ -238,31 +235,60 @@ suppressMessages(library(ForesToolboxRS))
 suppressMessages(library(raster))
 suppressMessages(library(snow))
 suppressMessages(library(caret))
-suppressMessages(library(rgdal))
+suppressMessages(library(sf))
 
 # Read raster
 image_path <- "LC08_232066_20190727_SR.tif"
 image <- stack(image_path)
 
 # Read signatures
-sig <- readOGR("shp", "signatures")
+shp_path <- "/shp/signatures.shp"
+sig <- st_read(shp_path)
 
 # Classification with Random Forest
-classRF <- mla(img = image, model = "randomForest", endm = sig, training_split = 80)
+classRF <- mla(img = image, endm = sig, model = "randomForest", training_split = 80)
 
 # Results
 print(classRF)
+
+******************** ForesToolboxRS CLASSIFICATION ********************
+
+****Overall Accuracy****
+      Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull AccuracyPValue 
+  9.204545e+01   8.938663e+01   8.429513e+01   9.674200e+01   2.954545e+01   7.303138e-33 
+
+****Confusion Matrix****
+                         1   2  3        4 Total Users_Accuracy Commission
+1                 19.00000   0  0  0.00000    19      100.00000   0.000000
+2                  2.00000  21  0  0.00000    23       91.30435   8.695652
+3                  0.00000   0 19  4.00000    23       82.60870  17.391304
+4                  0.00000   0  1 22.00000    23       95.65217   4.347826
+Total             21.00000  21 20 26.00000    NA             NA         NA
+Producer_Accuracy 90.47619 100 95 84.61538    NA             NA         NA
+Omission           9.52381   0  5 15.38462    NA             NA         NA
+
+****Classification Map****
+class      : RasterLayer 
+dimensions : 1163, 1434, 1667742  (nrow, ncol, ncell)
+resolution : 0.0002694946, 0.0002694946  (x, y)
+extent     : -64.15723, -63.77077, -8.827834, -8.514412  (xmin, xmax, ymin, ymax)
+crs        : +proj=longlat +datum=WGS84 +no_defs 
+source     : memory
+names      : layer 
+values     : 1, 4  (min, max)
 ```
+
 
 ``` r
 # Plotting classification
-par(mfrow = c(1,2), mar = c(3, 4, 3, 3))
-# Landsat-8 image
-plotRGB(image, 6,5,2, stretch="lin")
-# Classification
+par(mfrow = c(1,2), bty = 'n')
+plotRGB(image, 4, 3, 2, stretch = "lin", axes = FALSE)
 colmap <- c("#0000FF","#228B22","#FF1493", "#00FF00")
-plot(classRF$Classification, main = "RandomForest Classification", col = colmap, axes = F)
+plotRGB(image, 5, 4, 3, stretch = "lin", axes = FALSE)
+plot(classRF$Classification, col = colmap, cex.lab=0.5, cex.axis=0.3, cex.main=0.5, axes = FALSE, add = TRUE, legend = FALSE)
 ```
+
+<img src="man/figures/README-unnamed-chunk-12-1-1.png" width="100%" />
 
 <!-- The output: -->
 <!-- <img src="man/figures/Readme_Image2-1.jpg" width = 100%/> -->
