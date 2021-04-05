@@ -2,7 +2,7 @@
 #'
 #' A dataset containing signatures such as forest (cod1), urban (cod4), agriculture (cod3) and water (cod2).
 #'
-#' @format A SpatialPointsDataFrame object with 60 features and one variable:
+#' @format A sf object with 60 features and one variable:
 #' \describe{
 #'   \item{class}{a value between 1 and 4}
 #' }
