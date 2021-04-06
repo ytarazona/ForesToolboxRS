@@ -17,6 +17,11 @@
 #' is to find the best algorithm embedded in kmeans (that maximizes inter-class distances),
 #' \code{k = n}, which \code{n} is a specific class number, must be put.
 #'
+#' If warnings such as "Quick-TRANSfer stage steps exceeded maximum" or
+#' "did not converge in 10 iterations" are obtained, it will be necessary to increase the
+#' iterations in 20 or 30 (i.e., \code{inter.max = 20 or \code{iter.max = 30}. This issue is usually
+#' obtained with "Hartigan-Wong". See details of \link[stats]{kmeans}.
+#'
 #' @importFrom raster getValues
 #'
 #' @param img RasterStack or RasterBrick.

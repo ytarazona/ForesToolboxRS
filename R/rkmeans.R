@@ -11,6 +11,11 @@
 #' a \code{k} value, however it is recommended to find the optimal value of \code{k} using
 #' the \link[ForesToolboxRS]{calkmeans} function.
 #'
+#' If warnings such as "Quick-TRANSfer stage steps exceeded maximum" or
+#' "did not converge in 10 iterations" are obtained, it will be necessary to increase the
+#' iterations in 20 or 30 (i.e., \code{inter.max = 20 or \code{iter.max = 30}. This issue is usually
+#' obtained with "Hartigan-Wong". See details of \link[stats]{kmeans}.
+#'
 #' @importFrom raster getValues raster
 #'
 #' @param img RasterStack or RasterBrick
