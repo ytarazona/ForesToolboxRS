@@ -67,9 +67,8 @@ plot.pvts <- function(x, ylab, type, col, lwd, main, ...) {
 
     polygon(x1, y1, col = adjustcolor("slateblue1",alpha.f = 0.4),border = NA)
 
-    legend(m, max(x$Ts)*0.65, c("Ts","Lower limit","Breakpoint detected"),inset = .02, cex = 1, lty = c(1,2,1), lwd = c(2,2,5), col = c("black","red", "slateblue1"), bty = "n", y.intersp = 1, x.intersp = 0.2)
+    legend(m, max(x$Ts)*0.65, c("Ts","Lower limit","Breakpoint detected"),inset = .02, cex = 1, lty = c(1,2,1), lwd = c(2,2,5), col = c("black","red", "slateblue1"), bty = "n", y.intersp = 0.8, x.intersp = 0.2)
 
-    legend(m, max(x$Ts) * 0.65, c("Ts", "Lower limit", "Breakpoint detected"), inset = .02, cex = 1, lty = c(1, 2, 1), lwd = c(2, 2, 5), col = c("black", "red", "slateblue1"), bty = "n", y.intersp = 0.3, x.intersp = 0.2)
   } else {
     abline(v = c(p - 1 / 2, p + 1 / 2), col = "royalblue3", lty = 3, lwd = 0.8)
 
