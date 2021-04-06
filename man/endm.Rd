@@ -5,7 +5,7 @@
 \alias{endm}
 \title{Signatures data}
 \format{
-A SpatialPointsDataFrame object with 60 features and one variable:
+A sf object with 60 features and one variable:
 \describe{
 \item{class}{a value between 1 and 4}
 }
