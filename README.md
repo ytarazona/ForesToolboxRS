@@ -304,17 +304,16 @@ Parameters:
 
 -   **img**: RasterStack (Landsat-8 OLI)
 -   **endm**: Signatures
--   **model**: c(“svm”, “randomForest”, “naiveBayes”, “knn”). Machine
-    learning algorithms: Support Vector Machine, Random Forest, Naive
-    Bayes, K-nearest Neighbors
+-   **model**: c(“svm”, “randomForest”, “knn”). Machine
+    learning algorithms: Support Vector Machine, Random Forest, K-nearest Neighbors
 -   **training\_split**: 80
--   **approach**: “MCCV”
+-   **approach**: “Set-Approach”
 -   **iter**: 10
 
 ``` r
 cal_ml <- calmla(img = image, endm = sig,
-                 model = c("svm", "randomForest", "naiveBayes", "knn"),
-                 training_split = 80, approach = "MCCV", iter = 10)
+                 model = c("svm", "randomForest", "knn"),
+                 training_split = 80, approach = "Set-Approach", iter = 10)
 ```
 
 ``` r
@@ -329,6 +328,8 @@ legend("topleft", c("Support Vector Machine", "Random Forest", "Naive Bayes",
                     "K-nearest Neighbors"), col = c("darkmagenta","red","green", "blue"), 
                     lty = 1, cex = 0.7)
 ```
+
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
 
 <!-- The output: -->
 <!-- <img src="man/figures/ReadmeImage3-1.jpg" width = 90%/> -->
@@ -361,12 +362,11 @@ classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
 
 ``` r
 # Plotting classification
-par(mfrow = c(1, 2), mar = c(3, 4, 3, 3))
-# Landsat-8 image
-plotRGB(image, 6, 5, 2, stretch = "lin")
-# Classification
-colmap <- c("#0000FF","#00FF00","#228B22", "#FF1493")
-plot(classKmeans, main = "K-means Classification", col = colmap, axes = FALSE)
+par(mfrow = c(1,2), bty = 'n')
+plotRGB(image, 4, 3, 2, stretch = "lin", axes = FALSE)
+#title("Landsat-8 OLI", line = -2.6)
+plotRGB(image, 5, 4, 3, stretch = "lin", axes = FALSE)
+plot(classKmeans$kmeans_class, cex.lab=0.5, cex.axis=0.3, cex.main=0.5, axes = FALSE, add = TRUE, legend = FALSE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
