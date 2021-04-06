@@ -288,7 +288,7 @@ plotRGB(image, 5, 4, 3, stretch = "lin", axes = FALSE)
 plot(classRF$Classification, col = colmap, cex.lab=0.5, cex.axis=0.3, cex.main=0.5, axes = FALSE, add = TRUE, legend = FALSE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
 
 <!-- The output: -->
 <!-- <img src="man/figures/Readme_Image2-1.jpg" width = 100%/> -->
@@ -329,7 +329,7 @@ legend("topleft", c("Support Vector Machine", "Random Forest", "Naive Bayes",
                     lty = 1, cex = 0.7)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
 
 <!-- The output: -->
 <!-- <img src="man/figures/ReadmeImage3-1.jpg" width = 90%/> -->
