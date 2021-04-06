@@ -364,7 +364,6 @@ classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
 # Plotting classification
 par(mfrow = c(1,2), bty = 'n')
 plotRGB(image, 4, 3, 2, stretch = "lin", axes = FALSE)
-#title("Landsat-8 OLI", line = -2.6)
 plotRGB(image, 5, 4, 3, stretch = "lin", axes = FALSE)
 plot(classKmeans$kmeans_class, cex.lab=0.5, cex.axis=0.3, cex.main=0.5, axes = FALSE, add = TRUE, legend = FALSE)
 ```
@@ -390,146 +389,14 @@ Parameters:
     related to k-means
 -   **algo**: It can be “Hartigan-Wong”, “Lloyd”, “Forgy” or “MacQueen”.
     Algorithms embedded in k-means
-    <!--JN: Algorithms embedded in k-means???-->
+    <!--JN: Algorithms embedded in k-means???--> 
 -   **iter**: Iterations number to obtain the best k value
 
 ``` r
 # Elbow method
 best_k <- calkmeans(img = image, k = NULL, iter.max = 10,
-                    algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"),
+                    algo = c(Lloyd", "Forgy", "MacQueen"),
                     iter = 20)
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 83387100)
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
-
-#> Warning: did not converge in 10 iterations
 ```
 
 ``` r
