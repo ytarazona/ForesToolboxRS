@@ -403,7 +403,7 @@ best_k <- calkmeans(img = image, k = NULL, iter.max = 10,
 plot(best_k)
 ```
 
-<img src="man/figures/README-unnamed-chunk-14-1.png" width="90%" />
+<img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" />
 
 <!-- The output: -->
 <!-- <img src="man/figures/Calibracion_Kmeans.jpg" width = 100%/> -->
