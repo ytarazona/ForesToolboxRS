@@ -318,15 +318,12 @@ cal_ml <- calmla(img = image, endm = sig,
 
 ``` r
 # Calibration result
-plot(cal_ml$svm_mccv, main = "Monte Carlo Cross-Validation calibration", 
-     col = "darkmagenta", type = "b", ylim=c(0, 0.4), ylab="Error between 0 and 1", 
-     xlab = "Number of iterations")
-lines(cal_ml$randomForest_mccv, col = "red", type = "b")
-lines(cal_ml$naiveBayes_mccv, col = "green", type = "b")
-lines(cal_ml$knn_mccv, col = "blue", type = "b")
-legend("topleft", c("Support Vector Machine", "Random Forest", "Naive Bayes", 
-                    "K-nearest Neighbors"), col = c("darkmagenta","red","green", "blue"), 
-                    lty = 1, cex = 0.7)
+plot(cal_ml$svm, main = "Set-Approach calibration", col = "green", type = "b",
+     ylim=c(0, 0.4), ylab="Error between 0 and 1", xlab = "Number of iterations")
+lines(cal_ml$randomForest, col = "red", type = "b")
+lines(cal_ml$knn, col = "blue", type = "b")
+legend("topleft", c("Support Vector Machine", "Random Forest", "K-nearest Neighbors"),
+       col = c("green","red", "blue"), lty = 1, cex = 0.8)
 ```
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
@@ -394,9 +391,7 @@ Parameters:
 
 ``` r
 # Elbow method
-best_k <- calkmeans(img = image, k = NULL, iter.max = 10,
-                    algo = c(Lloyd", "Forgy", "MacQueen"),
-                    iter = 20)
+best_k <- calkmeans(img = image, k = NULL, iter.max = 10, algo = c(Lloyd", "Forgy", "MacQueen"), iter = 20)
 ```
 
 ``` r
