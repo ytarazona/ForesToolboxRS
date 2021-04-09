@@ -22,7 +22,8 @@ plot.pvts <- function(x, ylab, type, col, lwd, main, ...) {
 
   p <- x$Monitoring_period[2]
   li <- x$Threshold[2]
-  m <- x$Ts[1]
+  #m <- x$Ts[1]
+  m <- 1
 
   if (is(x$Ts, "ts")) {
     m <- time(x$Ts)[1]
