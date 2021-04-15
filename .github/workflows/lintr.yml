@@ -1,12 +1,12 @@
-# source: https://github.com/r-lib/actions/blob/master/examples/lint.yaml
+# source: https://github.com/r-lib/actions/blob/main/examples/lint.yaml
 
 name: lintr
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   lintr:
