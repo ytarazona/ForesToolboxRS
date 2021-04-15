@@ -71,7 +71,7 @@ pvts <- function(x, startm, endm, threshold = 5, verbose = FALSE) {
     stop("The object cannot contain NA. Please use the smootH function of this package to fill missing data and then smooth it.", call. = TRUE)
   }
 
-  if (is(x, "vector")) {
+  if (inherits(x, "numeric")) {
     if (verbose) {
       message(paste0(paste0(rep("*", 10), collapse = ""), " Calculating the mean, standard deviation and lower limit", paste0(rep("*", 10), collapse = "")))
     }
@@ -83,7 +83,7 @@ pvts <- function(x, startm, endm, threshold = 5, verbose = FALSE) {
     li <- mean.pvts - threshold * std.pvts
 
     value <- x[endm]
-  } else if (is(x, "ts")) {
+  } else if (inherits(x, "ts")) {
     if (verbose) {
       message(paste0(paste0(rep("*", 10), collapse = ""), " Calculating the mean, standard deviation and lower limit ", paste0(rep("*", 10), collapse = "")))
     }

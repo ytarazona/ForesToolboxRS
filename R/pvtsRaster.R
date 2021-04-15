@@ -47,7 +47,7 @@
 #'
 pvtsRaster <- function(x, startm, endm, threshold = 5, img, vf = FALSE, verbose = FALSE) {
 
-  if (is(x, "matrix")) {
+  if (inherits(x, "matrix")) {
     if (any(is.na(x))) {
       stop("The object cannot contain NA.", call. = TRUE)
     }
@@ -61,7 +61,7 @@ pvtsRaster <- function(x, startm, endm, threshold = 5, img, vf = FALSE, verbose 
     cd <- ifelse(x[, endm] < (mean.pvts - threshold * std.ptvs), 1, 0)
 
     return(cd)
-  } else if (is(x, "RasterStack") | is(x, "RasterBrick")) {
+  } else if (inherits(x, "RasterStack") | inherits(x, "RasterBrick")) {
     breakR <- img
 
     if (dim(breakR)[3] != 1) stop("img must have one band", call. = TRUE)

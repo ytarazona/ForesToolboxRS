@@ -25,7 +25,7 @@ plot.pvts <- function(x, ylab, type, col, lwd, main, ...) {
   #m <- x$Ts[1]
   m <- 1
 
-  if (is(x$Ts, "ts")) {
+  if (inherits(x$Ts, "ts")) {
     m <- time(x$Ts)[1]
   }
 

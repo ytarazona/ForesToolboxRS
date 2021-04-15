@@ -38,7 +38,7 @@
 #' plot(ndfi)
 #'
 ndfiSMA <- function(img, procesLevel = "SR", verbose = FALSE) {
-  if (is(img, "RasterStack") | is(img, "RasterBrick")) {
+  if (inherits(img, "RasterStack") | inherits(img, "RasterBrick")) {
     df <- as.matrix(img)
   } else {
     stop(class(img), ": This class is not supported yet. It must be RasterStack or RasterBrick", call. = TRUE)
