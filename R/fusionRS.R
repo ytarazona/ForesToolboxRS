@@ -42,7 +42,7 @@ fusionRS <- function(x, y, stand.varb = TRUE, na.rm = FALSE, verbose = FALSE) {
 
   if (verbose) {
     message(paste0(paste0(rep("*", 10), collapse = ""), " Verifying the same extent ", paste0(rep("*", 10), collapse = "")))
-    print(model_algo)
+    # print(model_algo) #JN: there is something wrong here... model_algo is not declared before
   }
 
   if (inherits(x, "RasterStack") | inherits(x, "RasterBrick") & inherits(y, "RasterStack") | inherits(y, "RasterBrick")) {
