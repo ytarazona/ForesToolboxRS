@@ -75,7 +75,7 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
     vr <- getValues(img)
 
     if (verbose) {
-      message(paste0(paste0(rep("*", 10), collapse = ""), " Selecting k for which the intra-class inertia is stabilized ", collapse = ""))
+      message(paste0(paste0(rep("*", 10), collapse = ""), " Selecting k for which the intra-class inertia is stabilized ", paste0(rep("*", 10), collapse = ""), collapse = ""))
     }
 
     # Hartigan-Wong
@@ -147,8 +147,9 @@ calkmeans <- function(img, k = NULL, iter.max = 10, algo = c("Hartigan-Wong", "L
     return(structure(resulFinal, class = "calkmeans"))
 
   } else if (inherits(k, "numeric")) {
+
     if (verbose) {
-      # message(paste0(paste0(rep("*", 10), collapse = ""), " Selecting the best algorithm embedded in kmeans, that maximizes inter-class distances ", TypeEndm, paste0(rep("*", 10), collapse = ""))) #JN: there is something wrong here... TypeEndm is not declared before
+      message(paste0(paste0(rep("*", 10), collapse = ""), " Selecting the best algorithm embedded in kmeans, that maximizes inter-class distances ", paste0(rep("*", 10), collapse = ""), collapse = ""))
     }
 
     algo_test <- c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen")
