@@ -46,29 +46,30 @@ Imports:
     methods,
     stats,
     forecast,
-    parallel,
     dplyr,
     raster,
-    rgdal,
+    rgeos,
     magrittr,
     zoo,
     factoextra,
-    FactoMineR,
     graphics,
     grDevices,
     sf,
     caret,
     e1071,
-    rpart,
     randomForest,
-    nnet,
-    rgeos,
     WilcoxCV
 Suggests: 
     testthat (>= 2.1.0),
     rmarkdown,
     covr,
     roxygen2,
-    snow
+    snow,
+    stars,
+    parallel,
+    nnet,
+    rpart,
+    FactoMineR,
+    rgdal
 URL: https://ytarazona.github.io/ForesToolboxRS/
 BugReports: https://github.com/ytarazona/ForesToolboxRS/issues

@@ -51,7 +51,7 @@
 #' @export
 #'
 sma <- function(img, endm, verbose = FALSE) {
-  if (is(img, "RasterStack") | is(img, "RasterBrick")) {
+  if (inherits(img, "RasterStack") | inherits(img, "RasterBrick")) {
     df <- as.matrix(img)
   } else {
     stop(class(img), " This class is not supported yet.", call. = TRUE)

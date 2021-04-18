@@ -91,10 +91,9 @@ plot(ndfi, pch = 20, xlab = "Index", ylab = "NDFI value")
 lines(ndfi, col = "gray45")
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-README-2-1.png" width="100%" />
 
-<!-- The output: -->
-<!-- <img src="man/figures/ndfi_serie1.png" width = 90%/> -->
+<!-- <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" /> -->
 
 ### 1.1 Applying a smoothing (the **`smootH()`** function)
 
@@ -120,10 +119,7 @@ lines(ndfi_smooth, col = "blue", ylab = "NDFI value", xlab = "Time")
 points(ndfi_smooth, pch = 20, col = "blue")
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
-
-<!-- The output: -->
-<!-- <img src="man/figures/ndfi_serie_smooth2.jpg" width = 90%/> -->
+<img src="man/figures/README-README-3-1.png" width="100%" />
 
 > **Note**: You can change the detection threshold if you need to.
 
@@ -141,9 +137,9 @@ Parameters:
 -   **startm**: monitoring year, index 19 (i.e., year 2008)
 -   **endm**: year of final monitoring, index 19 (i.e., also year 2008)
 -   **threshold**: detection threshold (for NDFI series we will use 5).
-    If you are using PV series, NDVI or EVI series you can use like threshold 5, 3 or 3
+    If you are using PV series, NDVI or EVI series you can use 5, 3 or 3
     respectively. <!--JN: 5, 3 or 3???--> Please see [Tarazona et
-    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
+    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
 
 ``` r
@@ -152,10 +148,7 @@ cd <- pvts(x = ndfi_smooth, startm = 19, endm = 19, threshold = 5)
 plot(cd)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
-
-<!-- The output: -->
-<!-- <img src="man/figures/ndfi_serie_pvtsVect3.png" width = 90%/> -->
+<img src="man/figures/README-README-4-1.png" width="100%" />
 
 ### 1.3 Breakpoint using Time Series
 
@@ -165,9 +158,9 @@ Parameters:
 -   **startm**: monitoring year, in this case year 2008.
 -   **endm**: year of final monitoring, also year 2008.
 -   **threshold**: detection threshold (for NDFI series we will use 5).
-    If you are using PV series, NDVI or EVI series you can use like threshold 5, 3 or 3
+    If you are using PV series, NDVI or EVI series you can use 5, 3 or 3
     respectively. <!--JN: 5, 3 or 3???--> Please see [Tarazona et
-    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
+    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
 
 ``` r
@@ -183,10 +176,7 @@ cd <- pvts(x = ndfi_ts, startm = 2008, endm = 2008,  threshold = 5)
 plot(cd)
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
-
-<!-- The output: -->
-<!-- <img src="man/figures/ndfi_serie_pvtsTs4.png" width = 90%/> -->
+<img src="man/figures/README-README-5-1.png" width="100%" />
 
 ### 1.4 Breakpoint Not Detected
 
@@ -196,9 +186,9 @@ Parameters:
 -   **startm**: monitoring year, index 16 (i.e., year 2005)
 -   **endm**: year of final monitoring, index 16 (i.e., also year 2005)
 -   **threshold**: detection threshold (for NDFI series we will use 5).
-    If you are using PV series, NDVI or EVI series you can use like threshold 5, 3 or 3
+    If you are using PV series, NDVI or EVI series you can use 5, 3 or 3
     respectively. <!--JN: 5, 3 or 3???--> Please see [Tarazona et
-    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
+    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
 
 ``` r
@@ -207,13 +197,8 @@ cd <- pvts(x = ndfi_smooth, startm = 2005, endm = 2005,  threshold = 5)
 plot(cd)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-README-6-1.png" width="100%" />
 
-<!-- The output: -->
-<!-- <img src="man/figures/ndfi_serie_pvtsVect5.png" width = 90%/> -->
-
-
-=======
 ## 2. Supervised classification in Remote Sensing (the **`mla()`** function)
 
 For this tutorial, Landsat-8 OLI image and signatures were used.
@@ -224,9 +209,10 @@ Download the data
 
 Parameters:
 
--   **img**: RasterStack (Landsat-8 OLI)
--   **endm**: Signatures, a *sf* object (shapefile)
--   **model**: Random Forest like ‘randomForest’
+-   **img**: RasterStack (Landsat 8 OLI)
+-   **endm**: Signatures, SpatialPointsDataFrame (shapefile)
+-   **model**: Random Forest like ‘svm’
+    <!--JN: svm is not Random Forest...-->
 -   **training\_split**: 80 percent to train and 20 percent to validate
     the model
 
@@ -235,63 +221,61 @@ suppressMessages(library(ForesToolboxRS))
 suppressMessages(library(raster))
 suppressMessages(library(snow))
 suppressMessages(library(caret))
-suppressMessages(library(sf))
+suppressMessages(library(rgdal))
 
 # Read raster
 image_path <- "LC08_232066_20190727_SR.tif"
 image <- stack(image_path)
 
 # Read signatures
-shp_path <- "/shp/signatures.shp"
-sig <- st_read(shp_path)
+sig <- sf::read_sf("signatures", "signatures")
 
 # Classification with Random Forest
-classRF <- mla(img = image, endm = sig, model = "randomForest", training_split = 80)
+classRF <- mla(img = image, model = "randomForest", endm = sig, training_split = 80)
+#> 4 cores detected, using 3
 
 # Results
 print(classRF)
-
-******************** ForesToolboxRS CLASSIFICATION ********************
-
-****Overall Accuracy****
-      Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull AccuracyPValue 
-  9.204545e+01   8.938663e+01   8.429513e+01   9.674200e+01   2.954545e+01   7.303138e-33 
-
-****Confusion Matrix****
-                         1   2  3        4 Total Users_Accuracy Commission
-1                 19.00000   0  0  0.00000    19      100.00000   0.000000
-2                  2.00000  21  0  0.00000    23       91.30435   8.695652
-3                  0.00000   0 19  4.00000    23       82.60870  17.391304
-4                  0.00000   0  1 22.00000    23       95.65217   4.347826
-Total             21.00000  21 20 26.00000    NA             NA         NA
-Producer_Accuracy 90.47619 100 95 84.61538    NA             NA         NA
-Omission           9.52381   0  5 15.38462    NA             NA         NA
-
-****Classification Map****
-class      : RasterLayer 
-dimensions : 1163, 1434, 1667742  (nrow, ncol, ncell)
-resolution : 0.0002694946, 0.0002694946  (x, y)
-extent     : -64.15723, -63.77077, -8.827834, -8.514412  (xmin, xmax, ymin, ymax)
-crs        : +proj=longlat +datum=WGS84 +no_defs 
-source     : memory
-names      : layer 
-values     : 1, 4  (min, max)
+#> ******************** ForesToolboxRS CLASSIFICATION ********************
+#> 
+#> ****Overall Accuracy****
+#>       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
+#>   9.431818e+01   9.238227e+01   8.723676e+01   9.812961e+01   2.954545e+01 
+#> AccuracyPValue 
+#>   7.838047e-36 
+#> 
+#> ****Confusion Matrix****
+#>                     1   2        3        4 Total Users_Accuracy Commission
+#> 1                  20   0  0.00000  0.00000    20      100.00000    0.00000
+#> 2                   0  24  0.00000  0.00000    24      100.00000    0.00000
+#> 3                   0   0 16.00000  3.00000    19       84.21053   15.78947
+#> 4                   0   0  2.00000 23.00000    25       92.00000    8.00000
+#> Total              20  24 18.00000 26.00000    NA             NA         NA
+#> Producer_Accuracy 100 100 88.88889 88.46154    NA             NA         NA
+#> Omission            0   0 11.11111 11.53846    NA             NA         NA
+#> 
+#> ****Classification Map****
+#> class      : RasterLayer 
+#> dimensions : 1163, 1434, 1667742  (nrow, ncol, ncell)
+#> resolution : 0.0002694946, 0.0002694946  (x, y)
+#> extent     : -64.15723, -63.77077, -8.827834, -8.514412  (xmin, xmax, ymin, ymax)
+#> crs        : +proj=longlat +datum=WGS84 +no_defs 
+#> source     : memory
+#> names      : layer 
+#> values     : 1, 4  (min, max)
 ```
-
 
 ``` r
 # Plotting classification
-par(mfrow = c(1,2), bty = 'n')
-plotRGB(image, 4, 3, 2, stretch = "lin", axes = FALSE)
+par(mfrow = c(1,2), mar = c(3, 4, 3, 3))
+# Landsat-8 image
+plotRGB(image, 6, 5, 2, stretch = "lin")
+# Classification
 colmap <- c("#0000FF","#228B22","#FF1493", "#00FF00")
-plotRGB(image, 5, 4, 3, stretch = "lin", axes = FALSE)
-plot(classRF$Classification, col = colmap, cex.lab=0.5, cex.axis=0.3, cex.main=0.5, axes = FALSE, add = TRUE, legend = FALSE)
+plot(classRF$Classification, main = "RandomForest Classification", col = colmap, axes = FALSE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
-
-<!-- The output: -->
-<!-- <img src="man/figures/Readme_Image2-1.jpg" width = 100%/> -->
+<img src="man/figures/README-README-8-1.png" width="100%" />
 
 ### 2.2 Calibrating with Monte Carlo Cross-Validation (**`calmla()`** function)
 
@@ -304,32 +288,48 @@ Parameters:
 
 -   **img**: RasterStack (Landsat-8 OLI)
 -   **endm**: Signatures
--   **model**: c(“svm”, “randomForest”, “knn”). Machine
-    learning algorithms: Support Vector Machine, Random Forest, K-nearest Neighbors
+-   **model**: c(“svm”, “randomForest”, “naiveBayes”, “knn”). Machine
+    learning algorithms: Support Vector Machine, Random Forest, Naive
+    Bayes, K-nearest Neighbors
 -   **training\_split**: 80
--   **approach**: “Set-Approach”
+-   **approach**: “MCCV”
 -   **iter**: 10
 
 ``` r
 cal_ml <- calmla(img = image, endm = sig,
-                 model = c("svm", "randomForest", "knn"),
-                 training_split = 80, approach = "Set-Approach", iter = 10)
+                 model = c("svm", "randomForest", "naiveBayes", "knn"),
+                 training_split = 80, approach = "MCCV", iter = 10)
 ```
 
 ``` r
 # Calibration result
-plot(cal_ml$svm, main = "Set-Approach calibration", col = "green", type = "b",
-     ylim=c(0, 0.4), ylab="Error between 0 and 1", xlab = "Number of iterations")
-lines(cal_ml$randomForest, col = "red", type = "b")
-lines(cal_ml$knn, col = "blue", type = "b")
-legend("topleft", c("Support Vector Machine", "Random Forest", "K-nearest Neighbors"),
-       col = c("green","red", "blue"), lty = 1, cex = 0.8)
+plot(
+  cal_ml$svm_mccv,
+  main = "Monte Carlo Cross-Validation calibration",
+  col = "darkmagenta",
+  type = "b",
+  ylim = c(0, 0.4),
+  ylab = "Error between 0 and 1",
+  xlab = "Number of iterations"
+)
+lines(cal_ml$randomForest_mccv, col = "red", type = "b")
+lines(cal_ml$naiveBayes_mccv, col = "green", type = "b")
+lines(cal_ml$knn_mccv, col = "blue", type = "b")
+legend(
+  "topleft",
+  c(
+    "Support Vector Machine",
+    "Random Forest",
+    "Naive Bayes",
+    "K-nearest Neighbors"
+  ),
+  col = c("darkmagenta", "red", "green", "blue"),
+  lty = 1,
+  cex = 0.7
+)
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
-
-<!-- The output: -->
-<!-- <img src="man/figures/ReadmeImage3-1.jpg" width = 90%/> -->
+<img src="man/figures/README-README-10-1.png" width="100%" />
 
 ### 3. Unsupervised classification in Remote Sensing (**`rkmeans`** function)
 
@@ -359,16 +359,15 @@ classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
 
 ``` r
 # Plotting classification
-par(mfrow = c(1,2), bty = 'n')
-plotRGB(image, 4, 3, 2, stretch = "lin", axes = FALSE)
-plotRGB(image, 5, 4, 3, stretch = "lin", axes = FALSE)
-plot(classKmeans$kmeans_class, cex.lab=0.5, cex.axis=0.3, cex.main=0.5, axes = FALSE, add = TRUE, legend = FALSE)
+par(mfrow = c(1, 2), mar = c(3, 4, 3, 3))
+# Landsat-8 image
+plotRGB(image, 6, 5, 2, stretch = "lin")
+# Classification
+colmap <- c("#0000FF","#00FF00","#228B22", "#FF1493")
+plot(classKmeans, main = "K-means Classification", col = colmap, axes = FALSE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
-
-<!-- The output: -->
-<!-- <img src="man/figures/Readme_Image2-2.jpg" width = 100%/> -->
+<img src="man/figures/README-README-12-1.png" width="100%" />
 
 ### 3.2 Calibrating k-means (the **`calkmeans()`** function)
 
@@ -386,19 +385,18 @@ Parameters:
     related to k-means
 -   **algo**: It can be “Hartigan-Wong”, “Lloyd”, “Forgy” or “MacQueen”.
     Algorithms embedded in k-means
-    <!--JN: Algorithms embedded in k-means???--> 
+    <!--JN: Algorithms embedded in k-means???-->
 -   **iter**: Iterations number to obtain the best k value
 
 ``` r
 # Elbow method
-best_k <- calkmeans(img = image, k = NULL, iter.max = 10, algo = c(Lloyd", "Forgy", "MacQueen"), iter = 20)
+best_k <- calkmeans(img = image, k = NULL, iter.max = 10,
+                    algo = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"),
+                    iter = 20)
 ```
 
 ``` r
 plot(best_k)
 ```
 
-<img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" />
-
-<!-- The output: -->
-<!-- <img src="man/figures/Calibracion_Kmeans.jpg" width = 100%/> -->
+<img src="man/figures/README-README-14-1.png" width="100%" />
