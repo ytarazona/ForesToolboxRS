@@ -37,6 +37,13 @@ various applications of Remote Sensing for Earth Observations. All
 implemented algorithms are based on scientific publications.
 <!--there should be a list of references-->
 
+- Tarazona, Y., Maria, Miyasiro-Lopez. (2020). Monitoring tropical forest degradation using remote sensing. Challenges and opportunities in the Madre de Dios region, Peru. Remote Sensing Applications: Society and Environment, 19, 100337.
+- Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving tropical deforestation detection through using photosynthetic vegetation time series (PVts-β). Ecological Indicators, 94, 367 379.
+- Hamunyela, E., Verbesselt, J., Roerink, G., & Herold, M. (2013). Trends in spring phenology of western European deciduous forests. Remote Sensing,5(12), 6159-6179.
+- Souza Jr., C.M., Roberts, D.A., Cochrane, M.A., 2005. Combining spectral and spatialinformation to map canopy damage from selective logging and forest fires. Remote Sens. Environ. 98 (2-3), 329-343.
+- Adams, J. B., Smith, M. O., & Gillespie, A. R. (1993). Imaging spectroscopy: Interpretation based on spectral mixture analysis. In C. M. Pieters & P. Englert (Eds.), Remote geochemical analysis: Elements and mineralogical composition. NY: Cambridge Univ. Press 145-166 pp.
+- Shimabukuro, Y.E. and Smith, J., (1991). The least squares mixing models to generate fraction images derived from remote sensing multispectral data. IEEE Transactions on Geoscience and Remote Sensing, 29, pp. 16-21.
+
 **The PVts-Beta approach**, a non-seasonal detection approach, is
 implemented in this package and can read time series, vector, matrix,
 and raster data. Some functions of this package are intended to show, on
@@ -45,8 +52,7 @@ forest degradation, and on the other hand, to provide some tools (not
 yet available) for routine analysis of remotely detected data. Tools for
 calibration of unsupervised and supervised algorithms through various
 calibration approaches are some of the functions embedded in this
-package.
-<!-- Therefore we sincerely hope that **ForesToolboxRS** can facilitate different analyses and simple and robust processes in satellite images. -->
+package. Therefore we sincerely hope that **ForesToolboxRS** can facilitate different analyses and simple and robust processes in satellite images
 
 Available functions:
 
@@ -84,11 +90,8 @@ suppressMessages(library(ForesToolboxRS))
 
 ## 1. Breakpoint in an NDFI series (**`pvts`** function)
 
-<!-- this sentence should be rewritten -->
-
 Here an Normalized Difference Fraction Index (NDFI) between 2000 and
-2019 (28 data), one NDFI for each year, and we will detect a change in
-2008 (position 19). The NDFI value ranges from -1 to 1.
+2019 (28 data) was used. One NDFI for each year was obtained. The idea is to detect a change in 2008 (position 19). The NDFI value ranges from -1 to 1.
 
 ```{r README-2}
 suppressMessages(library(ForesToolboxRS))
@@ -103,7 +106,6 @@ plot(ndfi, pch = 20, xlab = "Index", ylab = "NDFI value")
 lines(ndfi, col = "gray45")
 ```
 
-<!-- <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" /> -->
 
 ### 1.1 Applying a smoothing (the **`smootH()`** function)
 
@@ -129,6 +131,7 @@ lines(ndfi_smooth, col = "blue", ylab = "NDFI value", xlab = "Time")
 points(ndfi_smooth, pch = 20, col = "blue")
 ```
 
+
 > **Note**: You can change the detection threshold if you need to. 
 
 ### 1.1 Breakpoint using a specific index (vector)
@@ -145,9 +148,9 @@ Parameters:
 -   **startm**: monitoring year, index 19 (i.e., year 2008)
 -   **endm**: year of final monitoring, index 19 (i.e., also year 2008)
 -   **threshold**: detection threshold (for NDFI series we will use 5).
-    If you are using PV series, NDVI or EVI series you can use 5, 3 or 3
-    respectively. <!--JN: 5, 3 or 3???--> Please see [Tarazona et
-    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
+    If you are using PV series, NDVI and EVI series you can use 5, 3 and 3
+    respectively. Please see [Tarazona et
+    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
 
 ```{r README-4}
@@ -155,6 +158,7 @@ Parameters:
 cd <- pvts(x = ndfi_smooth, startm = 19, endm = 19, threshold = 5)
 plot(cd)
 ```
+
 
 ### 1.3 Breakpoint using Time Series
 
@@ -164,9 +168,9 @@ Parameters:
 -   **startm**: monitoring year, in this case year 2008.
 -   **endm**: year of final monitoring, also year 2008.
 -   **threshold**: detection threshold (for NDFI series we will use 5).
-    If you are using PV series, NDVI or EVI series you can use 5, 3 or 3
-    respectively. <!--JN: 5, 3 or 3???--> Please see [Tarazona et
-    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
+    If you are using PV series, NDVI and EVI series you can use 5, 3 and 3
+    respectively. Please see [Tarazona et
+    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
 
 ```{r README-5}
@@ -182,6 +186,8 @@ cd <- pvts(x = ndfi_ts, startm = 2008, endm = 2008,  threshold = 5)
 plot(cd)
 ```
 
+<img src="man/figures/README-README-5-1.png" width="100%" />
+
 ### 1.4 Breakpoint Not Detected
 
 Parameters:
@@ -190,9 +196,9 @@ Parameters:
 -   **startm**: monitoring year, index 16 (i.e., year 2005)
 -   **endm**: year of final monitoring, index 16 (i.e., also year 2005)
 -   **threshold**: detection threshold (for NDFI series we will use 5).
-    If you are using PV series, NDVI or EVI series you can use 5, 3 or 3
-    respectively. <!--JN: 5, 3 or 3???--> Please see [Tarazona et
-    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
+    If you are using PV series, NDVI and EVI series you can use 5, 3 and 3
+    respectively. Please see [Tarazona et
+    al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
 
 ```{r README-6}
@@ -203,18 +209,35 @@ plot(cd)
 
 ## 2. Supervised classification in Remote Sensing (the **`mla()`** function)
 
-For this tutorial, Landsat-8 OLI image and signatures were used.
-Download the data
-[Here](https://drive.google.com/drive/folders/1vH0mSAndVNErRjlQ6rZ1zdnTgpvNUU1R?usp=sharing).
+For this tutorial, Landsat-8 OLI image and signatures were used. To download data please follow this codes:
+
+```{r}
+# Data Preparation
+dir.create("data")
+# downloading the image
+download.file("https://github.com/ytarazona/ft_data/raw/main/data/LC08_232066_20190727_SR.zip",
+              destfile = "data/LC08_232066_20190727_SR.zip")
+
+# unziping the image
+unzip(paste(getwd(), "/data/LC08_232066_20190727_SR.zip", sep = ""), 
+      exdir = paste(getwd(), "/data", sep = ""))
+
+# downloading the signatures
+download.file("https://github.com/ytarazona/ft_data/raw/main/data/signatures.zip",
+              destfile = "data/signatures.zip")
+
+# unziping the signatures
+unzip(paste(getwd(), "/data/signatures.zip", sep = ""), 
+      exdir = paste(getwd(), "/data", sep = ""))
+```
 
 ### 2.1 Applying Random Forest (supervised classification)
 
 Parameters:
 
 - **img**: RasterStack (Landsat 8 OLI)
-- **endm**: Signatures, SpatialPointsDataFrame (shapefile)
-- **model**: Random Forest like 'svm'
-<!--JN: svm is not Random Forest...-->
+- **endm**: Signatures, **sf** object (shapefile)
+- **model**: Random Forest like 'randomForest'
 - **training_split**: 80 percent to train and 20 percent to validate the model
 
 ```{r README-7, eval=TRUE}
@@ -222,14 +245,13 @@ suppressMessages(library(ForesToolboxRS))
 suppressMessages(library(raster))
 suppressMessages(library(snow))
 suppressMessages(library(caret))
-suppressMessages(library(rgdal))
+suppressMessages(library(sf))
 
 # Read raster
-image_path <- "LC08_232066_20190727_SR.tif"
-image <- stack(image_path)
+image <- stack("LC08_232066_20190727_SR.tif")
 
 # Read signatures
-sig <- sf::read_sf("signatures", "signatures")
+sig <- sf::read_sf("signatures.shp")
 
 # Classification with Random Forest
 classRF <- mla(img = image, model = "randomForest", endm = sig, training_split = 80)
@@ -238,15 +260,13 @@ classRF <- mla(img = image, model = "randomForest", endm = sig, training_split =
 print(classRF)
 ```
 
+
 ```{r README-8, eval = TRUE}
-# Plotting classification
-par(mfrow = c(1,2), mar = c(3, 4, 3, 3))
-# Landsat-8 image
-plotRGB(image, 6, 5, 2, stretch = "lin")
 # Classification
 colmap <- c("#0000FF","#228B22","#FF1493", "#00FF00")
-plot(classRF$Classification, main = "RandomForest Classification", col = colmap, axes = FALSE)
+plot(classRF$Classification, main = "RandomForest Classification", col = colmap, axes = TRUE)
 ```
+
 
 ### 2.2 Calibrating with Monte Carlo Cross-Validation (**`calmla()`** function)
 
@@ -262,14 +282,16 @@ Parameters:
 -   **model**: c(“svm”, “randomForest”, “naiveBayes”, “knn”). Machine
     learning algorithms: Support Vector Machine, Random Forest, Naive
     Bayes, K-nearest Neighbors
--   **training\_split**: 80
+-   **training\_split**: 70
 -   **approach**: “MCCV”
 -   **iter**: 10
+
+> **Warning!**: This function may take some time to process depending on the volumen of the data.
 
 ```{r README-9, eval=TRUE}
 cal_ml <- calmla(img = image, endm = sig,
                  model = c("svm", "randomForest", "naiveBayes", "knn"),
-                 training_split = 80, approach = "MCCV", iter = 10)
+                 training_split = 70, approach = "MCCV", iter = 10)
 ```
 
 ```{r README-10, eval=TRUE}
@@ -302,9 +324,7 @@ legend(
 
 ### 3. Unsupervised classification in Remote Sensing (**`rkmeans`** function)
 
-For this tutorial, Landsat-8 OLI image and signatures were used.
-Download the data
-[Here](https://drive.google.com/file/d/1Xf1A84fJN20eC578GwwOsVSuoxLuCRGJ/view?usp=sharing).
+For this tutorial, the same images was used.
 
 #### 3.1 Applying K-means
 
@@ -319,8 +339,7 @@ suppressMessages(library(ForesToolboxRS))
 suppressMessages(library(raster))
 
 # Read raster
-image_path <- "LC08_232066_20190727_SR.tif"
-image <- stack(image_path)
+image <- stack("LC08_232066_20190727_SR.tif")
 
 # Classification with K-means
 classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
