@@ -94,7 +94,7 @@ Here an Normalized Difference Fraction Index (NDFI) between 2000 and
 2019 (28 data) was used. One NDFI for each year was obtained. The idea is to detect a change in 2008 (position 19). The NDFI value ranges from -1 to 1.
 
 ```{r README-2}
-suppressMessages(library(ForesToolboxRS))
+library(ForesToolboxRS)
 # NDFI series
 ndfi <- c(0.86, 0.93, 0.97, 0.91, 0.95, 0.96, 0.91,
           0.88, 0.92, 0.89, 0.90, 0.89, 0.91, 0.92,
@@ -186,8 +186,6 @@ cd <- pvts(x = ndfi_ts, startm = 2008, endm = 2008,  threshold = 5)
 plot(cd)
 ```
 
-<img src="man/figures/README-README-5-1.png" width="100%" />
-
 ### 1.4 Breakpoint Not Detected
 
 Parameters:
@@ -213,22 +211,17 @@ For this tutorial, Landsat-8 OLI image and signatures were used. To download dat
 
 ```{r}
 # Data Preparation
-dir.create("data")
+dir.create("testdata")
 # downloading the image
 download.file("https://github.com/ytarazona/ft_data/raw/main/data/LC08_232066_20190727_SR.zip",
-              destfile = "data/LC08_232066_20190727_SR.zip")
-
+              destfile = "testdata/LC08_232066_20190727_SR.zip")
 # unziping the image
-unzip(paste(getwd(), "/data/LC08_232066_20190727_SR.zip", sep = ""), 
-      exdir = paste(getwd(), "/data", sep = ""))
-
+unzip("testdata/LC08_232066_20190727_SR.zip", exdir = "testdata")
 # downloading the signatures
 download.file("https://github.com/ytarazona/ft_data/raw/main/data/signatures.zip",
-              destfile = "data/signatures.zip")
-
+              destfile = "testdata/signatures.zip")
 # unziping the signatures
-unzip(paste(getwd(), "/data/signatures.zip", sep = ""), 
-      exdir = paste(getwd(), "/data", sep = ""))
+unzip("testdata/signatures.zip", exdir = "testdata")
 ```
 
 ### 2.1 Applying Random Forest (supervised classification)
@@ -241,17 +234,15 @@ Parameters:
 - **training_split**: 80 percent to train and 20 percent to validate the model
 
 ```{r README-7, eval=TRUE}
-suppressMessages(library(ForesToolboxRS))
-suppressMessages(library(raster))
-suppressMessages(library(snow))
-suppressMessages(library(caret))
-suppressMessages(library(sf))
+library(ForesToolboxRS)
+library(raster)
+library(sf)
 
 # Read raster
-image <- stack("LC08_232066_20190727_SR.tif")
+image <- stack("testdata/LC08_232066_20190727_SR.tif")
 
 # Read signatures
-sig <- sf::read_sf("signatures.shp")
+sig <- read_sf("testdata/signatures.shp")
 
 # Classification with Random Forest
 classRF <- mla(img = image, model = "randomForest", endm = sig, training_split = 80)
@@ -335,11 +326,11 @@ Parameters:
 -   **algo**: “MacQueen”
 
 ```{r README-11}
-suppressMessages(library(ForesToolboxRS))
-suppressMessages(library(raster))
+library(ForesToolboxRS)
+library(raster)
 
 # Read raster
-image <- stack("LC08_232066_20190727_SR.tif")
+image <- stack("testdata/LC08_232066_20190727_SR.tif")
 
 # Classification with K-means
 classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
@@ -384,3 +375,8 @@ best_k <- calkmeans(img = image, k = NULL, iter.max = 10,
 ```{r README-14}
 plot(best_k)
 ```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+unlink("testdata", recursive = TRUE, force = TRUE)
+```
+
