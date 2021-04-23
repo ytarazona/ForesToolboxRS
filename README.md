@@ -5,8 +5,10 @@
 
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub action build
+status](https://github.com/ytarazona/ForesToolboxRS/workflows/pkgdown/badge.svg)](https://github.com/ytarazona/ForesToolboxRS/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/ytarazona/ForesToolboxRS/branch/master/graph/badge.svg)](https://codecov.io/gh/ytarazona/ForesToolboxRS?branch=dev)
+coverage](https://codecov.io/gh/ytarazona/ForesToolboxRS/branch/main/graph/badge.svg)](https://codecov.io/gh/ytarazona/ForesToolboxRS?branch=main)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC) -->
 
@@ -231,7 +233,6 @@ download data please follow this codes:
 ``` r
 # Data Preparation
 dir.create("testdata")
-#> Warning in dir.create("testdata"): 'testdata' already exists
 # downloading the image
 download.file("https://github.com/ytarazona/ft_data/raw/main/data/LC08_232066_20190727_SR.zip",
               destfile = "testdata/LC08_232066_20190727_SR.zip")
@@ -277,19 +278,19 @@ print(classRF)
 #> 
 #> ****Overall Accuracy****
 #>       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
-#>   9.687500e+01   9.582518e+01   8.916295e+01   9.961928e+01   2.812500e+01 
+#>   1.000000e+02   1.000000e+02   9.439909e+01   1.000000e+02   2.812500e+01 
 #> AccuracyPValue 
-#>   7.358300e-30 
+#>   5.519783e-34 
 #> 
 #> ****Confusion Matrix****
-#>                     1        2   3   4 Total Users_Accuracy Commission
-#> 1                  18  0.00000   0   0    18      100.00000    0.00000
-#> 2                   0 15.00000   0   0    15      100.00000    0.00000
-#> 3                   0  0.00000  16   0    16      100.00000    0.00000
-#> 4                   0  2.00000   0  13    15       86.66667   13.33333
-#> Total              18 17.00000  16  13    NA             NA         NA
-#> Producer_Accuracy 100 88.23529 100 100    NA             NA         NA
-#> Omission            0 11.76471   0   0    NA             NA         NA
+#>                     1   2   3   4 Total Users_Accuracy Commission
+#> 1                  15   0   0   0    15            100          0
+#> 2                   0  18   0   0    18            100          0
+#> 3                   0   0  17   0    17            100          0
+#> 4                   0   0   0  14    14            100          0
+#> Total              15  18  17  14    NA             NA         NA
+#> Producer_Accuracy 100 100 100 100    NA             NA         NA
+#> Omission            0   0   0   0    NA             NA         NA
 #> 
 #> ****Classification Map****
 #> class      : RasterLayer 
