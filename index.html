@@ -95,7 +95,15 @@
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
 <p><strong>ForesToolboxRS</strong> is an R package providing a variety of tools and algorithms for the processing and analysis of satellite images for the various applications of Remote Sensing for Earth Observations. All implemented algorithms are based on scientific publications. <!--there should be a list of references--></p>
-<p><strong>The PVts-Beta approach</strong>, a non-seasonal detection approach, is implemented in this package and can read time series, vector, matrix, and raster data. Some functions of this package are intended to show, on the one hand, some progress in methods for mapping deforestation and forest degradation, and on the other hand, to provide some tools (not yet available) for routine analysis of remotely detected data. Tools for calibration of unsupervised and supervised algorithms through various calibration approaches are some of the functions embedded in this package. <!-- Therefore we sincerely hope that **ForesToolboxRS** can facilitate different analyses and simple and robust processes in satellite images. --></p>
+<ul>
+<li>Tarazona, Y., Maria, Miyasiro-Lopez. (2020). Monitoring tropical forest degradation using remote sensing. Challenges and opportunities in the Madre de Dios region, Peru. Remote Sensing Applications: Society and Environment, 19, 100337.</li>
+<li>Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving tropical deforestation detection through using photosynthetic vegetation time series (PVts-β). Ecological Indicators, 94, 367 379.</li>
+<li>Hamunyela, E., Verbesselt, J., Roerink, G., &amp; Herold, M. (2013). Trends in spring phenology of western European deciduous forests. Remote Sensing,5(12), 6159-6179.</li>
+<li>Souza Jr., C.M., Roberts, D.A., Cochrane, M.A., 2005. Combining spectral and spatialinformation to map canopy damage from selective logging and forest fires. Remote Sens. Environ. 98 (2-3), 329-343.</li>
+<li>Adams, J. B., Smith, M. O., &amp; Gillespie, A. R. (1993). Imaging spectroscopy: Interpretation based on spectral mixture analysis. In C. M. Pieters &amp; P. Englert (Eds.), Remote geochemical analysis: Elements and mineralogical composition. NY: Cambridge Univ. Press 145-166 pp.</li>
+<li>Shimabukuro, Y.E. and Smith, J., (1991). The least squares mixing models to generate fraction images derived from remote sensing multispectral data. IEEE Transactions on Geoscience and Remote Sensing, 29, pp. 16-21.</li>
+</ul>
+<p><strong>The PVts-Beta approach</strong>, a non-seasonal detection approach, is implemented in this package and can read time series, vector, matrix, and raster data. Some functions of this package are intended to show, on the one hand, some progress in methods for mapping deforestation and forest degradation, and on the other hand, to provide some tools (not yet available) for routine analysis of remotely detected data. Tools for calibration of unsupervised and supervised algorithms through various calibration approaches are some of the functions embedded in this package. Therefore we sincerely hope that <strong>ForesToolboxRS</strong> can facilitate different analyses and simple and robust processes in satellite images</p>
 <p>Available functions:</p>
 <table class="table">
 <colgroup>
@@ -185,10 +193,12 @@
 <div id="1-breakpoint-in-an-ndfi-series-pvts-function" class="section level2">
 <h2 class="hasAnchor">
 <a href="#1-breakpoint-in-an-ndfi-series-pvts-function" class="anchor"></a>1. Breakpoint in an NDFI series (<strong><code>pvts</code></strong> function)</h2>
-<!-- this sentence should be rewritten -->
-<p>Here an Normalized Difference Fraction Index (NDFI) between 2000 and 2019 (28 data), one NDFI for each year, and we will detect a change in 2008 (position 19). The NDFI value ranges from -1 to 1.</p>
+<p>Here an Normalized Difference Fraction Index (NDFI) between 2000 and 2019 (28 data) was used. One NDFI for each year was obtained. The idea is to detect a change in 2008 (position 19). The NDFI value ranges from -1 to 1.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ytarazona.github.io/ForesToolboxRS/">ForesToolboxRS</a></span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ytarazona.github.io/ForesToolboxRS/">ForesToolboxRS</a></span><span class="op">)</span>
+<span class="co">#&gt; Registered S3 method overwritten by 'quantmod':</span>
+<span class="co">#&gt;   method            from</span>
+<span class="co">#&gt;   as.zoo.data.frame zoo</span>
 <span class="co"># NDFI series</span>
 <span class="va">ndfi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.86</span>, <span class="fl">0.93</span>, <span class="fl">0.97</span>, <span class="fl">0.91</span>, <span class="fl">0.95</span>, <span class="fl">0.96</span>, <span class="fl">0.91</span>,
           <span class="fl">0.88</span>, <span class="fl">0.92</span>, <span class="fl">0.89</span>, <span class="fl">0.90</span>, <span class="fl">0.89</span>, <span class="fl">0.91</span>, <span class="fl">0.92</span>,
@@ -199,7 +209,6 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ndfi</span>, pch <span class="op">=</span> <span class="fl">20</span>, xlab <span class="op">=</span> <span class="st">"Index"</span>, ylab <span class="op">=</span> <span class="st">"NDFI value"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">ndfi</span>, col <span class="op">=</span> <span class="st">"gray45"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-README-2-1.png" width="100%"></p>
-<!-- <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" /> -->
 <div id="11-applying-a-smoothing-the-smooth-function" class="section level3">
 <h3 class="hasAnchor">
 <a href="#11-applying-a-smoothing-the-smooth-function" class="anchor"></a>1.1 Applying a smoothing (the <strong><code>smootH()</code></strong> function)</h3>
@@ -234,7 +243,7 @@
 <li>
 <strong>endm</strong>: year of final monitoring, index 19 (i.e., also year 2008)</li>
 <li>
-<strong>threshold</strong>: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI or EVI series you can use 5, 3 or 3 respectively. <!--JN: 5, 3 or 3???--> Please see <a href="https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326">Tarazona et al. (2018)</a> for more details.</li>
+<strong>threshold</strong>: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI and EVI series you can use 5, 3 and 3 respectively. Please see <a href="https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326">Tarazona et al. (2018)</a> for more details.</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Detect changes in 2008 (position 19)</span>
@@ -254,7 +263,7 @@
 <li>
 <strong>endm</strong>: year of final monitoring, also year 2008.</li>
 <li>
-<strong>threshold</strong>: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI or EVI series you can use 5, 3 or 3 respectively. <!--JN: 5, 3 or 3???--> Please see <a href="https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326">Tarazona et al. (2018)</a> for more details.</li>
+<strong>threshold</strong>: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI and EVI series you can use 5, 3 and 3 respectively. Please see <a href="https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326">Tarazona et al. (2018)</a> for more details.</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Let´s create a time series of the variable "ndfi"</span>
@@ -281,7 +290,7 @@
 <li>
 <strong>endm</strong>: year of final monitoring, index 16 (i.e., also year 2005)</li>
 <li>
-<strong>threshold</strong>: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI or EVI series you can use 5, 3 or 3 respectively. <!--JN: 5, 3 or 3???--> Please see <a href="https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326">Tarazona et al. (2018)</a> for more details.</li>
+<strong>threshold</strong>: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI and EVI series you can use 5, 3 and 3 respectively. Please see <a href="https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326">Tarazona et al. (2018)</a> for more details.</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Detect changes in 2005</span>
@@ -293,7 +302,20 @@
 <div id="2-supervised-classification-in-remote-sensing-the-mla-function" class="section level2">
 <h2 class="hasAnchor">
 <a href="#2-supervised-classification-in-remote-sensing-the-mla-function" class="anchor"></a>2. Supervised classification in Remote Sensing (the <strong><code>mla()</code></strong> function)</h2>
-<p>For this tutorial, Landsat-8 OLI image and signatures were used. Download the data <a href="https://drive.google.com/drive/folders/1vH0mSAndVNErRjlQ6rZ1zdnTgpvNUU1R?usp=sharing">Here</a>.</p>
+<p>For this tutorial, Landsat-8 OLI image and signatures were used. To download data please follow this codes:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Data Preparation</span>
+<span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="st">"testdata"</span><span class="op">)</span>
+<span class="co"># downloading the image</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op">(</span><span class="st">"https://github.com/ytarazona/ft_data/raw/main/data/LC08_232066_20190727_SR.zip"</span>,
+              destfile <span class="op">=</span> <span class="st">"testdata/LC08_232066_20190727_SR.zip"</span><span class="op">)</span>
+<span class="co"># unziping the image</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"testdata/LC08_232066_20190727_SR.zip"</span>, exdir <span class="op">=</span> <span class="st">"testdata"</span><span class="op">)</span>
+<span class="co"># downloading the signatures</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op">(</span><span class="st">"https://github.com/ytarazona/ft_data/raw/main/data/signatures.zip"</span>,
+              destfile <span class="op">=</span> <span class="st">"testdata/signatures.zip"</span><span class="op">)</span>
+<span class="co"># unziping the signatures</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"testdata/signatures.zip"</span>, exdir <span class="op">=</span> <span class="st">"testdata"</span><span class="op">)</span></code></pre></div>
 <div id="21-applying-random-forest-supervised-classification" class="section level3">
 <h3 class="hasAnchor">
 <a href="#21-applying-random-forest-supervised-classification" class="anchor"></a>2.1 Applying Random Forest (supervised classification)</h3>
@@ -302,26 +324,24 @@
 <li>
 <strong>img</strong>: RasterStack (Landsat 8 OLI)</li>
 <li>
-<strong>endm</strong>: Signatures, SpatialPointsDataFrame (shapefile)</li>
+<strong>endm</strong>: Signatures, <strong>sf</strong> object (shapefile)</li>
 <li>
-<strong>model</strong>: Random Forest like ‘svm’ <!--JN: svm is not Random Forest...-->
-</li>
+<strong>model</strong>: Random Forest like ‘randomForest’</li>
 <li>
 <strong>training_split</strong>: 80 percent to train and 20 percent to validate the model</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ytarazona.github.io/ForesToolboxRS/">ForesToolboxRS</a></span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">snow</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://rgdal.r-forge.r-project.org">rgdal</a></span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ytarazona.github.io/ForesToolboxRS/">ForesToolboxRS</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span>
+<span class="co">#&gt; Loading required package: sp</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
+<span class="co">#&gt; Linking to GEOS 3.8.1, GDAL 3.1.4, PROJ 6.3.2</span>
 
 <span class="co"># Read raster</span>
-<span class="va">image_path</span> <span class="op">&lt;-</span> <span class="st">"LC08_232066_20190727_SR.tif"</span>
-<span class="va">image</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html">stack</a></span><span class="op">(</span><span class="va">image_path</span><span class="op">)</span>
+<span class="va">image</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html">stack</a></span><span class="op">(</span><span class="st">"testdata/LC08_232066_20190727_SR.tif"</span><span class="op">)</span>
 
 <span class="co"># Read signatures</span>
-<span class="va">sig</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="st">"signatures"</span>, <span class="st">"signatures"</span><span class="op">)</span>
+<span class="va">sig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="st">"testdata/signatures.shp"</span><span class="op">)</span>
 
 <span class="co"># Classification with Random Forest</span>
 <span class="va">classRF</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mla.html">mla</a></span><span class="op">(</span>img <span class="op">=</span> <span class="va">image</span>, model <span class="op">=</span> <span class="st">"randomForest"</span>, endm <span class="op">=</span> <span class="va">sig</span>, training_split <span class="op">=</span> <span class="fl">80</span><span class="op">)</span>
@@ -333,37 +353,33 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ****Overall Accuracy****</span>
 <span class="co">#&gt;       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull </span>
-<span class="co">#&gt;   9.431818e+01   9.238227e+01   8.723676e+01   9.812961e+01   2.954545e+01 </span>
+<span class="co">#&gt;   1.000000e+02   1.000000e+02   9.439909e+01   1.000000e+02   2.812500e+01 </span>
 <span class="co">#&gt; AccuracyPValue </span>
-<span class="co">#&gt;   7.838047e-36 </span>
+<span class="co">#&gt;   5.519783e-34 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ****Confusion Matrix****</span>
-<span class="co">#&gt;                     1   2        3        4 Total Users_Accuracy Commission</span>
-<span class="co">#&gt; 1                  20   0  0.00000  0.00000    20      100.00000    0.00000</span>
-<span class="co">#&gt; 2                   0  24  0.00000  0.00000    24      100.00000    0.00000</span>
-<span class="co">#&gt; 3                   0   0 16.00000  3.00000    19       84.21053   15.78947</span>
-<span class="co">#&gt; 4                   0   0  2.00000 23.00000    25       92.00000    8.00000</span>
-<span class="co">#&gt; Total              20  24 18.00000 26.00000    NA             NA         NA</span>
-<span class="co">#&gt; Producer_Accuracy 100 100 88.88889 88.46154    NA             NA         NA</span>
-<span class="co">#&gt; Omission            0   0 11.11111 11.53846    NA             NA         NA</span>
+<span class="co">#&gt;                     1   2   3   4 Total Users_Accuracy Commission</span>
+<span class="co">#&gt; 1                  15   0   0   0    15            100          0</span>
+<span class="co">#&gt; 2                   0  18   0   0    18            100          0</span>
+<span class="co">#&gt; 3                   0   0  17   0    17            100          0</span>
+<span class="co">#&gt; 4                   0   0   0  14    14            100          0</span>
+<span class="co">#&gt; Total              15  18  17  14    NA             NA         NA</span>
+<span class="co">#&gt; Producer_Accuracy 100 100 100 100    NA             NA         NA</span>
+<span class="co">#&gt; Omission            0   0   0   0    NA             NA         NA</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ****Classification Map****</span>
 <span class="co">#&gt; class      : RasterLayer </span>
-<span class="co">#&gt; dimensions : 1163, 1434, 1667742  (nrow, ncol, ncell)</span>
+<span class="co">#&gt; dimensions : 301, 337, 101437  (nrow, ncol, ncell)</span>
 <span class="co">#&gt; resolution : 0.0002694946, 0.0002694946  (x, y)</span>
-<span class="co">#&gt; extent     : -64.15723, -63.77077, -8.827834, -8.514412  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt; extent     : -63.98125, -63.89043, -8.758574, -8.677456  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; crs        : +proj=longlat +datum=WGS84 +no_defs </span>
 <span class="co">#&gt; source     : memory</span>
 <span class="co">#&gt; names      : layer </span>
 <span class="co">#&gt; values     : 1, 4  (min, max)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Plotting classification</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># Landsat-8 image</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plotRGB.html">plotRGB</a></span><span class="op">(</span><span class="va">image</span>, <span class="fl">6</span>, <span class="fl">5</span>, <span class="fl">2</span>, stretch <span class="op">=</span> <span class="st">"lin"</span><span class="op">)</span>
-<span class="co"># Classification</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Classification</span>
 <span class="va">colmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#0000FF"</span>,<span class="st">"#228B22"</span>,<span class="st">"#FF1493"</span>, <span class="st">"#00FF00"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span><span class="va">classRF</span><span class="op">$</span><span class="va">Classification</span>, main <span class="op">=</span> <span class="st">"RandomForest Classification"</span>, col <span class="op">=</span> <span class="va">colmap</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span><span class="va">classRF</span><span class="op">$</span><span class="va">Classification</span>, main <span class="op">=</span> <span class="st">"RandomForest Classification"</span>, col <span class="op">=</span> <span class="va">colmap</span>, axes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-README-8-1.png" width="100%"></p>
 </div>
 <div id="22-calibrating-with-monte-carlo-cross-validation-calmla-function" class="section level3">
@@ -379,17 +395,22 @@
 <li>
 <strong>model</strong>: c(“svm”, “randomForest”, “naiveBayes”, “knn”). Machine learning algorithms: Support Vector Machine, Random Forest, Naive Bayes, K-nearest Neighbors</li>
 <li>
-<strong>training_split</strong>: 80</li>
+<strong>training_split</strong>: 70</li>
 <li>
 <strong>approach</strong>: “MCCV”</li>
 <li>
 <strong>iter</strong>: 10</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<blockquote>
+<p><strong>Warning!</strong>: This function may take some time to process depending on the volumen of the data.</p>
+</blockquote>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cal_ml</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calmla.html">calmla</a></span><span class="op">(</span>img <span class="op">=</span> <span class="va">image</span>, endm <span class="op">=</span> <span class="va">sig</span>,
                  model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"svm"</span>, <span class="st">"randomForest"</span>, <span class="st">"naiveBayes"</span>, <span class="st">"knn"</span><span class="op">)</span>,
-                 training_split <span class="op">=</span> <span class="fl">80</span>, approach <span class="op">=</span> <span class="st">"MCCV"</span>, iter <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+                 training_split <span class="op">=</span> <span class="fl">70</span>, approach <span class="op">=</span> <span class="st">"MCCV"</span>, iter <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
+<span class="co">#&gt; Loading required package: lattice</span>
+<span class="co">#&gt; Loading required package: ggplot2</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calibration result</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span>
   <span class="va">cal_ml</span><span class="op">$</span><span class="va">svm_mccv</span>,
@@ -420,7 +441,7 @@
 <div id="3-unsupervised-classification-in-remote-sensing-rkmeans-function" class="section level3">
 <h3 class="hasAnchor">
 <a href="#3-unsupervised-classification-in-remote-sensing-rkmeans-function" class="anchor"></a>3. Unsupervised classification in Remote Sensing (<strong><code>rkmeans</code></strong> function)</h3>
-<p>For this tutorial, Landsat-8 OLI image and signatures were used. Download the data <a href="https://drive.google.com/file/d/1Xf1A84fJN20eC578GwwOsVSuoxLuCRGJ/view?usp=sharing">Here</a>.</p>
+<p>For this tutorial, the same images was used.</p>
 <div id="31-applying-k-means" class="section level4">
 <h4 class="hasAnchor">
 <a href="#31-applying-k-means" class="anchor"></a>3.1 Applying K-means</h4>
@@ -433,17 +454,16 @@
 <li>
 <strong>algo</strong>: “MacQueen”</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ytarazona.github.io/ForesToolboxRS/">ForesToolboxRS</a></span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ytarazona.github.io/ForesToolboxRS/">ForesToolboxRS</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span>
 
 <span class="co"># Read raster</span>
-<span class="va">image_path</span> <span class="op">&lt;-</span> <span class="st">"LC08_232066_20190727_SR.tif"</span>
-<span class="va">image</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html">stack</a></span><span class="op">(</span><span class="va">image_path</span><span class="op">)</span>
+<span class="va">image</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html">stack</a></span><span class="op">(</span><span class="st">"testdata/LC08_232066_20190727_SR.tif"</span><span class="op">)</span>
 
 <span class="co"># Classification with K-means</span>
 <span class="va">classKmeans</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rkmeans.html">rkmeans</a></span><span class="op">(</span>img <span class="op">=</span> <span class="va">image</span>, k <span class="op">=</span> <span class="fl">4</span>, algo <span class="op">=</span> <span class="st">"MacQueen"</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Plotting classification</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
 <span class="co"># Landsat-8 image</span>
@@ -472,12 +492,12 @@
 <li>
 <strong>iter</strong>: Iterations number to obtain the best k value</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Elbow method</span>
 <span class="va">best_k</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calkmeans.html">calkmeans</a></span><span class="op">(</span>img <span class="op">=</span> <span class="va">image</span>, k <span class="op">=</span> <span class="cn">NULL</span>, iter.max <span class="op">=</span> <span class="fl">10</span>,
                     algo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Hartigan-Wong"</span>, <span class="st">"Lloyd"</span>, <span class="st">"Forgy"</span>, <span class="st">"MacQueen"</span><span class="op">)</span>,
                     iter <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span><span class="va">best_k</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-README-14-1.png" width="100%"></p>
 </div>
@@ -516,7 +536,8 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></li>
-<li><a href="https://codecov.io/gh/ytarazona/ForesToolboxRS?branch=dev"><img src="https://codecov.io/gh/ytarazona/ForesToolboxRS/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/ytarazona/ForesToolboxRS/actions"><img src="https://github.com/ytarazona/ForesToolboxRS/workflows/pkgdown/badge.svg" alt="GitHub action build status"></a></li>
+<li><a href="https://codecov.io/gh/ytarazona/ForesToolboxRS?branch=main"><img src="https://codecov.io/gh/ytarazona/ForesToolboxRS/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-brightgreen.svg" alt="lifecycle"></a></li>
 </ul>
 </div>
