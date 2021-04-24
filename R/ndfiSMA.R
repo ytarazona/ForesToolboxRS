@@ -14,7 +14,6 @@
 #' @note
 #' The fractions is obtained from the Spectral Mixture Analysis physical model.
 #'
-#' @importFrom dplyr bind_cols
 #' @importFrom raster as.matrix
 #'
 #' @param img It could be RasterStack or RasterBrick
@@ -94,9 +93,12 @@ ndfiSMA <- function(img, procesLevel = "SR", verbose = FALSE) {
       mat_oper <- tcrossprod((solve(crossprod(M))), M)
 
       # We calculate fractions through least squares
-      lmm <- lapply(1:dim(df)[1], function(i) f <- mat_oper %*% df[i, ])
-      n <- suppressMessages(bind_cols(lmm))
-      fractions <- t(cbind(n))
+      lmm <- matrix(nrow = nrow(mat_oper), ncol = dim(df)[1])
+      for (i in seq_along(ncol(lmm))){
+        lmm[, i] = mat_oper %*% df[i, ]
+      }
+      fractions <- t(n)
+
     } else {
       stop(" The number of values extracted in band should be equal.", call. = TRUE)
     }
