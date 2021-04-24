@@ -94,10 +94,10 @@ ndfiSMA <- function(img, procesLevel = "SR", verbose = FALSE) {
 
       # We calculate fractions through least squares
       lmm <- matrix(nrow = nrow(mat_oper), ncol = dim(df)[1])
-      for (i in seq_along(ncol(lmm))){
+      for (i in seq_len(ncol(lmm))){
         lmm[, i] = mat_oper %*% df[i, ]
       }
-      fractions <- t(n)
+      fractions <- t(lmm)
 
     } else {
       stop(" The number of values extracted in band should be equal.", call. = TRUE)
