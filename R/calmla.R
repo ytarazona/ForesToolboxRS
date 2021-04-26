@@ -422,7 +422,7 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
       nt_ini_error <- 0
       kn_ini_error <- 0
 
-      groups <- createFolds(1:dim(endm)[1], 10)
+      groups <- createFolds(1:dim(endm)[1], k)
 
       for (g in 1:k) {
 
