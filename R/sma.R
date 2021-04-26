@@ -26,7 +26,6 @@
 #' of bands must be greater than the number of endmembers.
 #' @param verbose This parameter is Logical. It Prints progress messages during execution.
 #'
-#' @importFrom dplyr bind_cols
 #' @importFrom raster as.matrix
 #'
 #' @examples
@@ -68,9 +67,11 @@ sma <- function(img, endm, verbose = FALSE) {
       M <- t(endm)
 
       # We calculate fractions through least squares
-      lmm <- lapply(1:dim(df)[1], function(i) f <- (tcrossprod((solve(crossprod(M))), M)) %*% df[i, ])
-      n <- suppressMessages(bind_cols(lmm))
-      val <- t(cbind(n))
+      lmm <- matrix(nrow = ncol(M), ncol = dim(df)[1])
+      for (i in seq_len(ncol(lmm))){
+        lmm[, i] = tcrossprod((solve(crossprod(M))), M) %*% df[i, ]
+      }
+      val <- t(lmm)
 
       if (verbose) {
         message(paste0(paste0(rep("*", 10), collapse = ""), " Obtaining Root Mean Square Error ", paste0(rep("*", 10), collapse = "")))

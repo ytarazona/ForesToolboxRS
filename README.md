@@ -5,8 +5,10 @@
 
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub action build
+status](https://github.com/ytarazona/ForesToolboxRS/workflows/pkgdown/badge.svg)](https://github.com/ytarazona/ForesToolboxRS/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/ytarazona/ForesToolboxRS/branch/master/graph/badge.svg)](https://codecov.io/gh/ytarazona/ForesToolboxRS?branch=dev)
+coverage](https://codecov.io/gh/ytarazona/ForesToolboxRS/branch/main/graph/badge.svg)](https://codecov.io/gh/ytarazona/ForesToolboxRS?branch=main)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC) -->
 
@@ -25,6 +27,29 @@ various applications of Remote Sensing for Earth Observations. All
 implemented algorithms are based on scientific publications.
 <!--there should be a list of references-->
 
+-   Tarazona, Y., Maria, Miyasiro-Lopez. (2020). Monitoring tropical
+    forest degradation using remote sensing. Challenges and
+    opportunities in the Madre de Dios region, Peru. Remote Sensing
+    Applications: Society and Environment, 19, 100337.
+-   Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving
+    tropical deforestation detection through using photosynthetic
+    vegetation time series (PVts-β). Ecological Indicators, 94, 367 379.
+-   Hamunyela, E., Verbesselt, J., Roerink, G., & Herold, M. (2013).
+    Trends in spring phenology of western European deciduous forests.
+    Remote Sensing,5(12), 6159-6179.
+-   Souza Jr., C.M., Roberts, D.A., Cochrane, M.A., 2005. Combining
+    spectral and spatialinformation to map canopy damage from selective
+    logging and forest fires. Remote Sens. Environ. 98 (2-3), 329-343.
+-   Adams, J. B., Smith, M. O., & Gillespie, A. R. (1993). Imaging
+    spectroscopy: Interpretation based on spectral mixture analysis.
+    In C. M. Pieters & P. Englert (Eds.), Remote geochemical analysis:
+    Elements and mineralogical composition. NY: Cambridge Univ. Press
+    145-166 pp.
+-   Shimabukuro, Y.E. and Smith, J., (1991). The least squares mixing
+    models to generate fraction images derived from remote sensing
+    multispectral data. IEEE Transactions on Geoscience and Remote
+    Sensing, 29, pp. 16-21.
+
 **The PVts-Beta approach**, a non-seasonal detection approach, is
 implemented in this package and can read time series, vector, matrix,
 and raster data. Some functions of this package are intended to show, on
@@ -33,8 +58,9 @@ forest degradation, and on the other hand, to provide some tools (not
 yet available) for routine analysis of remotely detected data. Tools for
 calibration of unsupervised and supervised algorithms through various
 calibration approaches are some of the functions embedded in this
-package.
-<!-- Therefore we sincerely hope that **ForesToolboxRS** can facilitate different analyses and simple and robust processes in satellite images. -->
+package. Therefore we sincerely hope that **ForesToolboxRS** can
+facilitate different analyses and simple and robust processes in
+satellite images
 
 Available functions:
 
@@ -72,14 +98,16 @@ suppressMessages(library(ForesToolboxRS))
 
 ## 1. Breakpoint in an NDFI series (**`pvts`** function)
 
-<!-- this sentence should be rewritten -->
-
 Here an Normalized Difference Fraction Index (NDFI) between 2000 and
-2019 (28 data), one NDFI for each year, and we will detect a change in
-2008 (position 19). The NDFI value ranges from -1 to 1.
+2019 (28 data) was used. One NDFI for each year was obtained. The idea
+is to detect a change in 2008 (position 19). The NDFI value ranges from
+-1 to 1.
 
 ``` r
-suppressMessages(library(ForesToolboxRS))
+library(ForesToolboxRS)
+#> Registered S3 method overwritten by 'quantmod':
+#>   method            from
+#>   as.zoo.data.frame zoo
 # NDFI series
 ndfi <- c(0.86, 0.93, 0.97, 0.91, 0.95, 0.96, 0.91,
           0.88, 0.92, 0.89, 0.90, 0.89, 0.91, 0.92,
@@ -92,8 +120,6 @@ lines(ndfi, col = "gray45")
 ```
 
 <img src="man/figures/README-README-2-1.png" width="100%" />
-
-<!-- <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" /> -->
 
 ### 1.1 Applying a smoothing (the **`smootH()`** function)
 
@@ -137,8 +163,8 @@ Parameters:
 -   **startm**: monitoring year, index 19 (i.e., year 2008)
 -   **endm**: year of final monitoring, index 19 (i.e., also year 2008)
 -   **threshold**: detection threshold (for NDFI series we will use 5).
-    If you are using PV series, NDVI or EVI series you can use 5, 3 or 3
-    respectively. <!--JN: 5, 3 or 3???--> Please see [Tarazona et
+    If you are using PV series, NDVI and EVI series you can use 5, 3 and
+    3 respectively. Please see [Tarazona et
     al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
 
@@ -158,8 +184,8 @@ Parameters:
 -   **startm**: monitoring year, in this case year 2008.
 -   **endm**: year of final monitoring, also year 2008.
 -   **threshold**: detection threshold (for NDFI series we will use 5).
-    If you are using PV series, NDVI or EVI series you can use 5, 3 or 3
-    respectively. <!--JN: 5, 3 or 3???--> Please see [Tarazona et
+    If you are using PV series, NDVI and EVI series you can use 5, 3 and
+    3 respectively. Please see [Tarazona et
     al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
 
@@ -186,8 +212,8 @@ Parameters:
 -   **startm**: monitoring year, index 16 (i.e., year 2005)
 -   **endm**: year of final monitoring, index 16 (i.e., also year 2005)
 -   **threshold**: detection threshold (for NDFI series we will use 5).
-    If you are using PV series, NDVI or EVI series you can use 5, 3 or 3
-    respectively. <!--JN: 5, 3 or 3???--> Please see [Tarazona et
+    If you are using PV series, NDVI and EVI series you can use 5, 3 and
+    3 respectively. Please see [Tarazona et
     al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
 
@@ -201,34 +227,46 @@ plot(cd)
 
 ## 2. Supervised classification in Remote Sensing (the **`mla()`** function)
 
-For this tutorial, Landsat-8 OLI image and signatures were used.
-Download the data
-[Here](https://drive.google.com/drive/folders/1vH0mSAndVNErRjlQ6rZ1zdnTgpvNUU1R?usp=sharing).
+For this tutorial, Landsat-8 OLI image and signatures were used. To
+download data please follow this codes:
+
+``` r
+# Data Preparation
+dir.create("testdata")
+# downloading the image
+download.file("https://github.com/ytarazona/ft_data/raw/main/data/LC08_232066_20190727_SR.zip",
+              destfile = "testdata/LC08_232066_20190727_SR.zip")
+# unziping the image
+unzip("testdata/LC08_232066_20190727_SR.zip", exdir = "testdata")
+# downloading the signatures
+download.file("https://github.com/ytarazona/ft_data/raw/main/data/signatures.zip",
+              destfile = "testdata/signatures.zip")
+# unziping the signatures
+unzip("testdata/signatures.zip", exdir = "testdata")
+```
 
 ### 2.1 Applying Random Forest (supervised classification)
 
 Parameters:
 
 -   **img**: RasterStack (Landsat 8 OLI)
--   **endm**: Signatures, SpatialPointsDataFrame (shapefile)
--   **model**: Random Forest like ‘svm’
-    <!--JN: svm is not Random Forest...-->
+-   **endm**: Signatures, **sf** object (shapefile)
+-   **model**: Random Forest like ‘randomForest’
 -   **training\_split**: 80 percent to train and 20 percent to validate
     the model
 
 ``` r
-suppressMessages(library(ForesToolboxRS))
-suppressMessages(library(raster))
-suppressMessages(library(snow))
-suppressMessages(library(caret))
-suppressMessages(library(rgdal))
+library(ForesToolboxRS)
+library(raster)
+#> Loading required package: sp
+library(sf)
+#> Linking to GEOS 3.8.1, GDAL 3.1.4, PROJ 6.3.2
 
 # Read raster
-image_path <- "LC08_232066_20190727_SR.tif"
-image <- stack(image_path)
+image <- stack("testdata/LC08_232066_20190727_SR.tif")
 
 # Read signatures
-sig <- sf::read_sf("signatures", "signatures")
+sig <- read_sf("testdata/signatures.shp")
 
 # Classification with Random Forest
 classRF <- mla(img = image, model = "randomForest", endm = sig, training_split = 80)
@@ -240,25 +278,25 @@ print(classRF)
 #> 
 #> ****Overall Accuracy****
 #>       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
-#>   9.431818e+01   9.238227e+01   8.723676e+01   9.812961e+01   2.954545e+01 
+#>   1.000000e+02   1.000000e+02   9.439909e+01   1.000000e+02   2.812500e+01 
 #> AccuracyPValue 
-#>   7.838047e-36 
+#>   5.519783e-34 
 #> 
 #> ****Confusion Matrix****
-#>                     1   2        3        4 Total Users_Accuracy Commission
-#> 1                  20   0  0.00000  0.00000    20      100.00000    0.00000
-#> 2                   0  24  0.00000  0.00000    24      100.00000    0.00000
-#> 3                   0   0 16.00000  3.00000    19       84.21053   15.78947
-#> 4                   0   0  2.00000 23.00000    25       92.00000    8.00000
-#> Total              20  24 18.00000 26.00000    NA             NA         NA
-#> Producer_Accuracy 100 100 88.88889 88.46154    NA             NA         NA
-#> Omission            0   0 11.11111 11.53846    NA             NA         NA
+#>                     1   2   3   4 Total Users_Accuracy Commission
+#> 1                  15   0   0   0    15            100          0
+#> 2                   0  18   0   0    18            100          0
+#> 3                   0   0  17   0    17            100          0
+#> 4                   0   0   0  14    14            100          0
+#> Total              15  18  17  14    NA             NA         NA
+#> Producer_Accuracy 100 100 100 100    NA             NA         NA
+#> Omission            0   0   0   0    NA             NA         NA
 #> 
 #> ****Classification Map****
 #> class      : RasterLayer 
-#> dimensions : 1163, 1434, 1667742  (nrow, ncol, ncell)
+#> dimensions : 301, 337, 101437  (nrow, ncol, ncell)
 #> resolution : 0.0002694946, 0.0002694946  (x, y)
-#> extent     : -64.15723, -63.77077, -8.827834, -8.514412  (xmin, xmax, ymin, ymax)
+#> extent     : -63.98125, -63.89043, -8.758574, -8.677456  (xmin, xmax, ymin, ymax)
 #> crs        : +proj=longlat +datum=WGS84 +no_defs 
 #> source     : memory
 #> names      : layer 
@@ -266,13 +304,9 @@ print(classRF)
 ```
 
 ``` r
-# Plotting classification
-par(mfrow = c(1,2), mar = c(3, 4, 3, 3))
-# Landsat-8 image
-plotRGB(image, 6, 5, 2, stretch = "lin")
 # Classification
 colmap <- c("#0000FF","#228B22","#FF1493", "#00FF00")
-plot(classRF$Classification, main = "RandomForest Classification", col = colmap, axes = FALSE)
+plot(classRF$Classification, main = "RandomForest Classification", col = colmap, axes = TRUE)
 ```
 
 <img src="man/figures/README-README-8-1.png" width="100%" />
@@ -291,14 +325,19 @@ Parameters:
 -   **model**: c(“svm”, “randomForest”, “naiveBayes”, “knn”). Machine
     learning algorithms: Support Vector Machine, Random Forest, Naive
     Bayes, K-nearest Neighbors
--   **training\_split**: 80
+-   **training\_split**: 70
 -   **approach**: “MCCV”
 -   **iter**: 10
+
+> **Warning!**: This function may take some time to process depending on
+> the volumen of the data.
 
 ``` r
 cal_ml <- calmla(img = image, endm = sig,
                  model = c("svm", "randomForest", "naiveBayes", "knn"),
-                 training_split = 80, approach = "MCCV", iter = 10)
+                 training_split = 70, approach = "MCCV", iter = 10)
+#> Loading required package: lattice
+#> Loading required package: ggplot2
 ```
 
 ``` r
@@ -333,9 +372,7 @@ legend(
 
 ### 3. Unsupervised classification in Remote Sensing (**`rkmeans`** function)
 
-For this tutorial, Landsat-8 OLI image and signatures were used.
-Download the data
-[Here](https://drive.google.com/file/d/1Xf1A84fJN20eC578GwwOsVSuoxLuCRGJ/view?usp=sharing).
+For this tutorial, the same images was used.
 
 #### 3.1 Applying K-means
 
@@ -346,12 +383,11 @@ Parameters:
 -   **algo**: “MacQueen”
 
 ``` r
-suppressMessages(library(ForesToolboxRS))
-suppressMessages(library(raster))
+library(ForesToolboxRS)
+library(raster)
 
 # Read raster
-image_path <- "LC08_232066_20190727_SR.tif"
-image <- stack(image_path)
+image <- stack("testdata/LC08_232066_20190727_SR.tif")
 
 # Classification with K-means
 classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
