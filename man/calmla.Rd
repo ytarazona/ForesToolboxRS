@@ -38,7 +38,7 @@ for testing data.}
 Monte Carlo Cross-Validation (MCCV) like \code{approach == 'MCCV'}.}
 
 \item{k}{Number of groups for splitting samples. It must be used only with the
-Cross-Validation (K-fold) approach.}
+Cross-Validation (K-fold) approach. Default is \code{k = 10}.}
 
 \item{iter}{Number of iterations, i.e number of times the analysis is executed.}
 
