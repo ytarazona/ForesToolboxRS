@@ -61,7 +61,7 @@
 #' \code{approach == 'LOOCV'}, Cross-Validation (K-fold) like \code{approach == 'k-fold'} and
 #' Monte Carlo Cross-Validation (MCCV) like \code{approach == 'MCCV'}.
 #' @param k Number of groups for splitting samples. It must be used only with the
-#' Cross-Validation (K-fold) approach.
+#' Cross-Validation (K-fold) approach. Default is \code{k = 10}.
 #' @param iter Number of iterations, i.e number of times the analysis is executed.
 #' @param verbose This parameter is Logical. It Prints progress messages during execution.
 #' @param ... Parameters to be passed to a machine learning algorithm. Please see \link[e1071]{svm}, \link[randomForest]{randomForest}, \link[e1071]{naiveBayes}, \link[caret]{train}, \link[nnet]{nnet} and \link[caret]{knn3}
@@ -147,65 +147,90 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
       training$class <- as.factor(training$class)
 
 
-      model_svm <- svm(class ~ ., data = training, type = "C-classification", ...)
-      prediction <- predict(model_svm, testing)
-      # Confusion Matrix
-      MC <- table(prediction, testing[, dim(endm)[2]])
-      # Overall accuracy
-      oa <- sum(diag(MC)) / sum(MC)
-      error <- 1 - oa
-      svm_error_sa[i] <- error
+      int_svm <- intersect("svm", model)
+      if (length(int_svm) == 0) int_svm <- FALSE
+      if ("svm" == int_svm) {
+        model_svm <- svm(class ~ ., data = training, type = "C-classification", ...)
+        prediction <- predict(model_svm, testing)
+        # Confusion Matrix
+        MC <- table(prediction, testing[, dim(endm)[2]])
+        # Overall accuracy
+        oa <- sum(diag(MC)) / sum(MC)
+        error <- 1 - oa
+        svm_error_sa[i] <- error
+      }
 
 
-      model_rf <- randomForest(class ~ ., data = training, importance = TRUE, ...)
-      prediction_rf <- predict(model_rf, testing[, -dim(endm)[2]])
-      # Confusion Matrix
-      MC_rf <- table(prediction_rf, testing[, dim(endm)[2]])
-      # Precision global
-      oa_rf <- sum(diag(MC_rf)) / sum(MC_rf)
-      error_rf <- 1 - oa_rf
-      rf_error_sa[i] <- error_rf
+      int_rf <- intersect("randomForest", model)
+      if (length(int_rf) == 0) int_rf <- FALSE
+      if ("randomForest" == int_rf) {
+        model_rf <- randomForest(class ~ ., data = training, importance = TRUE, ...)
+        prediction_rf <- predict(model_rf, testing[, -dim(endm)[2]])
+        # Confusion Matrix
+        MC_rf <- table(prediction_rf, testing[, dim(endm)[2]])
+        # Precision global
+        oa_rf <- sum(diag(MC_rf)) / sum(MC_rf)
+        error_rf <- 1 - oa_rf
+        rf_error_sa[i] <- error_rf
+      }
 
 
-      models <- naiveBayes(class ~ ., data = training, ...)
-      prediction <- predict(models, testing[, -dim(endm)[2]])
-      # Confusion Matrix
-      MC <- table(prediction, testing[, dim(endm)[2]])
-      # Overall accuracy
-      oa <- sum(diag(MC)) / sum(MC)
-      error <- 1 - oa
-      nb_error_sa[i] <- error
+      int_nb <- intersect("naiveBayes", model)
+      if (length(int_nb) == 0) int_nb <- FALSE
+      if ("naiveBayes" == int_nb) {
+        models <- naiveBayes(class ~ ., data = training, ...)
+        prediction <- predict(models, testing[, -dim(endm)[2]])
+        # Confusion Matrix
+        MC <- table(prediction, testing[, dim(endm)[2]])
+        # Overall accuracy
+        oa <- sum(diag(MC)) / sum(MC)
+        error <- 1 - oa
+        nb_error_sa[i] <- error
+      }
 
 
-      models <- train(class ~ ., method = "LMT", data = training, ...)
-      prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
-      # Confusion Matrix
-      MC <- table(prediction, testing[, dim(endm)[2]])
-      # Overall accuracy
-      oa <- sum(diag(MC)) / sum(MC)
-      error <- 1 - oa
-      rp_error_sa[i] <- error
+      int_rp <- intersect("LMT", model)
+      if (length(int_rp) == 0) int_rp <- FALSE
+      if ("LMT" == int_rp) {
+        models <- train(class ~ ., method = "LMT", data = training, ...)
+        prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
+        # Confusion Matrix
+        MC <- table(prediction, testing[, dim(endm)[2]])
+        # Overall accuracy
+        oa <- sum(diag(MC)) / sum(MC)
+        error <- 1 - oa
+        rp_error_sa[i] <- error
+      }
 
 
-      nnet.grid <- expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
-      models <- train(class ~ ., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
-      prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
-      # Confusion Matrix
-      MC <- table(prediction, testing[, dim(endm)[2]])
-      # Overall accuracy
-      oa <- sum(diag(MC)) / sum(MC)
-      error <- 1 - oa
-      nt_error_sa[i] <- error
+      int_nt <- intersect("nnet", model)
+      if (length(int_nt) == 0) int_nt <- FALSE
+      if ("nnet" == int_nt) {
+        nnet.grid <- expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
+        models <- train(class ~ ., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
+        prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
+        # Confusion Matrix
+        MC <- table(prediction, testing[, dim(endm)[2]])
+        # Overall accuracy
+        oa <- sum(diag(MC)) / sum(MC)
+        error <- 1 - oa
+        nt_error_sa[i] <- error
+      }
 
 
-      models <- knn3(class ~ ., data = training, k = 5, ...)
-      prediction <- predict(models, testing[, -dim(endm)[2]], type = "class")
-      # Confusion Matrix
-      MC <- table(prediction, testing[, dim(endm)[2]])
-      # Overall accuracy
-      oa <- sum(diag(MC)) / sum(MC)
-      error <- 1 - oa
-      kn_error_sa[i] <- error
+      int_knn <- intersect("knn", model)
+      if (length(int_knn) == 0) int_knn <- FALSE
+      if ("knn" == int_knn) {
+        models <- knn3(class ~ ., data = training, k = 5, ...)
+        prediction <- predict(models, testing[, -dim(endm)[2]], type = "class")
+        # Confusion Matrix
+        MC <- table(prediction, testing[, dim(endm)[2]])
+        # Overall accuracy
+        oa <- sum(diag(MC)) / sum(MC)
+        error <- 1 - oa
+        kn_error_sa[i] <- error
+      }
+
     }
 
     # svm
@@ -265,6 +290,7 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
     resulFinal <- c(lesvm, lerf, lenb, ledt, lennet, leknn)
 
     return(resulFinal)
+
   } else if (approach == "LOOCV") {
     if (verbose) {
       message(paste0(paste0(rep("*", 10), collapse = ""), " Calibrating with Leave One Out Cross-Validation (LOOCV) ", TypeEndm, paste0(rep("*", 10), collapse = "")))
@@ -293,48 +319,72 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
         training <- endm[-j, ]
         training$class <- as.factor(training$class)
 
-
-        models <- svm(class ~ ., data = training, type = "C-classification", ...)
-        prediction <- predict(models, testing)
-        if (prediction != testing$class) {
-          svm_ini_error <- svm_ini_error + 1
+        int_svm <- intersect("svm", model)
+        if (length(int_svm) == 0) int_svm <- FALSE
+        if ("svm" == int_svm) {
+          models <- svm(class ~ ., data = training, type = "C-classification", ...)
+          prediction <- predict(models, testing)
+          if (prediction != testing$class) {
+            svm_ini_error <- svm_ini_error + 1
+          }
         }
 
 
-        model_rf <- randomForest(class ~ ., data = training, importance = TRUE, ...)
-        prediction_rf <- predict(model_rf, testing[, -dim(endm)[2]])
-        if (prediction != testing$class) {
-          rf_ini_error <- rf_ini_error + 1
+        int_rf <- intersect("randomForest", model)
+        if (length(int_rf) == 0) int_rf <- FALSE
+        if ("randomForest" == int_rf) {
+          model_rf <- randomForest(class ~ ., data = training, importance = TRUE, ...)
+          prediction_rf <- predict(model_rf, testing[, -dim(endm)[2]])
+          if (prediction != testing$class) {
+            rf_ini_error <- rf_ini_error + 1
+          }
         }
 
 
-        models <- naiveBayes(class ~ ., data = training, ...)
-        prediction <- predict(models, testing[, -dim(endm)[2]])
-        if (prediction != testing$class) {
-          nb_ini_error <- nb_ini_error + 1
+        int_nb <- intersect("naiveBayes", model)
+        if (length(int_nb) == 0) int_nb <- FALSE
+        if ("naiveBayes" == int_nb) {
+          models <- naiveBayes(class ~ ., data = training, ...)
+          prediction <- predict(models, testing[, -dim(endm)[2]])
+          if (prediction != testing$class) {
+            nb_ini_error <- nb_ini_error + 1
+          }
         }
 
 
-        models <- train(class ~ ., method = "LMT", data = training, ...)
-        prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
-        if (prediction != testing$class) {
-          rp_ini_error <- rp_ini_error + 1
+        int_rp <- intersect("LMT", model)
+        if (length(int_rp) == 0) int_rp <- FALSE
+        if ("LMT" == int_rp) {
+          models <- train(class ~ ., method = "LMT", data = training, ...)
+          prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
+          if (prediction != testing$class) {
+            rp_ini_error <- rp_ini_error + 1
+          }
         }
 
 
-        nnet.grid <- expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
-        models <- train(class ~ ., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
-        prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
-        if (prediction != testing$class) {
-          nt_ini_error <- nt_ini_error + 1
+        int_nt <- intersect("nnet", model)
+        if (length(int_nt) == 0) int_nt <- FALSE
+        if ("nnet" == int_nt) {
+          nnet.grid <- expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
+          models <- train(class ~ ., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
+          prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
+          if (prediction != testing$class) {
+            nt_ini_error <- nt_ini_error + 1
+          }
         }
 
 
-        models <- knn3(class ~ ., data = training, k = 5, ...)
-        prediction <- predict(models, testing[, -dim(endm)[2]], type = "class")
-        if (prediction != testing$class) {
-          kn_ini_error <- kn_ini_error + 1
+        int_knn <- intersect("knn", model)
+        if (length(int_knn) == 0) int_knn <- FALSE
+        if ("knn" == int_knn) {
+          models <- knn3(class ~ ., data = training, k = 5, ...)
+          prediction <- predict(models, testing[, -dim(endm)[2]], type = "class")
+          if (prediction != testing$class) {
+            kn_ini_error <- kn_ini_error + 1
+          }
         }
+
       }
 
       svm_error_loocv[i] <- svm_ini_error / dim(endm)[1]
@@ -402,7 +452,9 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
     resulFinal <- c(lesvm, lerf, lenb, ledt, lennet, leknn)
 
     return(resulFinal)
+
   } else if (approach == "k-fold") {
+
     if (verbose) {
       message(paste0(paste0(rep("*", 10), collapse = ""), " Calibrating with Cross-Validation (k-fold) ", TypeEndm, paste0(rep("*", 10), collapse = "")))
     }
@@ -435,65 +487,93 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
         training$class <- as.factor(training$class)
 
 
-        models <- svm(class ~ ., data = training, type = "C-classification", ...)
-        prediction <- predict(models, testing)
-        # Confusion Matrix
-        MC <- table(prediction, testing[, dim(endm)[2]])
-        # Overall accuracy
-        oa <- sum(diag(MC)) / sum(MC)
-        error <- 1 - oa
-        svm_ini_error <- svm_ini_error + error
+        int_svm <- intersect("svm", model)
+        if (length(int_svm) == 0) int_svm <- FALSE
+        if ("svm" == int_svm) {
+          models <- svm(class ~ ., data = training, type = "C-classification", ...)
+          prediction <- predict(models, testing)
+          # Confusion Matrix
+          MC <- table(prediction, testing[, dim(endm)[2]])
+          # Overall accuracy
+          oa <- sum(diag(MC)) / sum(MC)
+          error <- 1 - oa
+          svm_ini_error <- svm_ini_error + error
+        }
 
 
-        models <- randomForest(class ~ ., data = training, importance = TRUE, ...)
-        prediction <- predict(models, testing[, -dim(endm)[2]])
-        # Confusion Matrix
-        MC <- table(prediction, testing[, dim(endm)[2]])
-        # Overall accuracy
-        oa <- sum(diag(MC)) / sum(MC)
-        error <- 1 - oa
-        rf_ini_error <- rf_ini_error + error
+        int_rf <- intersect("randomForest", model)
+        if (length(int_rf) == 0) int_rf <- FALSE
+        if ("randomForest" == int_rf) {
+          models <- randomForest(class ~ ., data = training, importance = TRUE, ...)
+          prediction <- predict(models, testing[, -dim(endm)[2]])
+          # Confusion Matrix
+          MC <- table(prediction, testing[, dim(endm)[2]])
+          # Overall accuracy
+          oa <- sum(diag(MC)) / sum(MC)
+          error <- 1 - oa
+          rf_ini_error <- rf_ini_error + error
+        }
 
 
-        models <- naiveBayes(class ~ ., data = training, ...)
-        prediction <- predict(models, testing[, -dim(endm)[2]])
-        # Confusion Matrix
-        MC <- table(prediction, testing[, dim(endm)[2]])
-        # Overall accuracy
-        oa <- sum(diag(MC)) / sum(MC)
-        error <- 1 - oa
-        nb_ini_error <- nb_ini_error + error
+
+        int_nb <- intersect("naiveBayes", model)
+        if (length(int_nb) == 0) int_nb <- FALSE
+        if ("naiveBayes" == int_nb) {
+          models <- naiveBayes(class ~ ., data = training, ...)
+          prediction <- predict(models, testing[, -dim(endm)[2]])
+          # Confusion Matrix
+          MC <- table(prediction, testing[, dim(endm)[2]])
+          # Overall accuracy
+          oa <- sum(diag(MC)) / sum(MC)
+          error <- 1 - oa
+          nb_ini_error <- nb_ini_error + error
+        }
 
 
-        models <- train(class ~ ., method = "LMT", data = training, ...)
-        prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
-        # Confusion Matrix
-        MC <- table(prediction, testing[, dim(endm)[2]])
-        # Overall accuracy
-        oa <- sum(diag(MC)) / sum(MC)
-        error <- 1 - oa
-        rp_ini_error <- rp_ini_error + error
+
+        int_rp <- intersect("LMT", model)
+        if (length(int_rp) == 0) int_rp <- FALSE
+        if ("LMT" == int_rp) {
+          models <- train(class ~ ., method = "LMT", data = training, ...)
+          prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
+          # Confusion Matrix
+          MC <- table(prediction, testing[, dim(endm)[2]])
+          # Overall accuracy
+          oa <- sum(diag(MC)) / sum(MC)
+          error <- 1 - oa
+          rp_ini_error <- rp_ini_error + error
+        }
 
 
-        nnet.grid <- expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
-        models <- train(class ~ ., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
-        prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
-        # Confusion Matrix
-        MC <- table(prediction, testing[, dim(endm)[2]])
-        # Overall accuracy
-        oa <- sum(diag(MC)) / sum(MC)
-        error <- 1 - oa
-        nt_ini_error <- nt_ini_error + error
+
+        int_nt <- intersect("nnet", model)
+        if (length(int_nt) == 0) int_nt <- FALSE
+        if ("nnet" == int_nt) {
+          nnet.grid <- expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
+          models <- train(class ~ ., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
+          prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
+          # Confusion Matrix
+          MC <- table(prediction, testing[, dim(endm)[2]])
+          # Overall accuracy
+          oa <- sum(diag(MC)) / sum(MC)
+          error <- 1 - oa
+          nt_ini_error <- nt_ini_error + error
+        }
 
 
-        models <- knn3(class ~ ., data = training, k = 5, ...)
-        prediction <- predict(models, testing[, -dim(endm)[2]], type = "class")
-        # Confusion Matrix
-        MC <- table(prediction, testing[, dim(endm)[2]])
-        # Overall accuracy
-        oa <- sum(diag(MC)) / sum(MC)
-        error <- 1 - oa
-        kn_ini_error <- kn_ini_error + error
+        int_knn <- intersect("knn", model)
+        if (length(int_knn) == 0) int_knn <- FALSE
+        if ("knn" == int_knn) {
+          models <- knn3(class ~ ., data = training, k = 5, ...)
+          prediction <- predict(models, testing[, -dim(endm)[2]], type = "class")
+          # Confusion Matrix
+          MC <- table(prediction, testing[, dim(endm)[2]])
+          # Overall accuracy
+          oa <- sum(diag(MC)) / sum(MC)
+          error <- 1 - oa
+          kn_ini_error <- kn_ini_error + error
+        }
+
       }
 
       svm_error_kf[i] <- svm_ini_error / k
@@ -587,53 +667,65 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
       training$class <- as.factor(training$class)
 
 
-      models <- svm(class ~ ., data = training, type = "C-classification", ...)
-      prediction <- predict(models, testing)
-      # Confusion Matrix
-      MC <- table(prediction, testing[, dim(endm)[2]])
-      # error
-      svm_error_mccv[i] <- 1 - sum(diag(MC)) / sum(MC)
+      int_svm <- intersect("svm", model)
+      if (length(int_svm) == 0) int_svm <- FALSE
+      if ("svm" == int_svm) {
+        models <- svm(class ~ ., data = training, type = "C-classification", ...)
+        prediction <- predict(models, testing)
+        # Confusion Matrix
+        MC <- table(prediction, testing[, dim(endm)[2]])
+        # error
+        svm_error_mccv[i] <- 1 - sum(diag(MC)) / sum(MC)
+      }
 
 
-      models <- randomForest(class ~ ., data = training, importance = TRUE, ...)
-      prediction <- predict(models, testing[, -dim(endm)[2]])
-      # Confusion Matrix
-      MC <- table(prediction, testing[, dim(endm)[2]])
-      # error
-      rf_error_mccv[i] <- 1 - sum(diag(MC)) / sum(MC)
+      int_rf <- intersect("randomForest", model)
+      if (length(int_rf) == 0) int_rf <- FALSE
+      if ("randomForest" == int_rf) {
+        models <- randomForest(class ~ ., data = training, importance = TRUE, ...)
+        prediction <- predict(models, testing[, -dim(endm)[2]])
+        # Confusion Matrix
+        MC <- table(prediction, testing[, dim(endm)[2]])
+        # error
+        rf_error_mccv[i] <- 1 - sum(diag(MC)) / sum(MC)
+      }
 
 
-      models <- naiveBayes(class ~ ., data = training, ...)
-      prediction <- predict(models, testing[, -dim(endm)[2]])
-      # Confusion Matrix
-      MC <- table(prediction, testing[, dim(endm)[2]])
-      # error
-      nb_error_mccv[i] <- 1 - sum(diag(MC)) / sum(MC)
+      int_nb <- intersect("naiveBayes", model)
+      if (length(int_nb) == 0) int_nb <- FALSE
+      if ("naiveBayes" == int_nb) {
+        models <- naiveBayes(class ~ ., data = training, ...)
+        prediction <- predict(models, testing[, -dim(endm)[2]])
+        # Confusion Matrix
+        MC <- table(prediction, testing[, dim(endm)[2]])
+        # error
+        nb_error_mccv[i] <- 1 - sum(diag(MC)) / sum(MC)
+      }
 
 
-      models <- train(class ~ ., method = "LMT", data = training, ...)
-      prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
-      # Confusion Matrix
-      MC <- table(prediction, testing[, dim(endm)[2]])
-      # error
-      rp_error_mccv[i] <- 1 - sum(diag(MC)) / sum(MC)
+      int_rp <- intersect("LMT", model)
+      if (length(int_rp) == 0) int_rp <- FALSE
+      if ("LMT" == int_rp) {
+        models <- train(class ~ ., method = "LMT", data = training, ...)
+        prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
+        # Confusion Matrix
+        MC <- table(prediction, testing[, dim(endm)[2]])
+        # error
+        rp_error_mccv[i] <- 1 - sum(diag(MC)) / sum(MC)
+      }
 
 
-      nnet.grid <- expand.grid(size = c(10, 50), decay = c(5e-4, 0.2))
-      models <- train(class ~ ., data = training, method = "nnet", tuneGrid = nnet.grid, trace = FALSE, ...)
-      prediction <- predict(models, testing[, -dim(endm)[2]], type = "raw")
-      # Confusion Matrix
-      MC <- table(prediction, testing[, dim(endm)[2]])
-      # error
-      nt_error_mccv[i] <- 1 - sum(diag(MC)) / sum(MC)
+      int_nt <- intersect("nnet", model)
+      if (length(int_nt) == 0) int_nt <- FALSE
+      if ("nnet" == int_nt) {
+        models <- knn3(class ~ ., data = training, k = 5, ...)
+        prediction <- predict(models, testing[, -dim(endm)[2]], type = "class")
+        # Confusion Matrix
+        MC <- table(prediction, testing[, dim(endm)[2]])
+        # error
+        kn_error_mccv[i] <- 1 - sum(diag(MC)) / sum(MC)
+      }
 
-
-      models <- knn3(class ~ ., data = training, k = 5, ...)
-      prediction <- predict(models, testing[, -dim(endm)[2]], type = "class")
-      # Confusion Matrix
-      MC <- table(prediction, testing[, dim(endm)[2]])
-      # error
-      kn_error_mccv[i] <- 1 - sum(diag(MC)) / sum(MC)
     }
 
     # svm
@@ -693,6 +785,7 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
     resulFinal <- c(lesvm, lerf, lenb, ledt, lennet, leknn)
 
     return(resulFinal)
+
   } else {
     stop("Unsupported calibration approach.", call. = TRUE)
   }
