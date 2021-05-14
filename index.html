@@ -81,7 +81,7 @@
 
 <div id="forestoolboxrs-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#forestoolboxrs-" class="anchor"></a>ForesToolboxRS <img src="reference/figures/logoPackage.png" align="right" width="150">
+<a href="#forestoolboxrs-" class="anchor"></a>ForesToolboxRS <img src="reference/figures/logo.png" align="right" width="150">
 </h1></div>
 
 <blockquote>
@@ -107,8 +107,8 @@
 <p>Available functions:</p>
 <table class="table">
 <colgroup>
-<col width="7%">
-<col width="92%">
+<col width="6%">
+<col width="93%">
 </colgroup>
 <thead><tr class="header">
 <th>Name of functions</th>
@@ -245,7 +245,7 @@
 <li>
 <strong>threshold</strong>: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI and EVI series you can use 5, 3 and 3 respectively. Please see <a href="https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326">Tarazona et al. (2018)</a> for more details.</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Detect changes in 2008 (position 19)</span>
 <span class="va">cd</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/pvts.html">pvts</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ndfi_smooth</span>, startm <span class="op">=</span> <span class="fl">19</span>, endm <span class="op">=</span> <span class="fl">19</span>, threshold <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">cd</span><span class="op">)</span></code></pre></div>
@@ -265,7 +265,7 @@
 <li>
 <strong>threshold</strong>: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI and EVI series you can use 5, 3 and 3 respectively. Please see <a href="https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326">Tarazona et al. (2018)</a> for more details.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Let´s create a time series of the variable "ndfi"</span>
 <span class="va">ndfi_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">ndfi</span>, start <span class="op">=</span> <span class="fl">1990</span>, end <span class="op">=</span> <span class="fl">2017</span>, frequency <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
@@ -292,7 +292,7 @@
 <li>
 <strong>threshold</strong>: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI and EVI series you can use 5, 3 and 3 respectively. Please see <a href="https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326">Tarazona et al. (2018)</a> for more details.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Detect changes in 2005</span>
 <span class="va">cd</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/pvts.html">pvts</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ndfi_smooth</span>, startm <span class="op">=</span> <span class="fl">2005</span>, endm <span class="op">=</span> <span class="fl">2005</span>,  threshold <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">cd</span><span class="op">)</span></code></pre></div>
@@ -330,12 +330,12 @@
 <li>
 <strong>training_split</strong>: 80 percent to train and 20 percent to validate the model</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ytarazona.github.io/ForesToolboxRS/">ForesToolboxRS</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: sp</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
-<span class="co">#&gt; Linking to GEOS 3.8.1, GDAL 3.1.4, PROJ 6.3.2</span>
+<span class="co">#&gt; Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1</span>
 
 <span class="co"># Read raster</span>
 <span class="va">image</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html">stack</a></span><span class="op">(</span><span class="st">"testdata/LC08_232066_20190727_SR.tif"</span><span class="op">)</span>
@@ -353,19 +353,19 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ****Overall Accuracy****</span>
 <span class="co">#&gt;       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull </span>
-<span class="co">#&gt;   1.000000e+02   1.000000e+02   9.439909e+01   1.000000e+02   2.812500e+01 </span>
+<span class="co">#&gt;   7.500000e+01   6.753329e+01   6.260095e+01   8.498444e+01   2.968750e+01 </span>
 <span class="co">#&gt; AccuracyPValue </span>
-<span class="co">#&gt;   5.519783e-34 </span>
+<span class="co">#&gt;   9.738649e-12 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ****Confusion Matrix****</span>
-<span class="co">#&gt;                     1   2   3   4 Total Users_Accuracy Commission</span>
-<span class="co">#&gt; 1                  15   0   0   0    15            100          0</span>
-<span class="co">#&gt; 2                   0  18   0   0    18            100          0</span>
-<span class="co">#&gt; 3                   0   0  17   0    17            100          0</span>
-<span class="co">#&gt; 4                   0   0   0  14    14            100          0</span>
-<span class="co">#&gt; Total              15  18  17  14    NA             NA         NA</span>
-<span class="co">#&gt; Producer_Accuracy 100 100 100 100    NA             NA         NA</span>
-<span class="co">#&gt; Omission            0   0   0   0    NA             NA         NA</span>
+<span class="co">#&gt;                     1        2   3   4 Total Users_Accuracy Commission</span>
+<span class="co">#&gt; 1                  15  0.00000   0   0    15      100.00000    0.00000</span>
+<span class="co">#&gt; 2                   0  3.00000   0   0     3      100.00000    0.00000</span>
+<span class="co">#&gt; 3                   0  0.00000  18   0    18      100.00000    0.00000</span>
+<span class="co">#&gt; 4                   0 16.00000   0  12    28       42.85714   57.14286</span>
+<span class="co">#&gt; Total              15 19.00000  18  12    NA             NA         NA</span>
+<span class="co">#&gt; Producer_Accuracy 100 15.78947 100 100    NA             NA         NA</span>
+<span class="co">#&gt; Omission            0 84.21053   0   0    NA             NA         NA</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ****Classification Map****</span>
 <span class="co">#&gt; class      : RasterLayer </span>
@@ -407,9 +407,7 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cal_ml</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calmla.html">calmla</a></span><span class="op">(</span>img <span class="op">=</span> <span class="va">image</span>, endm <span class="op">=</span> <span class="va">sig</span>,
                  model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"svm"</span>, <span class="st">"randomForest"</span>, <span class="st">"naiveBayes"</span>, <span class="st">"knn"</span><span class="op">)</span>,
-                 training_split <span class="op">=</span> <span class="fl">70</span>, approach <span class="op">=</span> <span class="st">"MCCV"</span>, iter <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
-<span class="co">#&gt; Loading required package: lattice</span>
-<span class="co">#&gt; Loading required package: ggplot2</span></code></pre></div>
+                 training_split <span class="op">=</span> <span class="fl">70</span>, approach <span class="op">=</span> <span class="st">"MCCV"</span>, iter <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calibration result</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span>
@@ -454,7 +452,7 @@
 <li>
 <strong>algo</strong>: “MacQueen”</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ytarazona.github.io/ForesToolboxRS/">ForesToolboxRS</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span>
 
@@ -465,10 +463,6 @@
 <span class="va">classKmeans</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rkmeans.html">rkmeans</a></span><span class="op">(</span>img <span class="op">=</span> <span class="va">image</span>, k <span class="op">=</span> <span class="fl">4</span>, algo <span class="op">=</span> <span class="st">"MacQueen"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Plotting classification</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># Landsat-8 image</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plotRGB.html">plotRGB</a></span><span class="op">(</span><span class="va">image</span>, <span class="fl">6</span>, <span class="fl">5</span>, <span class="fl">2</span>, stretch <span class="op">=</span> <span class="st">"lin"</span><span class="op">)</span>
-<span class="co"># Classification</span>
 <span class="va">colmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#0000FF"</span>,<span class="st">"#00FF00"</span>,<span class="st">"#228B22"</span>, <span class="st">"#FF1493"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span><span class="va">classKmeans</span>, main <span class="op">=</span> <span class="st">"K-means Classification"</span>, col <span class="op">=</span> <span class="va">colmap</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-README-12-1.png" width="100%"></p>
@@ -492,7 +486,7 @@
 <li>
 <strong>iter</strong>: Iterations number to obtain the best k value</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Elbow method</span>
 <span class="va">best_k</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calkmeans.html">calkmeans</a></span><span class="op">(</span>img <span class="op">=</span> <span class="va">image</span>, k <span class="op">=</span> <span class="cn">NULL</span>, iter.max <span class="op">=</span> <span class="fl">10</span>,
                     algo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Hartigan-Wong"</span>, <span class="st">"Lloyd"</span>, <span class="st">"Forgy"</span>, <span class="st">"MacQueen"</span><span class="op">)</span>,
