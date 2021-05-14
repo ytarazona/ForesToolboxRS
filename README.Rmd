@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ForesToolboxRS <img src="man/figures/logoPackage.png" align="right" width="150"/>
+# ForesToolboxRS <img src="man/figures/logo.png" align="right" width="150"/>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub action build status](https://github.com/ytarazona/ForesToolboxRS/workflows/pkgdown/badge.svg)](https://github.com/ytarazona/ForesToolboxRS/actions)
@@ -339,10 +339,6 @@ classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
 
 ```{r README-12}
 # Plotting classification
-par(mfrow = c(1, 2), mar = c(3, 4, 3, 3))
-# Landsat-8 image
-plotRGB(image, 6, 5, 2, stretch = "lin")
-# Classification
 colmap <- c("#0000FF","#00FF00","#228B22", "#FF1493")
 plot(classKmeans, main = "K-means Classification", col = colmap, axes = FALSE)
 ```
