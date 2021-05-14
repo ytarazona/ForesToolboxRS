@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ForesToolboxRS <img src="man/figures/logo.png" align="right" width="150"/>
+# ForesToolboxRS <img src="man/figures/logoPackage.png" align="right" width="150"/>
 
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
