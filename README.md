@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ForesToolboxRS <img src="man/figures/logoPackage.png" align="right" width="150"/>
+# ForesToolboxRS <img src="man/figures/logo.png" align="right" width="150"/>
 
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -12,11 +12,12 @@ coverage](https://codecov.io/gh/ytarazona/ForesToolboxRS/branch/main/graph/badge
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC) -->
 
-> **Note!**: This package is still under construction
+> **Note\!**: This package is still under construction
 
 <img src="man/figures/Readme-image.png">
 
 <!-- # Canadian Journal of Remote Sensing -->
+
 <!-- This repository is part of the paper "Fusing Landsat and SAR data for mapping tropical deforestation through machine learning classification and the PVts-beta non-seasonal detection approach" submitted to [Canadian Journal of Remote Sensing](https://www.tandfonline.com/toc/ujrs20/current). -->
 
 # Introduction
@@ -27,25 +28,25 @@ various applications of Remote Sensing for Earth Observations. All
 implemented algorithms are based on scientific publications.
 <!--there should be a list of references-->
 
--   Tarazona, Y., Maria, Miyasiro-Lopez. (2020). Monitoring tropical
+  - Tarazona, Y., Maria, Miyasiro-Lopez. (2020). Monitoring tropical
     forest degradation using remote sensing. Challenges and
     opportunities in the Madre de Dios region, Peru. Remote Sensing
     Applications: Society and Environment, 19, 100337.
--   Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving
+  - Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving
     tropical deforestation detection through using photosynthetic
     vegetation time series (PVts-β). Ecological Indicators, 94, 367 379.
--   Hamunyela, E., Verbesselt, J., Roerink, G., & Herold, M. (2013).
+  - Hamunyela, E., Verbesselt, J., Roerink, G., & Herold, M. (2013).
     Trends in spring phenology of western European deciduous forests.
     Remote Sensing,5(12), 6159-6179.
--   Souza Jr., C.M., Roberts, D.A., Cochrane, M.A., 2005. Combining
+  - Souza Jr., C.M., Roberts, D.A., Cochrane, M.A., 2005. Combining
     spectral and spatialinformation to map canopy damage from selective
     logging and forest fires. Remote Sens. Environ. 98 (2-3), 329-343.
--   Adams, J. B., Smith, M. O., & Gillespie, A. R. (1993). Imaging
-    spectroscopy: Interpretation based on spectral mixture analysis.
-    In C. M. Pieters & P. Englert (Eds.), Remote geochemical analysis:
+  - Adams, J. B., Smith, M. O., & Gillespie, A. R. (1993). Imaging
+    spectroscopy: Interpretation based on spectral mixture analysis. In
+    C. M. Pieters & P. Englert (Eds.), Remote geochemical analysis:
     Elements and mineralogical composition. NY: Cambridge Univ. Press
     145-166 pp.
--   Shimabukuro, Y.E. and Smith, J., (1991). The least squares mixing
+  - Shimabukuro, Y.E. and Smith, J., (1991). The least squares mixing
     models to generate fraction images derived from remote sensing
     multispectral data. IEEE Transactions on Geoscience and Remote
     Sensing, 29, pp. 16-21.
@@ -65,7 +66,7 @@ satellite images
 Available functions:
 
 | Name of functions       | Description                                                                                                                                                                                                                                                                                                         |
-|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`pvts()`**            | This algorithm will allow to detect disturbances in the forests using all the available Landsat set. In fact, it can also be run with sensors such as MODIS.                                                                                                                                                        |
 | **`pvtsRaster()`**      | This algorithm will allow to detect disturbances in the forests using all the available Landsat set. In fact, it can also be run with sensors such as MODIS.                                                                                                                                                        |
 | **`smootH()`**          | In order to eliminate outliers in the time series, a temporary smoothing is used.                                                                                                                                                                                                                                   |
@@ -96,7 +97,7 @@ suppressMessages(library(ForesToolboxRS))
 
 # Examples
 
-## 1. Breakpoint in an NDFI series (**`pvts`** function)
+## 1\. Breakpoint in an NDFI series (**`pvts`** function)
 
 Here an Normalized Difference Fraction Index (NDFI) between 2000 and
 2019 (28 data) was used. One NDFI for each year was obtained. The idea
@@ -159,14 +160,16 @@ We use the output of the **`smootH()`** function (**`ndfi_smooth()`**).
 
 Parameters:
 
--   **x**: smoothed series preferably to optimize detection
--   **startm**: monitoring year, index 19 (i.e., year 2008)
--   **endm**: year of final monitoring, index 19 (i.e., also year 2008)
--   **threshold**: detection threshold (for NDFI series we will use 5).
+  - **x**: smoothed series preferably to optimize detection
+  - **startm**: monitoring year, index 19 (i.e., year 2008)
+  - **endm**: year of final monitoring, index 19 (i.e., also year 2008)
+  - **threshold**: detection threshold (for NDFI series we will use 5).
     If you are using PV series, NDVI and EVI series you can use 5, 3 and
     3 respectively. Please see [Tarazona et
     al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
+
+<!-- end list -->
 
 ``` r
 # Detect changes in 2008 (position 19)
@@ -180,14 +183,16 @@ plot(cd)
 
 Parameters:
 
--   **x**: smoothed series preferably to optimize detection
--   **startm**: monitoring year, in this case year 2008.
--   **endm**: year of final monitoring, also year 2008.
--   **threshold**: detection threshold (for NDFI series we will use 5).
+  - **x**: smoothed series preferably to optimize detection
+  - **startm**: monitoring year, in this case year 2008.
+  - **endm**: year of final monitoring, also year 2008.
+  - **threshold**: detection threshold (for NDFI series we will use 5).
     If you are using PV series, NDVI and EVI series you can use 5, 3 and
     3 respectively. Please see [Tarazona et
     al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
+
+<!-- end list -->
 
 ``` r
 # Let´s create a time series of the variable "ndfi"
@@ -208,14 +213,16 @@ plot(cd)
 
 Parameters:
 
--   **x**: smoothed series preferably to optimize detection
--   **startm**: monitoring year, index 16 (i.e., year 2005)
--   **endm**: year of final monitoring, index 16 (i.e., also year 2005)
--   **threshold**: detection threshold (for NDFI series we will use 5).
+  - **x**: smoothed series preferably to optimize detection
+  - **startm**: monitoring year, index 16 (i.e., year 2005)
+  - **endm**: year of final monitoring, index 16 (i.e., also year 2005)
+  - **threshold**: detection threshold (for NDFI series we will use 5).
     If you are using PV series, NDVI and EVI series you can use 5, 3 and
     3 respectively. Please see [Tarazona et
     al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326)
     for more details.
+
+<!-- end list -->
 
 ``` r
 # Detect changes in 2005
@@ -225,7 +232,7 @@ plot(cd)
 
 <img src="man/figures/README-README-6-1.png" width="100%" />
 
-## 2. Supervised classification in Remote Sensing (the **`mla()`** function)
+## 2\. Supervised classification in Remote Sensing (the **`mla()`** function)
 
 For this tutorial, Landsat-8 OLI image and signatures were used. To
 download data please follow this codes:
@@ -249,18 +256,20 @@ unzip("testdata/signatures.zip", exdir = "testdata")
 
 Parameters:
 
--   **img**: RasterStack (Landsat 8 OLI)
--   **endm**: Signatures, **sf** object (shapefile)
--   **model**: Random Forest like ‘randomForest’
--   **training\_split**: 80 percent to train and 20 percent to validate
+  - **img**: RasterStack (Landsat 8 OLI)
+  - **endm**: Signatures, **sf** object (shapefile)
+  - **model**: Random Forest like ‘randomForest’
+  - **training\_split**: 80 percent to train and 20 percent to validate
     the model
+
+<!-- end list -->
 
 ``` r
 library(ForesToolboxRS)
 library(raster)
 #> Loading required package: sp
 library(sf)
-#> Linking to GEOS 3.8.1, GDAL 3.1.4, PROJ 6.3.2
+#> Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1
 
 # Read raster
 image <- stack("testdata/LC08_232066_20190727_SR.tif")
@@ -278,19 +287,19 @@ print(classRF)
 #> 
 #> ****Overall Accuracy****
 #>       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
-#>   1.000000e+02   1.000000e+02   9.439909e+01   1.000000e+02   2.812500e+01 
+#>   7.500000e+01   6.753329e+01   6.260095e+01   8.498444e+01   2.968750e+01 
 #> AccuracyPValue 
-#>   5.519783e-34 
+#>   9.738649e-12 
 #> 
 #> ****Confusion Matrix****
-#>                     1   2   3   4 Total Users_Accuracy Commission
-#> 1                  15   0   0   0    15            100          0
-#> 2                   0  18   0   0    18            100          0
-#> 3                   0   0  17   0    17            100          0
-#> 4                   0   0   0  14    14            100          0
-#> Total              15  18  17  14    NA             NA         NA
-#> Producer_Accuracy 100 100 100 100    NA             NA         NA
-#> Omission            0   0   0   0    NA             NA         NA
+#>                     1        2   3   4 Total Users_Accuracy Commission
+#> 1                  15  0.00000   0   0    15      100.00000    0.00000
+#> 2                   0  3.00000   0   0     3      100.00000    0.00000
+#> 3                   0  0.00000  18   0    18      100.00000    0.00000
+#> 4                   0 16.00000   0  12    28       42.85714   57.14286
+#> Total              15 19.00000  18  12    NA             NA         NA
+#> Producer_Accuracy 100 15.78947 100 100    NA             NA         NA
+#> Omission            0 84.21053   0   0    NA             NA         NA
 #> 
 #> ****Classification Map****
 #> class      : RasterLayer 
@@ -320,24 +329,22 @@ Carlo Cross-Validation (MCCV)**.
 
 Parameters:
 
--   **img**: RasterStack (Landsat-8 OLI)
--   **endm**: Signatures
--   **model**: c(“svm”, “randomForest”, “naiveBayes”, “knn”). Machine
+  - **img**: RasterStack (Landsat-8 OLI)
+  - **endm**: Signatures
+  - **model**: c(“svm”, “randomForest”, “naiveBayes”, “knn”). Machine
     learning algorithms: Support Vector Machine, Random Forest, Naive
     Bayes, K-nearest Neighbors
--   **training\_split**: 70
--   **approach**: “MCCV”
--   **iter**: 10
+  - **training\_split**: 70
+  - **approach**: “MCCV”
+  - **iter**: 10
 
-> **Warning!**: This function may take some time to process depending on
-> the volumen of the data.
+> **Warning\!**: This function may take some time to process depending
+> on the volumen of the data.
 
 ``` r
 cal_ml <- calmla(img = image, endm = sig,
                  model = c("svm", "randomForest", "naiveBayes", "knn"),
                  training_split = 70, approach = "MCCV", iter = 10)
-#> Loading required package: lattice
-#> Loading required package: ggplot2
 ```
 
 ``` r
@@ -370,7 +377,7 @@ legend(
 
 <img src="man/figures/README-README-10-1.png" width="100%" />
 
-### 3. Unsupervised classification in Remote Sensing (**`rkmeans`** function)
+### 3\. Unsupervised classification in Remote Sensing (**`rkmeans`** function)
 
 For this tutorial, the same images was used.
 
@@ -378,9 +385,11 @@ For this tutorial, the same images was used.
 
 Parameters:
 
--   **img**: RasterStack (Landsat 8 OLI)
--   **k**: the number of clusters
--   **algo**: “MacQueen”
+  - **img**: RasterStack (Landsat 8 OLI)
+  - **k**: the number of clusters
+  - **algo**: “MacQueen”
+
+<!-- end list -->
 
 ``` r
 library(ForesToolboxRS)
@@ -395,10 +404,6 @@ classKmeans <- rkmeans(img = image, k = 4, algo = "MacQueen")
 
 ``` r
 # Plotting classification
-par(mfrow = c(1, 2), mar = c(3, 4, 3, 3))
-# Landsat-8 image
-plotRGB(image, 6, 5, 2, stretch = "lin")
-# Classification
 colmap <- c("#0000FF","#00FF00","#228B22", "#FF1493")
 plot(classKmeans, main = "K-means Classification", col = colmap, axes = FALSE)
 ```
@@ -415,14 +420,16 @@ intra-class inertia is stabilized.
 
 Parameters:
 
--   **img**: RasterStack (Landsat 8 OLI)
--   **k**: The number of clusters
--   **iter.max**: The maximum number of iterations allowed. Strictly
+  - **img**: RasterStack (Landsat 8 OLI)
+  - **k**: The number of clusters
+  - **iter.max**: The maximum number of iterations allowed. Strictly
     related to k-means
--   **algo**: It can be “Hartigan-Wong”, “Lloyd”, “Forgy” or “MacQueen”.
+  - **algo**: It can be “Hartigan-Wong”, “Lloyd”, “Forgy” or “MacQueen”.
     Algorithms embedded in k-means
     <!--JN: Algorithms embedded in k-means???-->
--   **iter**: Iterations number to obtain the best k value
+  - **iter**: Iterations number to obtain the best k value
+
+<!-- end list -->
 
 ``` r
 # Elbow method
