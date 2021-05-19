@@ -2,7 +2,6 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r README-1, include = FALSE}
 knitr::opts_chunk$set(
@@ -36,7 +35,6 @@ coverage](https://codecov.io/gh/ytarazona/ForesToolboxRS/branch/main/graph/badge
 algorithms for the processing and analysis of satellite images for the
 various applications of Remote Sensing for Earth Observations. All
 implemented algorithms are based on scientific publications.
-<!--there should be a list of references-->
 
 - Tarazona, Y., Maria, Miyasiro-Lopez. (2020). Monitoring tropical forest degradation using remote sensing. Challenges and opportunities in the Madre de Dios region, Peru. Remote Sensing Applications: Society and Environment, 19, 100337.
 - Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving tropical deforestation detection through using photosynthetic vegetation time series (PVts-β). Ecological Indicators, 94, 367 379.
@@ -73,7 +71,7 @@ Available functions:
 | **`ndfiSMA()`**         | The NDFI it is sensitive to the state of the canopy cover, and has been successfully applied to monitor forest degradation and deforestation in Peru and Brazil. This index comes from the endmembers Green Vegetation (GV), non-photosynthetic vegetation (NPV), Soil (S) and the reminder is the shade component. |
 | **`tct()`**             | The Tasseled-Cap Transformation is a linear transformation method for various remote sensing data. Not only can it perform volume data compression, but it can also provide parametersassociated with the physical characteristics, such as brightness, greenness and wetness indices.                              |
 | **`gevi()`**            | Greenness Vegetation Index is obtained from the Tasseled Cap Transformation.                                                                                                                                                                                                                                        |
-| **`MosaicFreeCloud()`** | A three-step algorithm for creating a mosaic from satellite imagery (see notes).                                                                                            
+| **`indices()`** | This function allows to obtain several remote sensing spectral indices in the optical domain.                                                                                            
                         
 # Installation
 
