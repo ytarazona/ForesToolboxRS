@@ -94,7 +94,7 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p><strong>ForesToolboxRS</strong> is an R package providing a variety of tools and algorithms for the processing and analysis of satellite images for the various applications of Remote Sensing for Earth Observations. All implemented algorithms are based on scientific publications. <!--there should be a list of references--></p>
+<p><strong>ForesToolboxRS</strong> is an R package providing a variety of tools and algorithms for the processing and analysis of satellite images for the various applications of Remote Sensing for Earth Observations. All implemented algorithms are based on scientific publications.</p>
 <ul>
 <li>Tarazona, Y., Maria, Miyasiro-Lopez. (2020). Monitoring tropical forest degradation using remote sensing. Challenges and opportunities in the Madre de Dios region, Peru. Remote Sensing Applications: Society and Environment, 19, 100337.</li>
 <li>Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving tropical deforestation detection through using photosynthetic vegetation time series (PVts-β). Ecological Indicators, 94, 367 379.</li>
@@ -107,8 +107,8 @@
 <p>Available functions:</p>
 <table class="table">
 <colgroup>
-<col width="6%">
-<col width="93%">
+<col width="5%">
+<col width="94%">
 </colgroup>
 <thead><tr class="header">
 <th>Name of functions</th>
@@ -172,8 +172,8 @@
 <td>Greenness Vegetation Index is obtained from the Tasseled Cap Transformation.</td>
 </tr>
 <tr class="odd">
-<td><strong><code>MosaicFreeCloud()</code></strong></td>
-<td>A three-step algorithm for creating a mosaic from satellite imagery (see notes).</td>
+<td><strong><code><a href="reference/indices.html">indices()</a></code></strong></td>
+<td>This function allows to obtain several remote sensing spectral indices in the optical domain.</td>
 </tr>
 </tbody>
 </table>
@@ -353,19 +353,19 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ****Overall Accuracy****</span>
 <span class="co">#&gt;       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull </span>
-<span class="co">#&gt;   7.500000e+01   6.753329e+01   6.260095e+01   8.498444e+01   2.968750e+01 </span>
+<span class="co">#&gt;   9.062500e+01   8.756477e+01   8.070309e+01   9.648127e+01   2.812500e+01 </span>
 <span class="co">#&gt; AccuracyPValue </span>
-<span class="co">#&gt;   9.738649e-12 </span>
+<span class="co">#&gt;   1.200189e-23 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ****Confusion Matrix****</span>
 <span class="co">#&gt;                     1        2   3   4 Total Users_Accuracy Commission</span>
-<span class="co">#&gt; 1                  15  0.00000   0   0    15      100.00000    0.00000</span>
-<span class="co">#&gt; 2                   0  3.00000   0   0     3      100.00000    0.00000</span>
-<span class="co">#&gt; 3                   0  0.00000  18   0    18      100.00000    0.00000</span>
-<span class="co">#&gt; 4                   0 16.00000   0  12    28       42.85714   57.14286</span>
-<span class="co">#&gt; Total              15 19.00000  18  12    NA             NA         NA</span>
-<span class="co">#&gt; Producer_Accuracy 100 15.78947 100 100    NA             NA         NA</span>
-<span class="co">#&gt; Omission            0 84.21053   0   0    NA             NA         NA</span>
+<span class="co">#&gt; 1                  17  0.00000   0   0    17      100.00000    0.00000</span>
+<span class="co">#&gt; 2                   0 12.00000   0   0    12      100.00000    0.00000</span>
+<span class="co">#&gt; 3                   0  0.00000  16   0    16      100.00000    0.00000</span>
+<span class="co">#&gt; 4                   0  6.00000   0  13    19       68.42105   31.57895</span>
+<span class="co">#&gt; Total              17 18.00000  16  13    NA             NA         NA</span>
+<span class="co">#&gt; Producer_Accuracy 100 66.66667 100 100    NA             NA         NA</span>
+<span class="co">#&gt; Omission            0 33.33333   0   0    NA             NA         NA</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ****Classification Map****</span>
 <span class="co">#&gt; class      : RasterLayer </span>
