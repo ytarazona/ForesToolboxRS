@@ -1,6 +1,6 @@
 Package: ForesToolboxRS
 Title: Remote Sensing Tools for Forest Monitoring
-Version: 0.1.3
+Version: 0.1.4
 Authors@R: 
     c(person(given = "Yonatan",
              family = "Tarazona Coronel",
