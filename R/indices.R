@@ -32,6 +32,8 @@
 #' (toa), however in order to calculate indices such as SAVI or EVI, the the data must be in
 #' surface reflectance.
 #'
+#' @importFrom raster getValues raster
+#'
 #' @param index Character, index name.
 #' @param blue Blue band, raster object.
 #' @param green Green band, raster object.
