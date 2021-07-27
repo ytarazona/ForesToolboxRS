@@ -291,19 +291,19 @@ print(classRF)
 #> 
 #> ****Overall Accuracy****
 #>       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
-#>   9.531250e+01   9.375610e+01   8.690643e+01   9.902269e+01   2.656250e+01 
+#>   9.218750e+01   8.962050e+01   8.270217e+01   9.741462e+01   2.812500e+01 
 #> AccuracyPValue 
-#>   1.275093e-29 
+#>   4.740836e-25 
 #> 
 #> ****Confusion Matrix****
 #>                     1        2   3   4 Total Users_Accuracy Commission
-#> 1                  17  0.00000   0   0    17      100.00000    0.00000
-#> 2                   0 14.00000   0   0    14      100.00000    0.00000
-#> 3                   0  0.00000  16   0    16      100.00000    0.00000
-#> 4                   0  3.00000   0  14    17       82.35294   17.64706
-#> Total              17 17.00000  16  14    NA             NA         NA
-#> Producer_Accuracy 100 82.35294 100 100    NA             NA         NA
-#> Omission            0 17.64706   0   0    NA             NA         NA
+#> 1                  16  0.00000   0   0    16      100.00000    0.00000
+#> 2                   0 13.00000   0   0    13      100.00000    0.00000
+#> 3                   0  0.00000  17   0    17      100.00000    0.00000
+#> 4                   0  5.00000   0  13    18       72.22222   27.77778
+#> Total              16 18.00000  17  13    NA             NA         NA
+#> Producer_Accuracy 100 72.22222 100 100    NA             NA         NA
+#> Omission            0 27.77778   0   0    NA             NA         NA
 #> 
 #> ****Classification Map****
 #> class      : RasterLayer 
