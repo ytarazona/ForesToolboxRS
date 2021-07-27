@@ -10,13 +10,15 @@ coverage](https://codecov.io/gh/ytarazona/ForesToolboxRS/branch/main/graph/badge
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC) -->
 
-> **Note\!**: This package is still under construction
-
 <img src="man/figures/Readme-image.png">
 
-<!-- # Canadian Journal of Remote Sensing -->
+# Canadian Journal of Remote Sensing
 
-<!-- This repository is part of the paper "Fusing Landsat and SAR data for mapping tropical deforestation through machine learning classification and the PVts-beta non-seasonal detection approach" submitted to [Canadian Journal of Remote Sensing](https://www.tandfonline.com/toc/ujrs20/current). -->
+This repository is part of the paper “Fusing Landsat and SAR data for
+mapping tropical deforestation through machine learning classification
+and the PVts-beta non-seasonal detection approach” submitted to
+[Canadian Journal of Remote
+Sensing](https://www.tandfonline.com/toc/ujrs20/current).
 
 # Introduction
 
@@ -25,6 +27,11 @@ algorithms for the processing and analysis of satellite images for the
 various applications of Remote Sensing for Earth Observations. All
 implemented algorithms are based on scientific publications.
 
+  - Tarazona, Y., Zabala,A., Pons, X., Broquetas, A., Nowosad, J.,
+    Zurqani, H.A. (2021). Fusing Landsat and SAR Data for Mapping
+    Tropical Deforestation through Machine Learning Classification and
+    the PVts-β Non-Seasonal Detection Approach. Canadian Journal of
+    Remote Sensing.
   - Tarazona, Y., Maria, Miyasiro-Lopez. (2020). Monitoring tropical
     forest degradation using remote sensing. Challenges and
     opportunities in the Madre de Dios region, Peru. Remote Sensing
@@ -284,19 +291,19 @@ print(classRF)
 #> 
 #> ****Overall Accuracy****
 #>       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
-#>   9.062500e+01   8.756477e+01   8.070309e+01   9.648127e+01   2.812500e+01 
+#>   9.531250e+01   9.375610e+01   8.690643e+01   9.902269e+01   2.656250e+01 
 #> AccuracyPValue 
-#>   1.200189e-23 
+#>   1.275093e-29 
 #> 
 #> ****Confusion Matrix****
 #>                     1        2   3   4 Total Users_Accuracy Commission
 #> 1                  17  0.00000   0   0    17      100.00000    0.00000
-#> 2                   0 12.00000   0   0    12      100.00000    0.00000
+#> 2                   0 14.00000   0   0    14      100.00000    0.00000
 #> 3                   0  0.00000  16   0    16      100.00000    0.00000
-#> 4                   0  6.00000   0  13    19       68.42105   31.57895
-#> Total              17 18.00000  16  13    NA             NA         NA
-#> Producer_Accuracy 100 66.66667 100 100    NA             NA         NA
-#> Omission            0 33.33333   0   0    NA             NA         NA
+#> 4                   0  3.00000   0  14    17       82.35294   17.64706
+#> Total              17 17.00000  16  14    NA             NA         NA
+#> Producer_Accuracy 100 82.35294 100 100    NA             NA         NA
+#> Omission            0 17.64706   0   0    NA             NA         NA
 #> 
 #> ****Classification Map****
 #> class      : RasterLayer 

@@ -21,13 +21,12 @@ coverage](https://codecov.io/gh/ytarazona/ForesToolboxRS/branch/main/graph/badge
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC) -->
 
-> **Note!**: This package is still under construction
 
 <img src="man/figures/Readme-image.png">
 
-<!-- # Canadian Journal of Remote Sensing -->
+# Canadian Journal of Remote Sensing
 
-<!-- This repository is part of the paper "Fusing Landsat and SAR data for mapping tropical deforestation through machine learning classification and the PVts-beta non-seasonal detection approach" submitted to [Canadian Journal of Remote Sensing](https://www.tandfonline.com/toc/ujrs20/current). -->
+This repository is part of the paper "Fusing Landsat and SAR data for mapping tropical deforestation through machine learning classification and the PVts-beta non-seasonal detection approach" submitted to [Canadian Journal of Remote Sensing](https://www.tandfonline.com/toc/ujrs20/current).
 
 # Introduction
 
@@ -36,6 +35,7 @@ algorithms for the processing and analysis of satellite images for the
 various applications of Remote Sensing for Earth Observations. All
 implemented algorithms are based on scientific publications.
 
+- Tarazona, Y., Zabala,A., Pons, X., Broquetas, A., Nowosad, J., Zurqani, H.A. (2021). Fusing Landsat and SAR Data for Mapping Tropical Deforestation through Machine Learning Classification and the PVts-β Non-Seasonal Detection Approach. Canadian Journal of Remote Sensing. 
 - Tarazona, Y., Maria, Miyasiro-Lopez. (2020). Monitoring tropical forest degradation using remote sensing. Challenges and opportunities in the Madre de Dios region, Peru. Remote Sensing Applications: Society and Environment, 19, 100337.
 - Tarazona, Y., Mantas, V.M., Pereira, A.J.S.C. (2018). Improving tropical deforestation detection through using photosynthetic vegetation time series (PVts-β). Ecological Indicators, 94, 367 379.
 - Hamunyela, E., Verbesselt, J., Roerink, G., & Herold, M. (2013). Trends in spring phenology of western European deciduous forests. Remote Sensing,5(12), 6159-6179.
