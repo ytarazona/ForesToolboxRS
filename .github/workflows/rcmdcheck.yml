@@ -36,6 +36,9 @@ jobs:
       run: |
         remotes::install_deps(dependencies = TRUE)
         remotes::install_cran("rcmdcheck")
+        options(repos = c(rspatial = 'https://r-spatial.r-universe.dev',
+                            CRAN = 'https://cloud.r-project.org'))
+        install.packages("sf")
       shell: Rscript {0}
 
     - name: rcmdcheck

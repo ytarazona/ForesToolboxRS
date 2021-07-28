@@ -41,11 +41,11 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("covr")
+          options(repos = c(rspatial = 'https://r-spatial.r-universe.dev',
+                            CRAN = 'https://cloud.r-project.org'))
+          install.packages("sf")
         shell: Rscript {0}
 
       - name: Test coverage
-        run: |
-          skip_fun = c("geonames_download", "geodb_download", "borders_download",
-                       "DEM_request", "orto_request")
-          covr::codecov(function_exclusions = skip_fun)
+        run: covr::codecov()
         shell: Rscript {0}

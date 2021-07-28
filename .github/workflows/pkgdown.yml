@@ -35,6 +35,9 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           install.packages("pkgdown")
+          options(repos = c(rspatial = 'https://r-spatial.r-universe.dev',
+                            CRAN = 'https://cloud.r-project.org'))
+          install.packages("sf")
         shell: Rscript {0}
 
       - name: Install package
