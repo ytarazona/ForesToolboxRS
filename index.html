@@ -86,10 +86,14 @@
 
 <p><img src="reference/figures/Readme-image.png"></p>
 </div>
-<div id="canadian-journal-of-remote-sensing" class="section level1">
+<div id="citation" class="section level1">
 <h1 class="hasAnchor">
-<a href="#canadian-journal-of-remote-sensing" class="anchor"></a>Canadian Journal of Remote Sensing</h1>
-<p>This repository is part of the paper “Fusing Landsat and SAR data for mapping tropical deforestation through machine learning classification and the PVts-beta non-seasonal detection approach” submitted to <a href="https://www.tandfonline.com/toc/ujrs20/current">Canadian Journal of Remote Sensing</a>.</p>
+<a href="#citation" class="anchor"></a>Citation</h1>
+<p>To cite the <code>ForesToolboxRS</code> package in publications, please use <a href="https://doi.org/10.1080/07038992.2021.1941823">this paper</a>:</p>
+<p>Yonatan Tarazona, Alaitz Zabala, Xavier Pons, Antoni Broquetas, Jakub Nowosad &amp; Hamdi A. Zurqani (2021) Fusing Landsat and SAR Data for Mapping Tropical Deforestation through Machine Learning Classification and the PVts-β Non-Seasonal Detection Approach, Canadian Journal of Remote Sensing, DOI: 10.1080/07038992.2021.1941823</p>
+<p>LaTeX/BibTeX version can be obtained with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(ForesToolboxRS)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">citation</span>(<span class="st">"ForesToolboxRS"</span>)</span></code></pre></div>
 </div>
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
@@ -183,7 +187,7 @@
 <h1 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h1>
 <p>To install the latest development version directly from the GitHub repository. Before running <strong>ForesToolboxRS</strong>, it is necessary to install the <strong>remotes</strong> package:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org">remotes</a></span><span class="op">)</span>
 <span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"ytarazona/ForesToolboxRS"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ytarazona.github.io/ForesToolboxRS/">ForesToolboxRS</a></span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -195,7 +199,7 @@
 <h2 class="hasAnchor">
 <a href="#1-breakpoint-in-an-ndfi-series-pvts-function" class="anchor"></a>1. Breakpoint in an NDFI series (<strong><code>pvts</code></strong> function)</h2>
 <p>Here an Normalized Difference Fraction Index (NDFI) between 2000 and 2019 (28 data) was used. One NDFI for each year was obtained. The idea is to detect a change in 2008 (position 19). The NDFI value ranges from -1 to 1.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ytarazona.github.io/ForesToolboxRS/">ForesToolboxRS</a></span><span class="op">)</span>
 <span class="co">#&gt; Registered S3 method overwritten by 'quantmod':</span>
 <span class="co">#&gt;   method            from</span>
@@ -215,7 +219,7 @@
 <a href="#11-applying-a-smoothing-the-smooth-function" class="anchor"></a>1.1 Applying a smoothing (the <strong><code>smootH()</code></strong> function)</h3>
 <p>Before detecting a breakpoint, it is necessary to apply smoothing to remove any existing outliers. So, we’ll use the <strong><code><a href="reference/smootH.html">smootH()</a></code></strong> function from the <strong>ForesToolboxRS</strong> package. The mathematical approach of this method of removing outliers implies the non-modification of the first and last values of the historical series.</p>
 <p>If the idea is to detect changes in 2008 (position 19), then we will smooth the data only up to that position (i.e., <code>ndfi[1:19]</code>). Let’s do that.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ndfi_smooth</span> <span class="op">&lt;-</span> <span class="va">ndfi</span>
 <span class="va">ndfi_smooth</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/smootH.html">smootH</a></span><span class="op">(</span><span class="va">ndfi</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span><span class="op">]</span><span class="op">)</span>
 
@@ -246,7 +250,7 @@
 <li>
 <strong>threshold</strong>: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI and EVI series you can use 5, 3 and 3 respectively. Please see <a href="https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326">Tarazona et al. (2018)</a> for more details.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Detect changes in 2008 (position 19)</span>
 <span class="va">cd</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/pvts.html">pvts</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ndfi_smooth</span>, startm <span class="op">=</span> <span class="fl">19</span>, endm <span class="op">=</span> <span class="fl">19</span>, threshold <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">cd</span><span class="op">)</span></code></pre></div>
@@ -266,7 +270,7 @@
 <li>
 <strong>threshold</strong>: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI and EVI series you can use 5, 3 and 3 respectively. Please see <a href="https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326">Tarazona et al. (2018)</a> for more details.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Let´s create a time series of the variable "ndfi"</span>
 <span class="va">ndfi_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">ndfi</span>, start <span class="op">=</span> <span class="fl">1990</span>, end <span class="op">=</span> <span class="fl">2017</span>, frequency <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
@@ -293,7 +297,7 @@
 <li>
 <strong>threshold</strong>: detection threshold (for NDFI series we will use 5). If you are using PV series, NDVI and EVI series you can use 5, 3 and 3 respectively. Please see <a href="https://www.sciencedirect.com/science/article/abs/pii/S1470160X18305326">Tarazona et al. (2018)</a> for more details.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Detect changes in 2005</span>
 <span class="va">cd</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/pvts.html">pvts</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ndfi_smooth</span>, startm <span class="op">=</span> <span class="fl">2005</span>, endm <span class="op">=</span> <span class="fl">2005</span>,  threshold <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">cd</span><span class="op">)</span></code></pre></div>
@@ -304,7 +308,7 @@
 <h2 class="hasAnchor">
 <a href="#2-supervised-classification-in-remote-sensing-the-mla-function" class="anchor"></a>2. Supervised classification in Remote Sensing (the <strong><code>mla()</code></strong> function)</h2>
 <p>For this tutorial, Landsat-8 OLI image and signatures were used. To download data please follow this codes:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Data Preparation</span>
 <span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="st">"testdata"</span><span class="op">)</span>
 <span class="co"># downloading the image</span>
@@ -331,12 +335,12 @@
 <li>
 <strong>training_split</strong>: 80 percent to train and 20 percent to validate the model</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ytarazona.github.io/ForesToolboxRS/">ForesToolboxRS</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: sp</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
-<span class="co">#&gt; Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1</span>
+<span class="co">#&gt; Linking to GEOS 3.9.0, GDAL 3.2.2, PROJ 7.2.1</span>
 
 <span class="co"># Read raster</span>
 <span class="va">image</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html">stack</a></span><span class="op">(</span><span class="st">"testdata/LC08_232066_20190727_SR.tif"</span><span class="op">)</span>
@@ -354,19 +358,19 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ****Overall Accuracy****</span>
 <span class="co">#&gt;       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull </span>
-<span class="co">#&gt;   9.218750e+01   8.962050e+01   8.270217e+01   9.741462e+01   2.812500e+01 </span>
+<span class="co">#&gt;   1.000000e+02   1.000000e+02   9.439909e+01   1.000000e+02   2.656250e+01 </span>
 <span class="co">#&gt; AccuracyPValue </span>
-<span class="co">#&gt;   4.740836e-25 </span>
+<span class="co">#&gt;   1.423025e-35 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ****Confusion Matrix****</span>
-<span class="co">#&gt;                     1        2   3   4 Total Users_Accuracy Commission</span>
-<span class="co">#&gt; 1                  16  0.00000   0   0    16      100.00000    0.00000</span>
-<span class="co">#&gt; 2                   0 13.00000   0   0    13      100.00000    0.00000</span>
-<span class="co">#&gt; 3                   0  0.00000  17   0    17      100.00000    0.00000</span>
-<span class="co">#&gt; 4                   0  5.00000   0  13    18       72.22222   27.77778</span>
-<span class="co">#&gt; Total              16 18.00000  17  13    NA             NA         NA</span>
-<span class="co">#&gt; Producer_Accuracy 100 72.22222 100 100    NA             NA         NA</span>
-<span class="co">#&gt; Omission            0 27.77778   0   0    NA             NA         NA</span>
+<span class="co">#&gt;                     1   2   3   4 Total Users_Accuracy Commission</span>
+<span class="co">#&gt; 1                  15   0   0   0    15            100          0</span>
+<span class="co">#&gt; 2                   0  15   0   0    15            100          0</span>
+<span class="co">#&gt; 3                   0   0  17   0    17            100          0</span>
+<span class="co">#&gt; 4                   0   0   0  17    17            100          0</span>
+<span class="co">#&gt; Total              15  15  17  17    NA             NA         NA</span>
+<span class="co">#&gt; Producer_Accuracy 100 100 100 100    NA             NA         NA</span>
+<span class="co">#&gt; Omission            0   0   0   0    NA             NA         NA</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ****Classification Map****</span>
 <span class="co">#&gt; class      : RasterLayer </span>
@@ -377,7 +381,7 @@
 <span class="co">#&gt; source     : memory</span>
 <span class="co">#&gt; names      : layer </span>
 <span class="co">#&gt; values     : 1, 4  (min, max)</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Classification</span>
 <span class="va">colmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#0000FF"</span>,<span class="st">"#228B22"</span>,<span class="st">"#FF1493"</span>, <span class="st">"#00FF00"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span><span class="va">classRF</span><span class="op">$</span><span class="va">Classification</span>, main <span class="op">=</span> <span class="st">"RandomForest Classification"</span>, col <span class="op">=</span> <span class="va">colmap</span>, axes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
@@ -405,11 +409,11 @@
 <blockquote>
 <p><strong>Warning!</strong>: This function may take some time to process depending on the volumen of the data.</p>
 </blockquote>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cal_ml</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calmla.html">calmla</a></span><span class="op">(</span>img <span class="op">=</span> <span class="va">image</span>, endm <span class="op">=</span> <span class="va">sig</span>,
                  model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"svm"</span>, <span class="st">"randomForest"</span>, <span class="st">"naiveBayes"</span>, <span class="st">"knn"</span><span class="op">)</span>,
                  training_split <span class="op">=</span> <span class="fl">70</span>, approach <span class="op">=</span> <span class="st">"MCCV"</span>, iter <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calibration result</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span>
   <span class="va">cal_ml</span><span class="op">$</span><span class="va">svm_mccv</span>,
@@ -453,7 +457,7 @@
 <li>
 <strong>algo</strong>: “MacQueen”</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ytarazona.github.io/ForesToolboxRS/">ForesToolboxRS</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span>
 
@@ -462,7 +466,7 @@
 
 <span class="co"># Classification with K-means</span>
 <span class="va">classKmeans</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rkmeans.html">rkmeans</a></span><span class="op">(</span>img <span class="op">=</span> <span class="va">image</span>, k <span class="op">=</span> <span class="fl">4</span>, algo <span class="op">=</span> <span class="st">"MacQueen"</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Plotting classification</span>
 <span class="va">colmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#0000FF"</span>,<span class="st">"#00FF00"</span>,<span class="st">"#228B22"</span>, <span class="st">"#FF1493"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span><span class="va">classKmeans</span>, main <span class="op">=</span> <span class="st">"K-means Classification"</span>, col <span class="op">=</span> <span class="va">colmap</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
@@ -487,12 +491,12 @@
 <li>
 <strong>iter</strong>: Iterations number to obtain the best k value</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Elbow method</span>
 <span class="va">best_k</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calkmeans.html">calkmeans</a></span><span class="op">(</span>img <span class="op">=</span> <span class="va">image</span>, k <span class="op">=</span> <span class="cn">NULL</span>, iter.max <span class="op">=</span> <span class="fl">10</span>,
                     algo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Hartigan-Wong"</span>, <span class="st">"Lloyd"</span>, <span class="st">"Forgy"</span>, <span class="st">"MacQueen"</span><span class="op">)</span>,
                     iter <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span><span class="va">best_k</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-README-14-1.png" width="100%"></p>
 </div>
@@ -516,6 +520,12 @@
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+</ul>
+</div>
+<div class="citation">
+<h2>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html">Citing ForesToolboxRS</a></li>
 </ul>
 </div>
 <div class="developers">
