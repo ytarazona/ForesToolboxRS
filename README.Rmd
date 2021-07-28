@@ -21,13 +21,23 @@ coverage](https://codecov.io/gh/ytarazona/ForesToolboxRS/branch/main/graph/badge
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/APROGIS?locale.x=es_XC) -->
 
-
 <img src="man/figures/Readme-image.png">
 
 
-# Canadian Journal of Remote Sensing
+# Citation
 
-This repository is part of the paper "Fusing Landsat and SAR data for mapping tropical deforestation through machine learning classification and the PVts-beta non-seasonal detection approach" submitted to [Canadian Journal of Remote Sensing](https://www.tandfonline.com/toc/ujrs20/current).
+To cite the `ForesToolboxRS` package in publications, please use [this paper](https://doi.org/10.1080/07038992.2021.1941823):
+
+Yonatan Tarazona, Alaitz Zabala, Xavier Pons, Antoni Broquetas, Jakub Nowosad & Hamdi A. Zurqani
+  (2021) Fusing Landsat and SAR Data for Mapping Tropical Deforestation through Machine Learning
+  Classification and the PVts-β Non-Seasonal Detection Approach, Canadian Journal of Remote Sensing,
+  DOI: 10.1080/07038992.2021.1941823
+
+LaTeX/BibTeX version can be obtained with:
+```
+library(ForesToolboxRS)
+citation("ForesToolboxRS")
+```
 
 # Introduction
 

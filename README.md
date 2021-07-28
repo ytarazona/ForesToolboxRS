@@ -12,13 +12,21 @@ coverage](https://codecov.io/gh/ytarazona/ForesToolboxRS/branch/main/graph/badge
 
 <img src="man/figures/Readme-image.png">
 
-# Canadian Journal of Remote Sensing
+# Citation
 
-This repository is part of the paper “Fusing Landsat and SAR data for
-mapping tropical deforestation through machine learning classification
-and the PVts-beta non-seasonal detection approach” submitted to
-[Canadian Journal of Remote
-Sensing](https://www.tandfonline.com/toc/ujrs20/current).
+To cite the `ForesToolboxRS` package in publications, please use [this
+paper](https://doi.org/10.1080/07038992.2021.1941823):
+
+Yonatan Tarazona, Alaitz Zabala, Xavier Pons, Antoni Broquetas, Jakub
+Nowosad & Hamdi A. Zurqani (2021) Fusing Landsat and SAR Data for
+Mapping Tropical Deforestation through Machine Learning Classification
+and the PVts-β Non-Seasonal Detection Approach, Canadian Journal of
+Remote Sensing, DOI: 10.1080/07038992.2021.1941823
+
+LaTeX/BibTeX version can be obtained with:
+
+    library(ForesToolboxRS)
+    citation("ForesToolboxRS")
 
 # Introduction
 
@@ -273,7 +281,7 @@ library(ForesToolboxRS)
 library(raster)
 #> Loading required package: sp
 library(sf)
-#> Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1
+#> Linking to GEOS 3.9.0, GDAL 3.2.2, PROJ 7.2.1
 
 # Read raster
 image <- stack("testdata/LC08_232066_20190727_SR.tif")
@@ -291,19 +299,19 @@ print(classRF)
 #> 
 #> ****Overall Accuracy****
 #>       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
-#>   9.218750e+01   8.962050e+01   8.270217e+01   9.741462e+01   2.812500e+01 
+#>   1.000000e+02   1.000000e+02   9.439909e+01   1.000000e+02   2.656250e+01 
 #> AccuracyPValue 
-#>   4.740836e-25 
+#>   1.423025e-35 
 #> 
 #> ****Confusion Matrix****
-#>                     1        2   3   4 Total Users_Accuracy Commission
-#> 1                  16  0.00000   0   0    16      100.00000    0.00000
-#> 2                   0 13.00000   0   0    13      100.00000    0.00000
-#> 3                   0  0.00000  17   0    17      100.00000    0.00000
-#> 4                   0  5.00000   0  13    18       72.22222   27.77778
-#> Total              16 18.00000  17  13    NA             NA         NA
-#> Producer_Accuracy 100 72.22222 100 100    NA             NA         NA
-#> Omission            0 27.77778   0   0    NA             NA         NA
+#>                     1   2   3   4 Total Users_Accuracy Commission
+#> 1                  15   0   0   0    15            100          0
+#> 2                   0  15   0   0    15            100          0
+#> 3                   0   0  17   0    17            100          0
+#> 4                   0   0   0  17    17            100          0
+#> Total              15  15  17  17    NA             NA         NA
+#> Producer_Accuracy 100 100 100 100    NA             NA         NA
+#> Omission            0   0   0   0    NA             NA         NA
 #> 
 #> ****Classification Map****
 #> class      : RasterLayer 
