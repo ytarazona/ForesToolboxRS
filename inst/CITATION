@@ -1,0 +1,25 @@
+citHeader("To cite ForesToolboxRS in publications, please use:")
+
+citEntry(entry = "article",
+  author = c(person(given = "Yonatan",
+                    family = "Tarazona Coronel"),
+             person(given = "Alaitz",
+                    family = "Zabala"),
+             person(given = "Xavier",
+                    family = "Pons"),
+             person(given = "Antoni",
+                    family = "Broquetas"),
+             person(given = "Jakub",
+                    family = "Nowosad"),
+             person(given = "Hamdi",
+                    family = "A. Zurqani")),
+  title = "Fusing Landsat and {SAR} Data for Mapping Tropical Deforestation through Machine Learning Classification and the {PVts}-β Non-Seasonal Detection Approach",
+  journal = "Canadian Journal of Remote Sensing",
+  #volume = "36",
+  pages = "1--20",
+  year  = "2021",
+  publisher = "Informa {UK} Limited",
+  doi = "10.1080/07038992.2021.1941823",
+  textVersion = "Yonatan Tarazona, Alaitz Zabala, Xavier Pons, Antoni Broquetas, Jakub Nowosad & Hamdi A. Zurqani (2021) Fusing Landsat and SAR Data for Mapping Tropical Deforestation through Machine Learning Classification and the PVts-β Non-Seasonal Detection Approach, Canadian Journal of Remote Sensing, DOI: 10.1080/07038992.2021.1941823"
+)
+
