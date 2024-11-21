@@ -31,7 +31,6 @@
 #' @importFrom raster getValues extract predict
 #' @importFrom e1071 svm naiveBayes
 #' @importFrom randomForest randomForest
-#' @importFrom rgeos gIntersects
 #'
 #' @param img RasterStack or RasterBrick
 #' @param endm Signatures. Geometry type, Points or Polygons (typically shapefile),

@@ -34,16 +34,12 @@
 #' @details If the "Set-Approach" method is being used, it is not necessary to use parameter \code{k}.
 #'  \code{k} only can be used when the Cross-Validation (k-fold) method is used. On the other hand,
 #'  to create groups in Cross-Validation, the \code{createFolds} function of "caret" is used.
-#'  See \link[caret]{createFolds} for more details. In addition, to generate random splits
-#'  in Monte Carlos Cross-Validation the \code{generate.split} function of the "WilcoxCV" package was used.
-#'  Please see \link[WilcoxCV]{generate.split} for more details.
+#'  See \link[caret]{createFolds} for more details.
 #'
 #' @importFrom caret confusionMatrix createFolds train knn3
 #' @importFrom raster getValues extract
 #' @importFrom e1071 svm naiveBayes
 #' @importFrom randomForest randomForest
-#' @importFrom rgeos gIntersects
-#' @importFrom WilcoxCV generate.split
 #'
 #' @param img RasterStack or RasterBrick.
 #' @param endm Signatures. Geometry type, Points or Polygons (typically shapefile),
@@ -654,7 +650,11 @@ calmla <- function(img, endm, model = c("svm", "randomForest", "naiveBayes", "LM
     kn_error_mccv <- rep(0, iter)
 
     n <- dim(endm)[1]
-    groups_mc <- generate.split(niter = iter, n = n, ntest = 100 - training_split)
+    
+    groups_mc <- matrix(0, iter, 100 - training_split)
+    for (i in seq_len(iter)) {
+      groups_mc[i, ] <- sample(n, 100 - training_split, replace = FALSE)
+    }
 
     for (i in 1:iter) {
 

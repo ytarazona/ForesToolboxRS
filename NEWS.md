@@ -1,3 +1,9 @@
+# ForesToolboxRS 0.2.0
+=====================================
+
+* Removes dependency on rgeos and WilcoxCV
+* Updates raster objects structure
+
 # ForesToolboxRS 0.0.2
 =====================================
 

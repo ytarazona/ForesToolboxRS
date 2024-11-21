@@ -26,7 +26,7 @@
 #' @export
 #'
 coverChange <- function(x, y) {
-  if (class(try(raster::stack(x, y), silent = TRUE)) == "try-error") stop("x and y must have the same extent.", call. = TRUE)
+  if (inherits(try(raster::stack(x, y), silent = TRUE), "try-error")) stop("x and y must have the same extent.", call. = TRUE)
 
   mask <- x - y
   mask[mask != 0] <- 1

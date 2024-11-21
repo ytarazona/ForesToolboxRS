@@ -6,11 +6,9 @@
 \alias{ForesToolboxRS-package}
 \title{ForesToolboxRS: Remote Sensing Tools for Forest Monitoring}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Remote sensing tools for forest monitoring includes a series of 
-    novel techniques to monitor forest through optical images and fusion of optical 
-    and microwave data. All tools are based on scientific publications.
+Remote sensing tools for forest monitoring includes a series of novel techniques to monitor forest through optical images and fusion of optical and microwave data. All tools are based on scientific publications.
 }
 \seealso{
 Useful links:

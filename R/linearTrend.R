@@ -91,7 +91,7 @@ linearTrend <- function(x, type = "lm", ...) {
 
       return(result)
     } else if (inherits(x, "list")) {
-      if (class(try(raster::stack(x), silent = TRUE)) == "try-error") {
+      if (inherits(try(raster::stack(x), silent = TRUE), "try-error")) {
         master <- raster(x[1])
         meta <- raster(extent(master), nrows = master@nrows, ncols = master@ncols)
 

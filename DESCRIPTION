@@ -1,6 +1,6 @@
 Package: ForesToolboxRS
 Title: Remote Sensing Tools for Forest Monitoring
-Version: 0.1.5
+Version: 0.2.0
 Authors@R: 
     c(person(given = "Yonatan",
              family = "Tarazona Coronel",
@@ -39,7 +39,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.2
 Depends:
     R (>= 3.5.0)
 Imports:
@@ -48,17 +48,13 @@ Imports:
     forecast,
     dplyr,
     raster,
-    rgeos,
-    magrittr,
     zoo,
     factoextra,
     graphics,
     grDevices,
-    sf,
     caret,
     e1071,
-    randomForest,
-    WilcoxCV
+    randomForest
 Suggests: 
     testthat (>= 2.1.0),
     rmarkdown,
@@ -70,6 +66,6 @@ Suggests:
     nnet,
     rpart,
     FactoMineR,
-    rgdal
+    sf
 URL: https://ytarazona.github.io/ForesToolboxRS/
 BugReports: https://github.com/ytarazona/ForesToolboxRS/issues
