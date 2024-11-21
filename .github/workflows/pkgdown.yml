@@ -1,4 +1,4 @@
-# source: https://github.com/r-lib/actions/blob/master/examples/pkgdown.yaml
+# source: https://github.com/r-lib/actions/blob/main/examples/pkgdown.yaml
 
 on:
   push:
@@ -13,8 +13,8 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
-      - uses: r-lib/actions/setup-r@master
-      - uses: r-lib/actions/setup-pandoc@master
+      - uses: r-lib/actions/setup-r@main
+      - uses: r-lib/actions/setup-pandoc@main
 
 
       - name: Query dependencies
